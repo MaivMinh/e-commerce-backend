@@ -1,0 +1,110 @@
+spring:
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:default}
+  application:
+    name: api-gateway
+  config:
+    import: ${SPRING_CONFIG_IMPORT:configserver:http://localhost:8071/}
+  rabbitmq:
+    host: ${SPRING_RABBITMQ_HOST:localhost}
+    port: ${SPRING_RABBITMQ_PORT:5672}
+    username: ${SPRING_RABBITMQ_USERNAME:guest}
+    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+  cloud:
+    circuitbreaker:
+      resilience4j:
+        reactive:
+          enabled: true
+    gateway:
+      routes:
+        - id: api-documentation
+          uri: lb://bff
+          predicates:
+            - Path=/api-docs/**,/v3/api-docs/**
+            - Method=GET,POST,PUT,DELETE,PATCH
+
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/products/**
+            - Method=GET,POST,PUT,DELETE,PATCH
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: default
+                fallbackUri: "forward:/products/contact-support"
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:localhost}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+  threads:
+    virtual:
+      enabled: true
+
+management:
+  # Cấu hình dành cho phần metrics của Spring Boot Actuator. Tìm hiểu sau.
+  metrics:
+    distribution:
+      percentiles-histogram:
+        resilience4j:
+          circuitbreaker:
+            enabled: true
+        http:
+          server:
+          requests:
+            enabled: true
+  endpoint: # Ứng với các endpoint nào thì sẽ có các yêu cầu, thiết lập tương ứng.
+    health:
+      probes:
+        enabled: true
+      show-details: always
+    loggers:
+      access: unrestricted
+    beans:
+      cache:
+        time-to-live: 10s
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  health:
+    # Liveness and Readiness probes configuration.
+    readiness-state:
+      enabled: true
+    liveness-state:
+      enabled: true
+    circuitbreakers:
+      enabled: true
+    ratelimiters:
+      enabled: true
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
+      preferIpAddress: true
+    register-with-eureka: true
+    fetch-registry: true
+
+# Resilience configuration
+resilience4j:
+  # Just like the CircuitBreaker module, this module provides an in-memory TimeLimiterRegistry which you can use to manage (create and retrieve) TimeLimiter instances.
+  # Điều này có nghĩa là TimeLimiter cũng sẽ là một Resiliency Pattern trong Resilience4j.
+  # Do đó, chúng ta cũng có thể sử dụng auto-configuration của Spring Boot để tự động cấu hình cho TimeLimiter.
+  timelimiter:
+    instances:
+      default:
+        timeout-duration: 10s
+        cancel-running-future: false
+  circuitbreaker:
+    instances:
+      default:
+        registerHealthIndicator: true
+        slidingWindowSize: 6
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 20000
+        failureRateThreshold: 50

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/config/ProjectSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/config/RedisConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/controller/ProductServiceFallbackController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/aspect/LoggerAspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/config/CloudinaryConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/config/ProjectSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/controller/FileProcessingController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/response/ResponseData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/response/ResponseError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/service/ImageProcessingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/aspect/LoggerAspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/audit/AuditAwareImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateProductCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/ProductCommandController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/BaseEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Category.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductAttribute.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductAttributeProductSku.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductImage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductSku.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductSubCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/PromotionProductMapping.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/SubCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Type.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Wishlist.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/WishlistProduct.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/exception/ProductAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/exception/ResourceNotFoundException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/response/ResponseData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/response/ResponseError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/resources/schema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose/default/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docker-compose/prod/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/schema.sql" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2xL98HIhF9gudxQthBglyNwEAlI" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Maven.e-commerce [clean].executor": "Run",
+    "Maven.e-commerce [compile].executor": "Run",
+    "Maven.service-discovery [clean].executor": "Run",
+    "Maven.service-discovery [compile].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.ApiGatewayApplication.executor": "Run",
+    "Spring Boot.AuthServiceApplication.executor": "Run",
+    "Spring Boot.ConfigServerApplication.executor": "Run",
+    "Spring Boot.FileServiceApplication.executor": "Run",
+    "Spring Boot.ProductServiceApplication.executor": "Run",
+    "Spring Boot.ServiceDiscoveryApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/mainga/Desktop/VDT Resources/e-commerce/back-end/app/file-service/src/main/java/com/minh/file_service/exception",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0",
+    "run.configurations.included.in.services": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.minh.product_service.exception" />
+      <recent name="com.minh.product_service.entity" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/exception" />
+      <recent name="$PROJECT_DIR$/app/config" />
+      <recent name="$PROJECT_DIR$/docker-compose/prod" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="SpringBootApplicationConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Spring Boot.FileServiceApplication">
+    <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="api-gateway" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.api_gateway.ApiGatewayApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="auth-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.auth_service.AuthServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CartServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="cart-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.cart_service.CartServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ConfigServerApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD" value="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" />
+      </envs>
+      <module name="config-server" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.config_server.ConfigServerApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FileServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <envs>
+        <env name="CLOUDINARY_CLOUD_NAME" value="deozipakf" />
+        <env name="CLOUDINARY_API_KEY" value="617116739785479" />
+        <env name="CLOUDINARY_API_SECRET" value="l43AgCl03cV8V008w_FRC2U79zM" />
+      </envs>
+      <module name="file-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.file_service.FileServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="NotificationServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="notification-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.notification_service.NotificationServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OrderServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="order-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.order_service.OrderServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PaymentServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="payment-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.payment_service.PaymentServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ProductServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="product-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.product_service.ProductServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PromotionServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="promotion-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.promotion_service.PromotionServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ReviewServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="review-service" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.review_service.ReviewServiceApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ServiceDiscoveryApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <module name="service-discovery" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.service_discovery.ServiceDiscoveryApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Spring Boot.ApiGatewayApplication" />
+      <item itemvalue="Spring Boot.AuthServiceApplication" />
+      <item itemvalue="Spring Boot.CartServiceApplication" />
+      <item itemvalue="Spring Boot.ConfigServerApplication" />
+      <item itemvalue="Spring Boot.FileServiceApplication" />
+      <item itemvalue="Spring Boot.NotificationServiceApplication" />
+      <item itemvalue="Spring Boot.OrderServiceApplication" />
+      <item itemvalue="Spring Boot.PaymentServiceApplication" />
+      <item itemvalue="Spring Boot.ProductServiceApplication" />
+      <item itemvalue="Spring Boot.PromotionServiceApplication" />
+      <item itemvalue="Spring Boot.ReviewServiceApplication" />
+      <item itemvalue="Spring Boot.ServiceDiscoveryApplication" />
+    </list>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="" />
+      <created>1747706325942</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1747706325942</updated>
+      <workItem from="1747706327539" duration="1330000" />
+      <workItem from="1747899137118" duration="9499000" />
+      <workItem from="1747910375281" duration="1233000" />
+      <workItem from="1747911615456" duration="2346000" />
+      <workItem from="1747913970661" duration="53000" />
+      <workItem from="1747914036325" duration="20000" />
+      <workItem from="1747914063348" duration="9462000" />
+      <workItem from="1747926232976" duration="48000" />
+      <workItem from="1747926288944" duration="1378000" />
+      <workItem from="1747927674664" duration="1987000" />
+    </task>
+    <servers />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
