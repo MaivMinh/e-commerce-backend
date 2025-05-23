@@ -12,8 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor
 public class ProductImage extends BaseEntity {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
   private Integer productId;
   private String url;
 }

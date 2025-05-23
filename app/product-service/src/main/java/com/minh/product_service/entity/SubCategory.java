@@ -13,8 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SubCategory extends BaseEntity{
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
   private Long parentId;
   private String name;
   private String description;

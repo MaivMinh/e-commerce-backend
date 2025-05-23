@@ -12,8 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor
 public class WishlistProduct extends BaseEntity {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
   private Long wishlistId;
   private Long productId;
 }

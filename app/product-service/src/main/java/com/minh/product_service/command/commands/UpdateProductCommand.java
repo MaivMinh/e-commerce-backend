@@ -5,10 +5,10 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class CreateProductCommand {
+public class UpdateProductCommand {
   @TargetAggregateIdentifier
   private String id;
   private String name;

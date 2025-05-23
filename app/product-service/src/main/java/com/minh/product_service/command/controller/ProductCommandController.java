@@ -1,14 +1,20 @@
 package com.minh.product_service.command.controller;
 
 import com.minh.product_service.command.commands.CreateProductCommand;
+import com.minh.product_service.command.commands.DeleteProductCommand;
+import com.minh.product_service.command.commands.UpdateProductCommand;
 import com.minh.product_service.dto.ProductDTO;
 import com.minh.product_service.response.ResponseData;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @Validated
@@ -17,25 +23,37 @@ import org.springframework.web.bind.annotation.*;
 public class ProductCommandController {
   private final CommandGateway commandGateway;
 
-  /**
-    This block use for ADMIN.
-   */
+  /// ================== ADMIN ROLE ================== ///
   @PostMapping(value = "")
   public ResponseEntity<ResponseData> createProduct(@Valid @RequestBody ProductDTO productDTO) {
     CreateProductCommand command = CreateProductCommand.builder()
-        .id(productDTO.getId())
-        .name(productDTO.getName())
-        .description(productDTO.getDescription())
-        .build();
-
-    return ResponseEntity.ok(new ResponseData(200, "Success", null));
+            .id(UUID.randomUUID().toString())
+            .name(productDTO.getName())
+            .description(productDTO.getDescription())
+            .cover(productDTO.getCover())
+            .build();
+    commandGateway.sendAndWait(command, 20000, TimeUnit.MILLISECONDS);
+    return ResponseEntity.ok(new ResponseData(HttpStatus.CREATED.value(), "Product is created successfully", null));
   }
 
-  /**
-   This block use for USER.
-   */
-  @GetMapping(value = "/{productId}")
-  public ResponseEntity<ResponseData> getProduct(@PathVariable Long productId) {
-    return ResponseEntity.ok(new ResponseData(200, "Success", null));
+  @PutMapping(value = "")
+  public ResponseEntity<ResponseData> updateProduct(@Valid @RequestBody ProductDTO productDTO) {
+    UpdateProductCommand command = UpdateProductCommand.builder()
+            .id(productDTO.getId())
+            .name(productDTO.getName())
+            .description(productDTO.getDescription())
+            .cover(productDTO.getCover())
+            .build();
+    commandGateway.sendAndWait(command, 20000, TimeUnit.MILLISECONDS);
+    return ResponseEntity.ok(new ResponseData(HttpStatus.OK.value(), "Product is updated successfully", null));
+  }
+
+  @DeleteMapping(value = "{productId}")
+  public ResponseEntity<ResponseData> deleteProduct(@PathVariable String productId) {
+    DeleteProductCommand command = DeleteProductCommand.builder()
+            .id(productId)
+            .build();
+    commandGateway.sendAndWait(command, 20000, TimeUnit.MILLISECONDS);
+    return ResponseEntity.ok(new ResponseData(HttpStatus.OK.value(), "Product is deleted successfully", null));
   }
 }

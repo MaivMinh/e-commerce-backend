@@ -15,8 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor
 public class ProductAttribute extends BaseEntity {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
   private Type type;
   private String value;
 }

@@ -2,6 +2,7 @@ package com.minh.product_service.exception;
 
 import com.minh.product_service.response.ResponseError;
 import org.axonframework.commandhandling.CommandExecutionException;
+import org.axonframework.commandhandling.distributed.CommandDispatchException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -48,6 +49,21 @@ public class GlobalExceptionHandler {
     return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
             .body(errorResponse);
   }
+
+  @ExceptionHandler(CommandDispatchException.class)
+  public ResponseEntity<ResponseError> handleGlobalException(CommandDispatchException exception,
+                                                             WebRequest webRequest) {
+    ResponseError errorResponse = new ResponseError(
+            HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            webRequest.getDescription(false),
+            "CommandDispatchException occurred due to: " + exception.getMessage(),
+            LocalDateTime.now()
+    );
+    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+            .body(errorResponse);
+  }
+
+
 
   @ExceptionHandler(ResourceNotFoundException.class)
   public ResponseEntity<ResponseError> handleResourceNotFoundException(ResourceNotFoundException exception,

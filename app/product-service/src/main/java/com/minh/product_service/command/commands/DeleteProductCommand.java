@@ -8,10 +8,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class CreateProductCommand {
+public class DeleteProductCommand {
   @TargetAggregateIdentifier
   private String id;
-  private String name;
-  private String description;
-  private String cover;
 }

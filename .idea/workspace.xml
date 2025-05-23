@@ -5,45 +5,61 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/config/ProjectSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/config/RedisConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/controller/ProductServiceFallbackController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/aspect/LoggerAspect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/config/CloudinaryConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/config/ProjectSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/controller/FileProcessingController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/response/ResponseData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/response/ResponseError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/service/ImageProcessingService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/aspect/LoggerAspect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/audit/AuditAwareImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateProductCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/ProductCommandController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/BaseEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Category.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Product.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductAttribute.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductAttributeProductSku.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductImage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductSku.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductSubCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/PromotionProductMapping.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/SubCategory.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Type.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Wishlist.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/WishlistProduct.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/exception/ProductAlreadyExistsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/exception/ResourceNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/response/ResponseData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/response/ResponseError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/resources/schema.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose/default/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docker-compose/prod/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/schema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/ProductAggregate.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/DeleteProductCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/UpdateProductCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/event/ProductCreatedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/event/ProductDeletedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/event/ProductUpdatedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/interceptor/ProductCommandInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/config/AxonConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/mapper/ProductMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/ProductQueryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/handler/ProductQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/projection/ProductProjection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/queries/FetchProductQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/queries/FetchProductsByCriteriaQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/queries/FetchProductsQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/repository/ProductRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/specifications/ProductSpecs.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/60bfa7b3-c8e5-40b5-b3e1-dc55bd699952.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/60bfa7b3-c8e5-40b5-b3e1-dc55bd699952/storage_v2/_src_/schema/ecommerce_product.8Ok6hg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/60bfa7b3-c8e5-40b5-b3e1-dc55bd699952/storage_v2/_src_/schema/information_schema.FNRwLQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/60bfa7b3-c8e5-40b5-b3e1-dc55bd699952/storage_v2/_src_/schema/mysql.osA4Bg.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/60bfa7b3-c8e5-40b5-b3e1-dc55bd699952/storage_v2/_src_/schema/performance_schema.kIw0nw.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/60bfa7b3-c8e5-40b5-b3e1-dc55bd699952/storage_v2/_src_/schema/sys.zb4BAA.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config-server/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config-server/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/file-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/file-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/ProductServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/ProductServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateProductCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateProductCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/ProductCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/ProductCommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductAttribute.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductAttribute.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductAttributeProductSku.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductAttributeProductSku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductImage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductImage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductSku.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductSku.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductSubCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductSubCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/PromotionProductMapping.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/PromotionProductMapping.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/SubCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/SubCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Wishlist.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Wishlist.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/WishlistProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/WishlistProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/exception/GlobalExceptionHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/response/ResponseData.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/response/ResponseData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/resources/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,43 +87,48 @@
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.e-commerce [clean].executor": "Run",
-    "Maven.e-commerce [compile].executor": "Run",
-    "Maven.service-discovery [clean].executor": "Run",
-    "Maven.service-discovery [compile].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.ApiGatewayApplication.executor": "Run",
-    "Spring Boot.AuthServiceApplication.executor": "Run",
-    "Spring Boot.ConfigServerApplication.executor": "Run",
-    "Spring Boot.FileServiceApplication.executor": "Run",
-    "Spring Boot.ProductServiceApplication.executor": "Run",
-    "Spring Boot.ServiceDiscoveryApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/mainga/Desktop/VDT Resources/e-commerce/back-end/app/file-service/src/main/java/com/minh/file_service/exception",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.e-commerce [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.e-commerce [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.service-discovery [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.service-discovery [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Database detector&quot;: &quot;Database detector&quot;,
+    &quot;Notification.DoNotAsk-Database detector&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.AuthServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ConfigServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FileServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ProductServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ServiceDiscoveryApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/back-end/app/file-service/src/main/java/com/minh/file_service/exception&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.minh.product_service.exception" />
-      <recent name="com.minh.product_service.entity" />
+      <recent name="com.minh.product_service.query.queries" />
+      <recent name="com.minh.product_service.mapper" />
+      <recent name="com.minh.product_service.command.event" />
+      <recent name="com.minh.product_service.command.commands" />
+      <recent name="com.minh.product_service.service" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/exception" />
@@ -125,7 +146,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.FileServiceApplication">
+  <component name="RunManager" selected="Spring Boot.ConfigServerApplication">
     <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="api-gateway" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.api_gateway.ApiGatewayApplication" />
@@ -250,7 +271,12 @@
       <workItem from="1747914063348" duration="9462000" />
       <workItem from="1747926232976" duration="48000" />
       <workItem from="1747926288944" duration="1378000" />
-      <workItem from="1747927674664" duration="1987000" />
+      <workItem from="1747927674664" duration="7147000" />
+      <workItem from="1747977464241" duration="2586000" />
+      <workItem from="1747980058412" duration="501000" />
+      <workItem from="1747980567304" duration="3517000" />
+      <workItem from="1747988152511" duration="51000" />
+      <workItem from="1747988216355" duration="6901000" />
     </task>
     <servers />
   </component>

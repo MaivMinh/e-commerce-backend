@@ -15,8 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor
 public class ProductSku extends BaseEntity {
   @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private String id;
   private Long productId;
   private Long sizeAttributeId;
   private Long colorAttributeId;

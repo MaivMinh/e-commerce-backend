@@ -15,8 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor @AllArgsConstructor
 public class ProductSubCategory extends BaseEntity {
   @Id
-  @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
-  private Long id;
+  private String id;
   private Integer productId;
   private Integer subCategoryId;
 }
