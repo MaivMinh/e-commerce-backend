@@ -3,10 +3,7 @@ package com.minh.product_service.command.commands;
 import lombok.*;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Builder
 public class DeleteProductCommand {
   @TargetAggregateIdentifier

@@ -4,7 +4,7 @@ spring:
   application:
     name: service-discovery
   config:
-    import: ${SPRING_CONFIG_IMPORT:configserver:http://localhost:8071/}
+    import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071/}
   rabbitmq:
     host: ${SPRING_RABBITMQ_HOST:localhost}
     port: ${SPRING_RABBITMQ_PORT:5672}

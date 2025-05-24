@@ -54,6 +54,7 @@
         <dependency>
             <groupId>org.axonframework</groupId>
             <artifactId>axon-spring-boot-starter</artifactId>
+            <version>4.11.2</version>
         </dependency>
         <!--        Axon Framework Configurations-->
     </dependencies>

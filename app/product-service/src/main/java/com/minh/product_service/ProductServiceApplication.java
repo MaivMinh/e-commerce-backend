@@ -1,6 +1,8 @@
 package com.minh.product_service;
 
+import com.minh.product_service.command.interceptor.ProductCommandInterceptor;
 import com.minh.product_service.config.AxonConfig;
+import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.config.EventProcessingConfigurer;
 import org.axonframework.eventhandling.PropagatingErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -23,6 +26,11 @@ public class ProductServiceApplication {
 
   public static void main(String[] args) {
     SpringApplication.run(ProductServiceApplication.class, args);
+  }
+
+  @Autowired
+  public void registerProductCommandInterceptor(ApplicationContext context, CommandGateway commandGateway) {
+    commandGateway.registerDispatchInterceptor(context.getBean(ProductCommandInterceptor.class));
   }
 
   @Autowired

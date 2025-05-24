@@ -5,12 +5,15 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 @Getter
 @Setter
-@ToString
 @Builder
-public class UpdateProductCommand {
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
+public class UpdateCustomerCommand {
   @TargetAggregateIdentifier
-  private String id;
+  private String customerId;
   private String name;
-  private String description;
-  private String cover;
+  private String email;
+  private String mobileNumber;
+  private boolean activeSw;
 }

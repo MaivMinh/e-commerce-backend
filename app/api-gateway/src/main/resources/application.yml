@@ -4,7 +4,7 @@ spring:
   application:
     name: api-gateway
   config:
-    import: ${SPRING_CONFIG_IMPORT:configserver:http://localhost:8071/}
+    import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071/}
   rabbitmq:
     host: ${SPRING_RABBITMQ_HOST:localhost}
     port: ${SPRING_RABBITMQ_PORT:5672}
@@ -26,7 +26,7 @@ spring:
         - id: product-service
           uri: lb://product-service
           predicates:
-            - Path=/api/products/**,/api/products
+            - Path=/api/products/**,/api/products,/api/categories/**,/api/categories
             - Method=GET,POST,PUT,DELETE,PATCH
           filters:
             - name: CircuitBreaker
@@ -97,7 +97,7 @@ resilience4j:
   timelimiter:
     instances:
       default:
-        timeout-duration: 10s
+        timeout-duration: 20s
         cancel-running-future: false
   circuitbreaker:
     instances:

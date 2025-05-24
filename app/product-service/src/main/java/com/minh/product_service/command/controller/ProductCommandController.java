@@ -24,6 +24,9 @@ public class ProductCommandController {
   private final CommandGateway commandGateway;
 
   /// ================== ADMIN ROLE ================== ///
+
+  /// Hàm thực hiện tạo mới một sản phẩm.
+  /// DONE!
   @PostMapping(value = "")
   public ResponseEntity<ResponseData> createProduct(@Valid @RequestBody ProductDTO productDTO) {
     CreateProductCommand command = CreateProductCommand.builder()
@@ -32,10 +35,13 @@ public class ProductCommandController {
             .description(productDTO.getDescription())
             .cover(productDTO.getCover())
             .build();
-    commandGateway.sendAndWait(command, 20000, TimeUnit.MILLISECONDS);
+    commandGateway.sendAndWait(command);
     return ResponseEntity.ok(new ResponseData(HttpStatus.CREATED.value(), "Product is created successfully", null));
   }
 
+
+  /// Hàm thực hiện cập nhật thông tin một sản phẩm.
+  /// DONE!
   @PutMapping(value = "")
   public ResponseEntity<ResponseData> updateProduct(@Valid @RequestBody ProductDTO productDTO) {
     UpdateProductCommand command = UpdateProductCommand.builder()
@@ -44,16 +50,18 @@ public class ProductCommandController {
             .description(productDTO.getDescription())
             .cover(productDTO.getCover())
             .build();
-    commandGateway.sendAndWait(command, 20000, TimeUnit.MILLISECONDS);
+    commandGateway.sendAndWait(command);
     return ResponseEntity.ok(new ResponseData(HttpStatus.OK.value(), "Product is updated successfully", null));
   }
 
-  @DeleteMapping(value = "{productId}")
+  /// Hàm thực hiện xóa một sản phẩm.
+  /// DONE!
+  @DeleteMapping(value = "/{productId}")
   public ResponseEntity<ResponseData> deleteProduct(@PathVariable String productId) {
     DeleteProductCommand command = DeleteProductCommand.builder()
             .id(productId)
             .build();
-    commandGateway.sendAndWait(command, 20000, TimeUnit.MILLISECONDS);
+    commandGateway.sendAndWait(command, 10000, TimeUnit.MILLISECONDS);
     return ResponseEntity.ok(new ResponseData(HttpStatus.OK.value(), "Product is deleted successfully", null));
   }
 }

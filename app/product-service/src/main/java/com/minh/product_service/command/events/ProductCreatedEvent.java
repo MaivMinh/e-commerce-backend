@@ -1,13 +1,15 @@
-package com.minh.product_service.command.event;
+package com.minh.product_service.command.events;
+
 
 import lombok.*;
 
 @Getter
 @Setter
+@ToString
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class ProductUpdatedEvent {
+public class ProductCreatedEvent {
   private String id;
   private String name;
   private String description;

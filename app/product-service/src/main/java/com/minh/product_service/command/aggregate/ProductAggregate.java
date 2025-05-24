@@ -3,10 +3,11 @@ package com.minh.product_service.command.aggregate;
 import com.minh.product_service.command.commands.CreateProductCommand;
 import com.minh.product_service.command.commands.DeleteProductCommand;
 import com.minh.product_service.command.commands.UpdateProductCommand;
-import com.minh.product_service.command.event.ProductCreatedEvent;
-import com.minh.product_service.command.event.ProductDeletedEvent;
-import com.minh.product_service.command.event.ProductUpdatedEvent;
-import lombok.NoArgsConstructor;
+import com.minh.product_service.command.events.ProductCreatedEvent;
+import com.minh.product_service.command.events.ProductDeletedEvent;
+import com.minh.product_service.command.events.ProductUpdatedEvent;
+import com.minh.product_service.repository.ProductRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -14,6 +15,7 @@ import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
 
+@Slf4j
 @Aggregate
 public class ProductAggregate {
   @AggregateIdentifier
@@ -29,12 +31,10 @@ public class ProductAggregate {
 
   @CommandHandler
   public ProductAggregate(CreateProductCommand command) {
-    /// If validation in Interceptor successfully, we can create new Event to save into event Store and emit to event Bus
-
     /// Create new Event.
     ProductCreatedEvent event = new ProductCreatedEvent();
     BeanUtils.copyProperties(command, event);
-    /// Emit event to event bus and event store.
+    /// Emit events to events bus and events store.
     AggregateLifecycle.apply(event);
   }
 
@@ -49,17 +49,15 @@ public class ProductAggregate {
 
   @CommandHandler
   public void handle(UpdateProductCommand command) {
-    /// Create new event.
+    /// Create new events.
     ProductUpdatedEvent event = new ProductUpdatedEvent();
     BeanUtils.copyProperties(command, event);
-
-    /// Emit event.
+    /// Emit events.
     AggregateLifecycle.apply(event);
   }
 
   @EventSourcingHandler
   public void on(ProductUpdatedEvent event) {
-    this.id = event.getId();
     this.name = event.getName();
     this.description = event.getDescription();
     this.cover = event.getCover();
@@ -67,19 +65,18 @@ public class ProductAggregate {
 
   @CommandHandler
   public void handle(DeleteProductCommand command) {
-    /// Create new event.
+    /// Create new events.
     ProductDeletedEvent event = new ProductDeletedEvent();
     BeanUtils.copyProperties(command, event);
-
-    /// Emit event.
+    /// Emit events.
     AggregateLifecycle.apply(event);
   }
 
   @EventSourcingHandler
   public void on(ProductDeletedEvent event) {
-    this.id = event.getId();
     this.name = null;
     this.description = null;
     this.cover = null;
+    this.errorMsg = null;
   }
 }

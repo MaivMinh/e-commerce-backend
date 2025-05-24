@@ -12,9 +12,9 @@ import org.springframework.stereotype.Component;
 import java.time.Duration;
 import java.time.Instant;
 
-@Aspect
+//@Aspect
 @Slf4j
-@Component
+//@Component
 public class LoggerAspect {
   // Một @Pointcut thực hiện việc gom các nhóm lại với nhau. Advice sẽ làm việc với các nhóm đã match với @Pointcut này.
   @Pointcut("execution(* com.minh.product_service..*.*(..))")

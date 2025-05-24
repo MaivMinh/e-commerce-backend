@@ -1,5 +1,7 @@
 package com.minh.product_service.service;
 
+import com.minh.product_service.command.events.ProductDeletedEvent;
+import com.minh.product_service.command.events.ProductUpdatedEvent;
 import com.minh.product_service.dto.ProductDTO;
 import com.minh.product_service.entity.Product;
 import com.minh.product_service.mapper.ProductMapper;
@@ -36,6 +38,26 @@ public class ProductService {
       throw new RuntimeException("Error when save product to database");
     }
   }
+
+
+  /// Done.
+  public void updateProduct(ProductUpdatedEvent event) {
+    String productId = event.getId();
+    Optional<Product> saved = productRepository.findById(productId);
+    if (saved.isEmpty()) {
+      throw new RuntimeException("Product not found");
+    }
+    Product product = saved.get();
+    product.setName(event.getName());
+    product.setDescription(event.getDescription());
+    product.setCover(event.getCover());
+    try {
+      productRepository.save(product);
+    } catch (Exception e) {
+      throw new RuntimeException("Error when update product to database");
+    }
+  }
+
 
   /// Done.
   public ResponseData fetchProducts(int page, int size, String sort) {
@@ -78,29 +100,15 @@ public class ProductService {
   }
 
   /// Done.
-  public void updateProduct(Product product) {
+  public void deleteProduct(ProductDeletedEvent event) {
     /// Validate again.
-    Optional<Product> saved = productRepository.findById(product.getId());
+    Optional<Product> saved = productRepository.findById(event.getId());
     if (saved.isEmpty()) {
       throw new RuntimeException("Product not found");
     }
     /// Update product into database.
     try {
-      productRepository.save(product);
-    } catch (Exception e) {
-      throw new RuntimeException("Error when update product to database. Try again");
-    }
-  }
-
-  /// Done.
-  public void deleteProduct(Product product) {
-    /// Validate again.
-    Optional<Product> saved = productRepository.findById(product.getId());
-    if (saved.isEmpty()) {
-      throw new RuntimeException("Product not found");
-    }
-    /// Update product into database.
-    try {
+      Product product = saved.get();
       productRepository.delete(product);
     } catch (Exception e) {
       throw new RuntimeException("Error when delete product to database. Try again");
