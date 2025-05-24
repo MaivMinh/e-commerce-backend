@@ -57,31 +57,18 @@ public class CategoryQueryController {
 
 
   /// Phương thức tìm kiếm danh mục theo tên.
-  @PostMapping(value = "/search")
-  public ResponseEntity<ResponseData> searchCategories(@RequestBody Map<String, String> criteria,
-                                                       @RequestParam(value = "sort", defaultValue = "", required = false) String sort,
-                                                       @RequestParam(value = "page", defaultValue = "1", required = false) Integer page,
-                                                       @RequestParam(value = "size", defaultValue = "10", required = false) Integer size) {
+  @GetMapping(value = "/search")
+  public ResponseEntity<ResponseData> searchCategoriesByName(@RequestParam(value = "name", defaultValue = "", required = false) String name,
+                                                             @RequestParam(value = "page", defaultValue = "1", required = false) Integer page,
+                                                             @RequestParam(value = "size", defaultValue = "10", required = false) Integer size) {
 
-    /**
-     POST /search?sort=""&page=?&size=?
-     {
-     name: String,
-     description: String,
-     }
-     */
 
     page = (page > 0) ? (page - 1) : 0;
     size = (size > 0) ? size : 10;
-    if (criteria == null) {
-      criteria = new HashMap<String, String>();
-    }
-
     SearchCategoriesQuery query = SearchCategoriesQuery.builder()
-            .criteria(criteria)
+            .name(name)
             .page(page)
             .size(size)
-            .sort(sort)
             .build();
 
     /// dispatch query

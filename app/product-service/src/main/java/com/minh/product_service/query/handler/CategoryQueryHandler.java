@@ -27,6 +27,6 @@ public class CategoryQueryHandler {
 
   @QueryHandler
   public ResponseData handle(SearchCategoriesQuery query) {
-    return categoryService.searchCategoriesByCriteria(query.getCriteria(), query.getSort(), query.getPage(), query.getSize());
+    return categoryService.searchCategoriesByName(query.getName(), query.getPage(), query.getSize());
   }
 }

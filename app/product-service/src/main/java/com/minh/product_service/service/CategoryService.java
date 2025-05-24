@@ -126,46 +126,24 @@ public class CategoryService {
     }
   }
 
-  public ResponseData searchCategoriesByCriteria(Map<String, String> criteria, String sort, int page, int size) {
-    Specification<Category> specification = Specification.where(null);
-    if(StringUtils.hasText(criteria.get("name"))) {
-      specification = specification.and(containsName(criteria.get("name")));
-    }
-    if (StringUtils.hasText(criteria.get("description"))) {
-      specification = specification.and(containsDescription(criteria.get("description")));
-    }
+  public ResponseData searchCategoriesByName(String name, int page, int size) {
+    Page<Category> categories = categoryRepository.findByNameContaining(name, PageRequest.of(page, size));
+    List<CategoryDTO> categoryDTOs = categories.stream().map(category -> {
+      CategoryDTO categoryDTO = new CategoryDTO();
+      CategoryMapper.mapToCategoryDTO(category, categoryDTO);
+      return categoryDTO;
+    }).collect(Collectors.toList());
 
-    try {
-      Pageable pageable = null;
-      if (StringUtils.hasText(sort)) {
-        /// sort = id:desc,name:asc
-        List<Sort.Order> orders = new ArrayList<>();
-        String[] sortFields = sort.split(",");
-        for (String field : sortFields) {
-          orders.add(new Sort.Order(Sort.Direction.fromString(field.split(":")[1].toUpperCase()), field.split(":")[0]));
-        }
-        pageable = PageRequest.of(page, size, Sort.by(orders));
-      } else pageable = PageRequest.of(page, size);
-
-      Page<Category> categories = categoryRepository.findAll(specification, pageable);
-      List<CategoryDTO> categoryDTOs = categories.stream().map(category -> {
-        CategoryDTO categoryDTO = new CategoryDTO();
-        CategoryMapper.mapToCategoryDTO(category, categoryDTO);
-        return categoryDTO;
-      }).collect(Collectors.toList());
-      Map<String, Object> data = new HashMap<>();
-      data.put("totalElements", categories.getTotalElements());
-      data.put("totalPages", categories.getTotalPages());
-      data.put("page", page + 1);
-      data.put("size", size);
-      data.put("categories", categoryDTOs);
-      return ResponseData.builder()
-              .message("Fetched categories successfully")
-              .status(HttpStatus.OK.value())
-              .data(data)
-              .build();
-    } catch (Exception e) {
-      throw new RuntimeException("Failed to fetch categories");
-    }
+    Map<String, Object> data = new HashMap<>();
+    data.put("totalElements", categories.getTotalElements());
+    data.put("totalPages", categories.getTotalPages());
+    data.put("page", page + 1);
+    data.put("size", size);
+    data.put("categories", categoryDTOs);
+    return ResponseData.builder()
+            .message("Fetched categories successfully")
+            .status(HttpStatus.OK.value())
+            .data(data)
+            .build();
   }
 }
