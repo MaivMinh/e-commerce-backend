@@ -1,21 +1,29 @@
 package com.minh.product_service.service;
 
 import com.minh.product_service.dto.CategoryDTO;
+import com.minh.product_service.dto.ProductDTO;
 import com.minh.product_service.entity.Category;
+import com.minh.product_service.entity.Product;
 import com.minh.product_service.mapper.CategoryMapper;
+import com.minh.product_service.mapper.ProductMapper;
 import com.minh.product_service.repository.CategoryRepository;
 import com.minh.product_service.response.ResponseData;
+import com.minh.product_service.specifications.CategorySpecs;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.minh.product_service.specifications.CategorySpecs.containsDescription;
+import static com.minh.product_service.specifications.CategorySpecs.containsName;
 
 @Service
 @RequiredArgsConstructor
@@ -115,6 +123,49 @@ public class CategoryService {
       categoryRepository.delete(saved);
     } catch (Exception e) {
       throw new RuntimeException("Failed to delete category");
+    }
+  }
+
+  public ResponseData searchCategoriesByCriteria(Map<String, String> criteria, String sort, int page, int size) {
+    Specification<Category> specification = Specification.where(null);
+    if(StringUtils.hasText(criteria.get("name"))) {
+      specification = specification.and(containsName(criteria.get("name")));
+    }
+    if (StringUtils.hasText(criteria.get("description"))) {
+      specification = specification.and(containsDescription(criteria.get("description")));
+    }
+
+    try {
+      Pageable pageable = null;
+      if (StringUtils.hasText(sort)) {
+        /// sort = id:desc,name:asc
+        List<Sort.Order> orders = new ArrayList<>();
+        String[] sortFields = sort.split(",");
+        for (String field : sortFields) {
+          orders.add(new Sort.Order(Sort.Direction.fromString(field.split(":")[1].toUpperCase()), field.split(":")[0]));
+        }
+        pageable = PageRequest.of(page, size, Sort.by(orders));
+      } else pageable = PageRequest.of(page, size);
+
+      Page<Category> categories = categoryRepository.findAll(specification, pageable);
+      List<CategoryDTO> categoryDTOs = categories.stream().map(category -> {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        CategoryMapper.mapToCategoryDTO(category, categoryDTO);
+        return categoryDTO;
+      }).collect(Collectors.toList());
+      Map<String, Object> data = new HashMap<>();
+      data.put("totalElements", categories.getTotalElements());
+      data.put("totalPages", categories.getTotalPages());
+      data.put("page", page + 1);
+      data.put("size", size);
+      data.put("categories", categoryDTOs);
+      return ResponseData.builder()
+              .message("Fetched categories successfully")
+              .status(HttpStatus.OK.value())
+              .data(data)
+              .build();
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to fetch categories");
     }
   }
 }
