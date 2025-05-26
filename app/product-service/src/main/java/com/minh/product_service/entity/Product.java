@@ -14,6 +14,15 @@ public class Product extends BaseEntity {
   @Id
   private String id;
   private String name;
+  private String slug;
+  private String categoryId;
   private String description;
   private String cover;
+  private Double price;
+  private Double originalPrice;
+  private Boolean isFeatured;
+  private Boolean isNew;
+  private Boolean isBestseller;
+  @Enumerated(value = EnumType.STRING)
+  private ProductStatus status;
 }

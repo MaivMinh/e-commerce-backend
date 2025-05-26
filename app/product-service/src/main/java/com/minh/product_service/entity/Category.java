@@ -11,6 +11,7 @@ import lombok.*;
 public class Category extends BaseEntity {
   @Id
   private String id;
+  private String parentId;
   private String name;
   private String description;
 }

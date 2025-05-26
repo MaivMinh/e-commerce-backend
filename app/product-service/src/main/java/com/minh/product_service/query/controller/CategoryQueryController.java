@@ -41,34 +41,12 @@ public class CategoryQueryController {
     return ResponseEntity.status(response.getStatus()).body(response);
   }
 
-
   /// Phương thức lấy một danh mục theo id.
   /// DONE.
   @GetMapping(value = "/{id}")
   public ResponseEntity<ResponseData> fetchCategory(@PathVariable(value = "id") String id) {
     FetchCategoryQuery query = FetchCategoryQuery.builder()
             .id(id)
-            .build();
-
-    /// dispatch query
-    ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
-    return ResponseEntity.status(response.getStatus()).body(response);
-  }
-
-
-  /// Phương thức tìm kiếm danh mục theo tên.
-  @GetMapping(value = "/search")
-  public ResponseEntity<ResponseData> searchCategoriesByName(@RequestParam(value = "name", defaultValue = "", required = false) String name,
-                                                             @RequestParam(value = "page", defaultValue = "1", required = false) Integer page,
-                                                             @RequestParam(value = "size", defaultValue = "10", required = false) Integer size) {
-
-
-    page = (page > 0) ? (page - 1) : 0;
-    size = (size > 0) ? size : 10;
-    SearchCategoriesQuery query = SearchCategoriesQuery.builder()
-            .name(name)
-            .page(page)
-            .size(size)
             .build();
 
     /// dispatch query

@@ -1,214 +1,267 @@
-CREATE TABLE `users`
+-- Tạo database
+-- 1. Quản lý Người Dùng
+CREATE TABLE Users
 (
-    `id`            integer PRIMARY KEY,
-    `avatar`        varchar(255),
-    `first_name`    varchar(255),
-    `last_name`     varchar(255),
-    `username`      varchar(255) UNIQUE NOT NULL,
-    `email`         varchar(255) UNIQUE NOT NULL,
-    `password`      varchar(255),
-    `birth_of_date` date,
-    `phone_number`  varchar(255),
-    `created_at`    timestamp,
-    `deleted_at`    timestamp
+    id            VARCHAR(36) PRIMARY KEY,
+    email         VARCHAR(255)                NOT NULL UNIQUE,
+    password_hash VARCHAR(255)                NOT NULL,
+    full_name     VARCHAR(100)                NOT NULL,
+    phone         VARCHAR(20),
+    avatar        VARCHAR(255),
+    role          ENUM ('admin', 'customer')  NOT NULL DEFAULT 'customer',
+    status        ENUM ('active', 'inactive') NOT NULL DEFAULT 'active',
+    created_at    TIMESTAMP                   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at    TIMESTAMP                   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE `addresses`
+CREATE TABLE UserAddresses
 (
-    `id`             integer PRIMARY KEY,
-    `user_id`        integer,
-    `title`          varchar(255),
-    `address_line_1` varchar(255),
-    `address_line_2` varchar(255),
-    `country`        varchar(255),
-    `city`           varchar(255),
-    `postal_code`    varchar(255),
-    `landmark`       varchar(255),
-    `phone_number`   varchar(255),
-    `created_at`     timestamp,
-    `deleted_at`     timestamp
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    user_id    VARCHAR(36)  NOT NULL,
+    full_name  VARCHAR(100) NOT NULL,
+    phone      VARCHAR(20)  NOT NULL,
+    address    VARCHAR(255) NOT NULL,
+    ward       VARCHAR(100) NOT NULL,
+    district   VARCHAR(100) NOT NULL,
+    city       VARCHAR(100) NOT NULL,
+    is_default BOOLEAN      NOT NULL DEFAULT FALSE,
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE `cart`
+-- 2. Quản lý Sản Phẩm
+CREATE TABLE Categories
 (
-    `id`         integer PRIMARY KEY,
-    `user_id`    integer,
-    `total`      integer,
-    `created_at` timestamp,
-    `updated_at` timestamp
+    id          VARCHAR(36) PRIMARY KEY,
+    parent_id   VARCHAR(36),
+    name        VARCHAR(100)                NOT NULL,
+    slug        VARCHAR(120)                NOT NULL UNIQUE,
+    description TEXT,
+    image       VARCHAR(255),
+    status      ENUM ('active', 'inactive') NOT NULL DEFAULT 'active',
+    created_at  TIMESTAMP                   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP                   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (parent_id) REFERENCES Categories (id) ON DELETE SET NULL
 );
 
-CREATE TABLE `cart_item`
+CREATE TABLE Products
 (
-    `id`              integer PRIMARY KEY,
-    `cart_id`         integer,
-    `product_id`      integer,
-    `products_sku_id` integer,
-    `quantity`        integer,
-    `created_at`      timestamp,
-    `updated_at`      timestamp
+    id             VARCHAR(36) PRIMARY KEY,
+    name           VARCHAR(255)                                NOT NULL,
+    slug           VARCHAR(300)                                NOT NULL UNIQUE,
+    description    TEXT,
+    cover_image    VARCHAR(255),
+    price          DECIMAL(15, 2)                              NOT NULL,
+    original_price DECIMAL(15, 2),
+    status         ENUM ('active', 'inactive', 'out_of_stock') NOT NULL DEFAULT 'active',
+    is_featured    BOOLEAN                                     NOT NULL DEFAULT FALSE,
+    is_new         BOOLEAN                                     NOT NULL DEFAULT FALSE,
+    is_bestseller  BOOLEAN                                     NOT NULL DEFAULT FALSE,
+    category_id    VARCHAR(36),
+    created_at     TIMESTAMP                                   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at     TIMESTAMP                                   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (category_id) REFERENCES Categories (id) ON DELETE SET NULL
 );
 
-CREATE TABLE `order_details`
+CREATE TABLE ProductImages
 (
-    `id`         integer PRIMARY KEY,
-    `user_id`    integer,
-    `payment_id` integer,
-    `total`      integer,
-    `created_at` timestamp,
-    `updated_at` timestamp
+    id            INT AUTO_INCREMENT PRIMARY KEY,
+    product_id    VARCHAR(36)  NOT NULL,
+    image_url     VARCHAR(255) NOT NULL,
+    display_order INT          NOT NULL DEFAULT 0,
+    created_at    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES Products (id) ON DELETE CASCADE
 );
 
-CREATE TABLE `order_item`
+CREATE TABLE ProductVariants
 (
-    `id`              integer PRIMARY KEY,
-    `order_id`        integer,
-    `products_sku_id` integer,
-    `quantity`        integer,
-    `created_at`      timestamp,
-    `updated_at`      timestamp,
-    `status`          varchar(255)
+    id             VARCHAR(36) PRIMARY KEY,
+    product_id     VARCHAR(36)    NOT NULL,
+    -- Trong các biến thể của Product, sẽ không có 2 variant nào có cùng size và color_hex.
+    -- Điều này đảm bảo rằng mỗi biến thể là duy nhất theo size và color.
+    -- Khi client nhấn chọn size, thì hệ thống sẽ lọc ra các biến thể có size đó. Tiếp đó, người dùng chọn color, và sẽ chỉ hiển thị ra 1 biến thể duy nhất đi kèm số lượng.
+    size           VARCHAR(20)    NOT NULL,
+    color_name     VARCHAR(50)    NOT NULL,
+    color_hex      VARCHAR(10),
+    price          DECIMAL(15, 2) NOT NULL,
+    stock_quantity INT            NOT NULL DEFAULT 0,
+    sku            VARCHAR(100)   NOT NULL UNIQUE,
+    created_at     TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at     TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (product_id) REFERENCES Products (id) ON DELETE CASCADE
 );
 
-CREATE TABLE `payment_details`
+-- 3. Giỏ Hàng
+CREATE TABLE Carts
 (
-    `id`         integer PRIMARY KEY,
-    `order_id`   integer,
-    `amount`     integer,
-    `provider`   varchar(255),
-    `status`     varchar(255),
-    `created_at` timestamp,
-    `updated_at` timestamp
+    id         VARCHAR(36) PRIMARY KEY,
+    user_id    VARCHAR(36) NOT NULL,
+    created_at TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE
 );
 
-CREATE TABLE `promotions`
+CREATE TABLE CartItems
 (
-    `id`             integer PRIMARY KEY,
-    `name`           varchar(255)   NOT NULL,
-    `description`    varchar(255),
-    `discount_type`  varchar(255)   NOT NULL,
-    `discount_value` numeric(10, 2) NOT NULL,
-    `quantity`       integer        NOT NULL,
-    `is_active`      boolean        NOT NULL
+    id                 INT AUTO_INCREMENT PRIMARY KEY,
+    cart_id            VARCHAR(36) NOT NULL,
+    product_variant_id VARCHAR(36) NOT NULL,
+    quantity           INT         NOT NULL DEFAULT 1,
+    created_at         TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at         TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (cart_id) REFERENCES Carts (id) ON DELETE CASCADE,
+    FOREIGN KEY (product_variant_id) REFERENCES product_variants (id) ON DELETE CASCADE,
+    UNIQUE KEY (cart_id, product_variant_id)
 );
 
-CREATE TABLE `condition_types`
+-- 4. Đơn Hàng và Thanh Toán
+CREATE TABLE Orders
 (
-    `id`   integer PRIMARY KEY,
-    `type` varchar(255)
+    id                  VARCHAR(36) PRIMARY KEY,
+    user_id             VARCHAR(36)                                                         NOT NULL,
+    order_number        VARCHAR(50)                                                         NOT NULL UNIQUE,
+    status              ENUM ('pending', 'processing', 'shipped', 'delivered', 'cancelled') NOT NULL DEFAULT 'pending',
+    shipping_address_id INT                                                                 NOT NULL,
+    shipping_fee        DECIMAL(15, 2)                                                      NOT NULL DEFAULT 0,
+    subtotal            DECIMAL(15, 2)                                                      NOT NULL,
+    discount            DECIMAL(15, 2)                                                      NOT NULL DEFAULT 0,
+    total               DECIMAL(15, 2)                                                      NOT NULL,
+    payment_method      ENUM ('credit_card', 'bank_transfer', 'e_wallet', 'cod')            NOT NULL,
+    payment_status      ENUM ('pending', 'paid', 'failed')                                  NOT NULL DEFAULT 'pending',
+    voucher_code        VARCHAR(50),
+    note                TEXT,
+    created_at          TIMESTAMP                                                           NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at          TIMESTAMP                                                           NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE,
+    FOREIGN KEY (shipping_address_id) REFERENCES UserAddresses (id) ON DELETE RESTRICT
 );
 
-CREATE TABLE `promotion_conditions`
+CREATE TABLE OrderItems
 (
-    `id`                integer PRIMARY KEY,
-    `promotion_id`      integer      NOT NULL,
-    `condition_type_id` integer     NOT NULL,
-    `condition_value`   varchar(255) NOT NULL,
-    `operator`          varchar(255) NOT NULL
+    id                 INT AUTO_INCREMENT PRIMARY KEY,
+    order_id           VARCHAR(36)    NOT NULL,
+    product_variant_id VARCHAR(36)    NOT NULL,
+    quantity           INT            NOT NULL,
+    price              DECIMAL(15, 2) NOT NULL,
+    total              DECIMAL(15, 2) NOT NULL,
+    created_at         TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at         TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES Orders (id) ON DELETE CASCADE,
+    FOREIGN KEY (product_variant_id) REFERENCES product_variants (id) ON DELETE RESTRICT
 );
 
-CREATE TABLE `promotion_product_mappings`
+CREATE TABLE Payments
 (
-    `id`             integer PRIMARY KEY,
-    `promotion_id`   integer NOT NULL,
-    `product_sku_id` integer NOT NULL
+    id             VARCHAR(36) PRIMARY KEY,
+    order_id       VARCHAR(36)                                                              NOT NULL,
+    amount         DECIMAL(15, 2)                                                           NOT NULL,
+    provider       ENUM ('momo', 'zalopay', 'vnpay', 'bank_transfer', 'credit_card', 'cod') NOT NULL,
+    status         ENUM ('pending', 'completed', 'failed')                                  NOT NULL DEFAULT 'pending',
+    transaction_id VARCHAR(100),
+    payment_date   TIMESTAMP,
+    created_at     TIMESTAMP                                                                NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at     TIMESTAMP                                                                NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (order_id) REFERENCES Orders (id) ON DELETE CASCADE,
+    UNIQUE KEY (order_id, provider)
 );
 
-ALTER TABLE `addresses`
-    ADD FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
-
-CREATE TABLE `products_sub_categories`
+-- 5. Đánh Giá và Nhận Xét
+CREATE TABLE Reviews
 (
-    `products_category_id` varchar,
-    `sub_categories_id`    integer,
-    PRIMARY KEY (`products_category_id`, `sub_categories_id`)
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    user_id    VARCHAR(36)                              NOT NULL,
+    product_id VARCHAR(36)                              NOT NULL,
+    order_id   VARCHAR(36),
+    rating     TINYINT                                  NOT NULL CHECK (rating BETWEEN 1 AND 5),
+    content    TEXT,
+    likes      INT                                      NOT NULL DEFAULT 0,
+    status     ENUM ('pending', 'approved', 'rejected') NOT NULL DEFAULT 'pending',
+    created_at TIMESTAMP                                NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP                                NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Products (id) ON DELETE CASCADE,
+    FOREIGN KEY (order_id) REFERENCES Orders (id) ON DELETE SET NULL
 );
 
-CREATE TABLE `product_attributes_products_skus`
+CREATE TABLE ReviewImages
 (
-    `product_attributes_id`           integer,
-    `products_skus_size_attribute_id` integer,
-    PRIMARY KEY (`product_attributes_id`, `products_skus_size_attribute_id`)
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    review_id  INT          NOT NULL,
+    image_url  VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (review_id) REFERENCES Reviews (id) ON DELETE CASCADE
 );
 
-CREATE TABLE `product_attributes_products_skus(1)`
+-- 6. Mã Giảm Giá
+CREATE TABLE Vouchers
 (
-    `product_attributes_id`            integer,
-    `products_skus_color_attribute_id` integer,
-    PRIMARY KEY (`product_attributes_id`, `products_skus_color_attribute_id`)
+    id              VARCHAR(36) PRIMARY KEY,
+    code            VARCHAR(50)                              NOT NULL UNIQUE,
+    type            ENUM ('percentage', 'fixed', 'shipping') NOT NULL,
+    discount_value  DECIMAL(15, 2)                           NOT NULL,
+    min_order_value DECIMAL(15, 2)                           NOT NULL DEFAULT 0,
+    max_discount    DECIMAL(15, 2),
+    start_date      TIMESTAMP                                NOT NULL,
+    end_date        TIMESTAMP                                NOT NULL,
+    usage_limit     INT,
+    usage_count     INT                                      NOT NULL DEFAULT 0,
+    status          ENUM ('active', 'inactive')              NOT NULL DEFAULT 'active',
+    created_at      TIMESTAMP                                NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP                                NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
-CREATE TABLE `wishlist_users`
+CREATE TABLE UserVouchers
 (
-    `wishlist_user_id` integer,
-    `users_id`         integer,
-    PRIMARY KEY (`wishlist_user_id`, `users_id`)
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    user_id    VARCHAR(36) NOT NULL,
+    voucher_id VARCHAR(36) NOT NULL,
+    is_used    BOOLEAN     NOT NULL DEFAULT FALSE,
+    used_at    TIMESTAMP,
+    created_at TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE,
+    FOREIGN KEY (voucher_id) REFERENCES Vouchers (id) ON DELETE CASCADE,
+    UNIQUE KEY (user_id, voucher_id)
 );
 
-ALTER TABLE `wishlist_users`
-    ADD FOREIGN KEY (`users_id`) REFERENCES `users` (`id`);
-
-
-CREATE TABLE `wishlist_products`
+-- 7. Danh Sách Yêu Thích
+CREATE TABLE Wishlists
 (
-    `wishlist_product_id` integer,
-    `products_id`         integer,
-    PRIMARY KEY (`wishlist_product_id`, `products_id`)
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    user_id    VARCHAR(36) NOT NULL,
+    created_at TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES Users (id) ON DELETE CASCADE,
+    UNIQUE KEY (user_id)    -- mỗi người dùng chỉ có một danh sách yêu thích
 );
 
-ALTER TABLE `users`
-    ADD FOREIGN KEY (`id`) REFERENCES `cart` (`user_id`);
-
-ALTER TABLE `cart_item`
-    ADD FOREIGN KEY (`cart_id`) REFERENCES `cart` (`id`);
-
-CREATE TABLE `cart_item_products`
+CREATE TABLE IF NOT EXISTS WishlistProducts
 (
-    `cart_item_product_id` integer,
-    `products_id`          integer,
-    PRIMARY KEY (`cart_item_product_id`, `products_id`)
+    id         INT AUTO_INCREMENT PRIMARY KEY,
+    wishlist_id INT          NOT NULL,
+    product_id VARCHAR(36)  NOT NULL,
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    FOREIGN KEY (wishlist_id) REFERENCES Wishlists (id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Products (id) ON DELETE CASCADE,
+    UNIQUE KEY (wishlist_id, product_id) -- mỗi sản phẩm chỉ có thể có một lần trong danh sách yêu thích
 );
 
-ALTER TABLE `cart_item_products`
-    ADD FOREIGN KEY (`cart_item_product_id`) REFERENCES `cart_item` (`product_id`);
 
 
-CREATE TABLE `cart_item_products_skus`
-(
-    `cart_item_products_sku_id` integer,
-    `products_skus_id`          integer,
-    PRIMARY KEY (`cart_item_products_sku_id`, `products_skus_id`)
-);
-
-ALTER TABLE `cart_item_products_skus`
-    ADD FOREIGN KEY (`cart_item_products_sku_id`) REFERENCES `cart_item` (`products_sku_id`);
-
-
-ALTER TABLE `users`
-    ADD FOREIGN KEY (`id`) REFERENCES `order_details` (`user_id`);
-
-ALTER TABLE `order_item`
-    ADD FOREIGN KEY (`order_id`) REFERENCES `order_details` (`id`);
-
-CREATE TABLE `order_item_products_skus`
-(
-    `order_item_products_sku_id` integer,
-    `products_skus_id`           integer,
-    PRIMARY KEY (`order_item_products_sku_id`, `products_skus_id`)
-);
-
-ALTER TABLE `order_item_products_skus`
-    ADD FOREIGN KEY (`order_item_products_sku_id`) REFERENCES `order_item` (`products_sku_id`);
-
-
-ALTER TABLE `order_details`
-    ADD FOREIGN KEY (`id`) REFERENCES `payment_details` (`order_id`);
-
-ALTER TABLE `promotion_conditions`
-    ADD FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
-
-ALTER TABLE `promotion_conditions`
-    ADD FOREIGN KEY (`condition_type_id`) REFERENCES `condition_types` (`id`);
-
-ALTER TABLE `promotion_product_mappings`
-    ADD FOREIGN KEY (`promotion_id`) REFERENCES `promotions` (`id`);
+-- Tạo các chỉ mục bổ sung để tối ưu truy vấn
+CREATE INDEX idx_products_category ON Products (category_id);
+CREATE INDEX idx_products_featured ON Products (is_featured);
+CREATE INDEX idx_products_bestseller ON Products (is_bestseller);
+CREATE INDEX idx_products_new ON Products (is_new);
+CREATE INDEX idx_products_status ON Products (status);
+CREATE INDEX idx_orders_user ON Orders (user_id);
+CREATE INDEX idx_orders_status ON Orders (status);
+CREATE INDEX idx_orders_created_at ON Orders (created_at);
+CREATE INDEX idx_reviews_product ON Reviews (product_id);
+CREATE INDEX idx_reviews_rating ON Reviews (rating);
+CREATE INDEX idx_vouchers_status ON Vouchers (status);
+CREATE INDEX idx_vouchers_date ON Vouchers (start_date, end_date);

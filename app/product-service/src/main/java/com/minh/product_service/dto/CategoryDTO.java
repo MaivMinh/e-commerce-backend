@@ -10,6 +10,7 @@ import lombok.*;
 @AllArgsConstructor
 public class CategoryDTO {
   private String id;
+  private String parentId;
   @NotEmpty(message = "Category name must not be empty")
   @Size(max = 100, message = "Category name must not exceed 100 characters")
   private String name;

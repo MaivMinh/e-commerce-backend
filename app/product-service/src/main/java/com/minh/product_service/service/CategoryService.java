@@ -1,29 +1,23 @@
 package com.minh.product_service.service;
 
+import com.minh.product_service.command.events.CategoryDeletedEvent;
+import com.minh.product_service.command.events.CategoryUpdatedEvent;
 import com.minh.product_service.dto.CategoryDTO;
-import com.minh.product_service.dto.ProductDTO;
 import com.minh.product_service.entity.Category;
-import com.minh.product_service.entity.Product;
 import com.minh.product_service.mapper.CategoryMapper;
-import com.minh.product_service.mapper.ProductMapper;
 import com.minh.product_service.repository.CategoryRepository;
 import com.minh.product_service.response.ResponseData;
-import com.minh.product_service.specifications.CategorySpecs;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
-
-import static com.minh.product_service.specifications.CategorySpecs.containsDescription;
-import static com.minh.product_service.specifications.CategorySpecs.containsName;
 
 @Service
 @RequiredArgsConstructor
@@ -47,6 +41,49 @@ public class CategoryService {
     }
   }
 
+  /// Hàm cập nhật danh mục sản phẩm.
+  public void updateCategory(CategoryUpdatedEvent event) {
+    Category saved = categoryRepository.findById(event.getId()).orElseThrow(
+            () -> new RuntimeException("Category not found")
+    );
+    try {
+      saved.setName(event.getName());
+      saved.setParentId(event.getParentId());
+      saved.setDescription(event.getDescription());
+      categoryRepository.save(saved);
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to update category");
+    }
+  }
+  public void deleteCategory(CategoryDeletedEvent event) {
+    Category saved = categoryRepository.findById(event.getId()).orElseThrow(
+            () -> new RuntimeException("Category not found")
+    );
+    try {
+      categoryRepository.delete(saved);
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to delete category");
+    }
+  }
+
+  /// DONE!!!
+  public ResponseData fetchCategory(String id) {
+    try {
+      Optional<Category> category = categoryRepository.findById(id);
+      if (category.isEmpty()) {
+        throw new RuntimeException("Category not found");
+      }
+      CategoryDTO categoryDTO = new CategoryDTO();
+      CategoryMapper.mapToCategoryDTO(category.get(), categoryDTO);
+      return ResponseData.builder()
+              .message("Success")
+              .status(HttpStatus.OK.value())
+              .data(categoryDTO)
+              .build();
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to fetch category");
+    }
+  }
 
   /// Hàm lấy danh sách tất cả các danh mục. (Có phân trang)
   /// DONE!!!
@@ -72,8 +109,8 @@ public class CategoryService {
       Map<String, Object> data = new HashMap<>();
       data.put("totalElements", categories.getTotalElements());
       data.put("totalPages", categories.getTotalPages());
-      data.put("page", page + 1);
-      data.put("size", size);
+      data.put("size", categories.getSize());
+      data.put("page", categories.getNumber() + 1);
       data.put("categories", categoryDTOs);
       return ResponseData.builder()
               .message("Fetched categories successfully")
@@ -83,67 +120,5 @@ public class CategoryService {
     } catch (Exception e) {
       throw new RuntimeException("Failed to fetch categories");
     }
-  }
-
-  /// Hàm cập nhật danh mục sản phẩm.
-  public void updateCategory(Category category) {
-    Category saved = categoryRepository.findById(category.getId()).orElseThrow(
-            () -> new RuntimeException("Category not found")
-    );
-    try {
-      categoryRepository.save(saved);
-    } catch (Exception e) {
-      throw new RuntimeException("Failed to update category");
-    }
-  }
-
-  public ResponseData fetchCategory(String id) {
-    try {
-      Optional<Category> category = categoryRepository.findById(id);
-      if (category.isEmpty()) {
-        throw new RuntimeException("Category not found");
-      }
-      CategoryDTO categoryDTO = new CategoryDTO();
-      CategoryMapper.mapToCategoryDTO(category.get(), categoryDTO);
-      return ResponseData.builder()
-              .message("Success")
-              .status(HttpStatus.OK.value())
-              .data(categoryDTO)
-              .build();
-    } catch (Exception e) {
-      throw new RuntimeException("Failed to fetch category");
-    }
-  }
-
-  public void deleteCategory(Category category) {
-    Category saved = categoryRepository.findById(category.getId()).orElseThrow(
-            () -> new RuntimeException("Category not found")
-    );
-    try {
-      categoryRepository.delete(saved);
-    } catch (Exception e) {
-      throw new RuntimeException("Failed to delete category");
-    }
-  }
-
-  public ResponseData searchCategoriesByName(String name, int page, int size) {
-    Page<Category> categories = categoryRepository.findByNameContaining(name, PageRequest.of(page, size));
-    List<CategoryDTO> categoryDTOs = categories.stream().map(category -> {
-      CategoryDTO categoryDTO = new CategoryDTO();
-      CategoryMapper.mapToCategoryDTO(category, categoryDTO);
-      return categoryDTO;
-    }).collect(Collectors.toList());
-
-    Map<String, Object> data = new HashMap<>();
-    data.put("totalElements", categories.getTotalElements());
-    data.put("totalPages", categories.getTotalPages());
-    data.put("page", page + 1);
-    data.put("size", size);
-    data.put("categories", categoryDTOs);
-    return ResponseData.builder()
-            .message("Fetched categories successfully")
-            .status(HttpStatus.OK.value())
-            .data(data)
-            .build();
   }
 }

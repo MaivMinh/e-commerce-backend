@@ -26,18 +26,18 @@ public class CategoryCommandController {
   private final CommandGateway commandGateway;
 
   /// =========================== ADMIN ROLE =========================== ///
-
   /// Hàm tạo mới danh mục sản phẩm.
   /// DONE!!!
   @PostMapping(value = "")
   public ResponseEntity<ResponseData> createCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
     CreateCategoryCommand command = CreateCategoryCommand.builder()
             .id(UUID.randomUUID().toString())
+            .parentId(categoryDTO.getParentId())
             .name(categoryDTO.getName())
             .description(categoryDTO.getDescription())
             .build();
 
-    commandGateway.sendAndWait(command, 10000, TimeUnit.MILLISECONDS);
+    commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);
     return ResponseEntity.status(HttpStatus.CREATED.value()).body(new ResponseData(200, "Success", null));
   }
 
@@ -47,11 +47,12 @@ public class CategoryCommandController {
   public ResponseEntity<ResponseData> updateCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
     UpdateCategoryCommand command = UpdateCategoryCommand.builder()
             .id(categoryDTO.getId())
+            .parentId(categoryDTO.getParentId())
             .name(categoryDTO.getName())
             .description(categoryDTO.getDescription())
             .build();
 
-    commandGateway.sendAndWait(command, 10000, TimeUnit.MILLISECONDS);
+    commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);
     return ResponseEntity.status(HttpStatus.OK.value()).body(new ResponseData(200, "Category is updated successfully!", null));
   }
 
@@ -61,7 +62,7 @@ public class CategoryCommandController {
     DeleteCategoryCommand command = DeleteCategoryCommand.builder()
             .id(id)
             .build();
-    commandGateway.sendAndWait(command, 10000, TimeUnit.MILLISECONDS);
+    commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);
     return ResponseEntity.status(HttpStatus.OK.value()).body(new ResponseData(200, "Category is deleted successfully!", null));
   }
 

@@ -8,6 +8,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class CreateCategoryCommand {
   @TargetAggregateIdentifier
   private String id;
+  private String parentId;
   private String name;
   private String description;
 }

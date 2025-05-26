@@ -20,9 +20,7 @@ public class ProductProjection {
 
   @EventHandler
   public void on(ProductCreatedEvent event) {
-    Product product = new Product();
-    BeanUtils.copyProperties(event, product);
-    productService.createProduct(product);
+    productService.createProduct(event);
   }
 
   @EventHandler

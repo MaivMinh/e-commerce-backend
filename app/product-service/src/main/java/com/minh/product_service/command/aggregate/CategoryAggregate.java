@@ -23,6 +23,7 @@ import org.springframework.beans.BeanUtils;
 public class CategoryAggregate {
   @AggregateIdentifier
   private String id;
+  private String parentId;
   private String name;
   private String description;
   private String errorMsg;
@@ -36,7 +37,6 @@ public class CategoryAggregate {
     /// Create new events.
     CategoryCreatedEvent event = new CategoryCreatedEvent();
     BeanUtils.copyProperties(command, event);
-
     /// Apply events to the aggregate.
     AggregateLifecycle.apply(event);
   }
@@ -44,6 +44,7 @@ public class CategoryAggregate {
   @EventSourcingHandler
   public void on(CategoryCreatedEvent event) {
     this.id = event.getId();
+    this.parentId = event.getParentId();
     this.name = event.getName();
     this.description = event.getDescription();
   }
@@ -59,6 +60,7 @@ public class CategoryAggregate {
   public void on(CategoryUpdatedEvent event) {
     /// Khi thực hiện update thì không phải truyền id vào. Vì ID không được phép thay đổi.
     this.name = event.getName();
+    this.parentId = event.getParentId();
     this.description = event.getDescription();
   }
 
@@ -75,7 +77,9 @@ public class CategoryAggregate {
   @EventSourcingHandler
   public void on(CategoryDeletedEvent event) {
     /// Xóa danh mục sản phẩm.
+    this.id = null;
     this.name = null;
+    this.parentId = null;
     this.description = null;
     this.errorMsg = null;
   }

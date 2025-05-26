@@ -28,15 +28,11 @@ public class CategoryProjection {
 
   @EventHandler
   public void on(CategoryUpdatedEvent event) {
-    Category category = new Category();
-    BeanUtils.copyProperties(event, category);
-    categoryService.updateCategory(category);
+    categoryService.updateCategory(event);
   }
 
   @EventHandler
   public void on(CategoryDeletedEvent event) {
-    Category category = new Category();
-    BeanUtils.copyProperties(event, category);
-    categoryService.deleteCategory(category);
+    categoryService.deleteCategory(event);
   }
 }

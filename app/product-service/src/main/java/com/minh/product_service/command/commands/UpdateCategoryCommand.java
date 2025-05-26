@@ -11,6 +11,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class UpdateCategoryCommand {
   @TargetAggregateIdentifier
   private String id;
+  private String parentId; // Optional, can be null if no parent category.
   private String name;
   private String description;
 }

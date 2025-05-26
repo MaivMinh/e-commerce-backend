@@ -132,7 +132,7 @@ create table if not exists `promotion_product_mappings`
 );
 create index idx_promotion_product_mappings_product_id on promotion_product_mappings (product_id);
 
-create table if not exists `wishlists`
+create table `wishlists`
 (
     id           varchar(255) primary key,
     user_id      varchar(255) not null, -- one user just has one wishlist
@@ -143,7 +143,7 @@ create table if not exists `wishlists`
 );
 create index idx_wishlists_user_id on wishlists (user_id);
 
-create table if not exists `wishlists_products`
+create table `wishlists_products`
 (
     id           varchar(255) primary key,
     wishlist_id  varchar(255) not null,

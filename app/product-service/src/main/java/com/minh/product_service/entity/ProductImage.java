@@ -13,6 +13,6 @@ import lombok.Setter;
 public class ProductImage extends BaseEntity {
   @Id
   private String id;
-  private Integer productId;
+  private String productId;
   private String url;
 }
