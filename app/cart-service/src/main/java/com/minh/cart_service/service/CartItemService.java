@@ -105,7 +105,6 @@ public class CartItemService {
               .build();
 
       FindProductVariantsByIdsResponse response = productServiceGrpcClient.findProductVariantsByIds(request);
-      System.out.println("Size of response " + response.getProductVariantsCount());
       if (response.getStatus() != HttpStatus.OK.value()) {
         return ResponseData.builder()
                 .status(response.getStatus())
@@ -117,6 +116,7 @@ public class CartItemService {
       List<CartItemDTO> cartItemDTOs = response.getProductVariantsList().stream().map(productVariant -> {
         CartItemDTO cartItemDTO = new CartItemDTO();
         cartItemDTO.setId(productVariant.getCartItemId());
+        cartItemDTO.setCartId(cart.getId());
         cartItemDTO.setQuantity(cartItemRepository.findQuantityById(cartItemDTO.getId()));
         cartItemDTO.setProductVariantDTO(
                 ProductVariantDTO.builder()
