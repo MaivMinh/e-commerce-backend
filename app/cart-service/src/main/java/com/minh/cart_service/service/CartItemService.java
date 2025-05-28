@@ -37,7 +37,6 @@ public class CartItemService {
         newCart.setAccountId(accountId);
         return cartRepository.save(newCart);
       });
-      System.out.println("Cart ID: " + saved.getId());
 
       CartItem cartItem = new CartItem();
       cartItem.setId(UUID.randomUUID().toString());

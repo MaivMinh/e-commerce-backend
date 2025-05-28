@@ -5,56 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/DTOs/CartDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/DTOs/CartItemDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/DTOs/CartItemMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/DTOs/ProductVariantDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/aspect/LoggerAspect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/audit/AuditAwareImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/config/ProjectSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/controller/CartController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/exception/CartAlreadyExistsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/exception/ResourceNotFoundException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/grpc/ProductServiceGrpcClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/interceptor/CircuitBreakerClientInterceptor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/mapper/CartItemMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/mapper/CartMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/model/BaseEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/model/Cart.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/model/CartItem.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/repository/CartItemRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/repository/CartRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/response/ResponseData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/response/ResponseError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/service/CartItemService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/proto/product.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/cart-service/src/main/resources/schema.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductCartDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductVariantMessageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/grpc/ProductServiceServerGrpc.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/proto/product.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/cart-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/CartServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/CartServiceApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/ProductVariantAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/ProductVariantAggregate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateProductVariantCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateProductVariantCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/UpdateProductVariantCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/UpdateProductVariantCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/ProductCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/ProductCommandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/ProductVariantCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/ProductVariantCreatedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/ProductVariantUpdatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/ProductVariantUpdatedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductVariantDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductVariantDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductVariant.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ProductVariant.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/ProductVariantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/ProductVariantQueryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/repository/ProductVariantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/repository/ProductVariantRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductVariantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductVariantService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/resources/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/controller/ProductServiceFallbackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/controller/FallbackController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/DTOs/CartItemDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/DTOs/CartItemDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/controller/CartController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -332,7 +288,9 @@
       <workItem from="1748355169543" duration="4691000" />
       <workItem from="1748397373824" duration="548000" />
       <workItem from="1748397945783" duration="2761000" />
-      <workItem from="1748400733846" duration="7646000" />
+      <workItem from="1748400733846" duration="7902000" />
+      <workItem from="1748417211696" duration="359000" />
+      <workItem from="1748417886869" duration="2361000" />
     </task>
     <servers />
   </component>

@@ -33,6 +33,17 @@ spring:
               args:
                 name: default
                 fallbackUri: "forward:/products/contact-support"
+
+        - id: cart-service
+          uri: lb://cart-service
+          predicates:
+            - Path=/api/carts/**,/api/carts
+            - Method=GET,POST,PUT,DELETE,PATCH
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: default
+                fallbackUri: "forward:/carts/contact-support"
   data:
     redis:
       host: ${SPRING_DATA_REDIS_HOST:localhost}
