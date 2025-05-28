@@ -15,5 +15,6 @@ public class ProductVariantDTO {
   private String colorName;
   private String colorHex;
   private Double price;
+  private Double originalPrice;
   private Integer quantity;
 }

@@ -3,7 +3,9 @@ package com.minh.product_service.service;
 import com.minh.product_service.command.events.ProductCreatedEvent;
 import com.minh.product_service.command.events.ProductDeletedEvent;
 import com.minh.product_service.command.events.ProductUpdatedEvent;
+import com.minh.product_service.dto.ProductCartDTO;
 import com.minh.product_service.dto.ProductDTO;
+import com.minh.product_service.dto.ProductVariantMessageDTO;
 import com.minh.product_service.entity.Product;
 import com.minh.product_service.entity.ProductImage;
 import com.minh.product_service.entity.ProductStatus;
@@ -14,7 +16,9 @@ import com.minh.product_service.query.queries.SearchProductsQuery;
 import com.minh.product_service.repository.CategoryRepository;
 import com.minh.product_service.repository.ProductImageRepository;
 import com.minh.product_service.repository.ProductRepository;
+import com.minh.product_service.repository.ProductVariantRepository;
 import com.minh.product_service.response.ResponseData;
+import com.minh.product_service_grpc.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -40,8 +44,8 @@ import static org.springframework.data.jpa.domain.Specification.where;
 @RequiredArgsConstructor
 public class ProductService {
   private final ProductRepository productRepository;
-  private final ImageProcessingService imageProcessingService;
   private final ProductImageRepository productImageRepository;
+  private final ProductVariantRepository productVariantRepository;
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)
   /// Done.
@@ -183,5 +187,72 @@ public class ProductService {
     List<String> images = new ArrayList<>(productImageRepository.findImagesByProductId(saved.get().getId()));
     productDTO.setImages(images);
     return productDTO;
+  }
+
+  /// Hàm thực hiện tìm kiếm biến thể sản phẩm theo ID.
+  public FindProductVariantByIdResponse findProductVariantById(FindProductVariantByIdRequest request) {
+    try {
+      String productVariantId = request.getProductVariantId();
+      Optional<ProductCartDTO> productCartDTO = productVariantRepository.findProductCartDTOByProductVariantId(productVariantId);
+      if (productCartDTO.isPresent()) {
+        ProductCartDTO dto = productCartDTO.get();
+        return FindProductVariantByIdResponse.newBuilder()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("Success")
+                .setProductVariant(ProductVariant.newBuilder()
+                        .setId(dto.getProductVariantId())
+                        .setName(dto.getProductName())
+                        .setSlug(dto.getProductSlug())
+                        .setCover(dto.getProductCover())
+                        .setPrice(dto.getProductVariantPrice())
+                        .setOriginalPrice(dto.getProductVariantOriginalPrice())
+                        .setSize(dto.getProductVariantSize())
+                        .setColorName(dto.getProductVariantColorName())
+                        .setColorHex(dto.getProductVariantColorHex())
+                        .build())
+                .build();
+      }
+
+      return null;
+    } catch (Exception e) {
+      log.error("Error occurred while finding product variant by ID: {}", e.getMessage());
+      return FindProductVariantByIdResponse.newBuilder()
+              .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+              .setMessage("Error occurred while finding product variant by ID: " + e.getMessage())
+              .build();
+    }
+  }
+
+  public FindProductVariantsByIdsResponse findProductVariantsByIds(FindProductVariantsByIdsRequest request) {
+    try {
+      List<ProductVariantMessageDTO> dtos = request.getCartItemsList().stream().map(item -> {
+        ProductVariantMessageDTO dto = productVariantRepository.findProductVariantById(item.getProductVariantId());
+        dto.setCartItemId(item.getCartItemId());
+        dto.setProductVariantId(item.getProductVariantId());
+        return dto;
+      }).toList();
+      return FindProductVariantsByIdsResponse.newBuilder()
+              .setStatus(HttpStatus.OK.value())
+              .setMessage("Success")
+              .addAllProductVariants(dtos.stream().map(dto -> ProductVariantMessage.newBuilder()
+                      .setCartItemId(dto.getCartItemId())
+                      .setProductVariantId(dto.getProductVariantId())
+                      .setProductName(dto.getProductName())
+                      .setProductSlug(dto.getProductSlug())
+                      .setProductCover(dto.getProductCover())
+                      .setProductVariantSize(dto.getProductVariantSize())
+                      .setProductVariantColorName(dto.getProductVariantColorName())
+                      .setProductVariantColorHex(dto.getProductVariantColorHex())
+                      .setProductVariantPrice(dto.getProductVariantPrice())
+                      .setProductVariantOriginalPrice(dto.getProductVariantOriginalPrice())
+                      .build()).collect(Collectors.toList()))
+              .build();
+    } catch (Exception e) {
+      log.error("Error occurred while finding product variants by IDs: {}", e.getMessage());
+      return FindProductVariantsByIdsResponse.newBuilder()
+              .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
+              .setMessage("Error occurred while finding product variants by IDs: " + e.getMessage())
+              .build();
+    }
   }
 }

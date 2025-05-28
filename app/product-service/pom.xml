@@ -62,6 +62,21 @@
             <version>4.11.2</version>
         </dependency>
         <!--        Axon Framework Configurations-->
+
+
+        <!--        gRPC dependencies-->
+        <dependency> <!-- necessary for Java 9+ -->
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>annotations-api</artifactId>
+            <version>6.0.53</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.devh</groupId>
+            <artifactId>grpc-server-spring-boot-starter</artifactId>
+            <version>${grpc-server-spring-boot-starter.version}</version>
+        </dependency>
+        <!--        gRPC dependencies-->
     </dependencies>
 
     <build>

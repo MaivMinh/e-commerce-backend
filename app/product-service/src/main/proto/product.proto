@@ -1,0 +1,59 @@
+syntax = "proto3";
+
+package net.devh.boot.grpc.example;
+option java_multiple_files = true;
+option java_outer_classname = "ProductProto";
+option java_package = "com.minh.product_service_grpc";
+
+service ProductService {
+  rpc FindProductVariantById(FindProductVariantByIdRequest) returns (FindProductVariantByIdResponse);
+  rpc FindProductVariantsByIds(FindProductVariantsByIdsRequest) returns (FindProductVariantsByIdsResponse);
+
+}
+message FindProductVariantByIdRequest {
+  string product_variant_id = 1;
+}
+message ProductVariant {
+  string id = 1;
+  string name = 2;
+  string slug = 3;
+  string size = 4;
+  string colorName = 5;
+  string colorHex = 6;
+  string cover = 7;
+  double price = 8;
+  double originalPrice = 9;
+}
+message FindProductVariantByIdResponse {
+  int32 status = 1;
+  string message = 2;
+  ProductVariant productVariant = 3;
+}
+
+message CartItemMessageGrpc {
+  string cartItemId = 1;
+  string productVariantId = 2;
+}
+
+message ProductVariantMessage {
+  string cartItemId = 1;
+  string productVariantId = 2;
+  string productName = 3;
+  string productSlug = 4;
+  string productVariantSize = 5;
+  string productVariantColorName = 6;
+  string productVariantColorHex = 7;
+  string productCover = 8;
+  double productVariantPrice = 9;
+  double productVariantOriginalPrice = 10;
+}
+
+message FindProductVariantsByIdsRequest {
+  repeated CartItemMessageGrpc cartItems = 1;
+}
+
+message FindProductVariantsByIdsResponse {
+  int32 status = 1;
+  string message = 2;
+  repeated ProductVariantMessage productVariants = 3;
+}

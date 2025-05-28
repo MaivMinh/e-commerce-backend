@@ -25,6 +25,7 @@ public class ProductVariantAggregate {
   private String colorName;
   private String colorHex;
   private Double price;
+  private Double originalPrice;
   private Integer quantity;
   private String errorMsg;
 
@@ -48,6 +49,7 @@ public class ProductVariantAggregate {
     this.colorName = event.getColorName();
     this.colorHex = event.getColorHex();
     this.price = event.getPrice();
+    this.originalPrice = event.getOriginalPrice();
     this.quantity = event.getQuantity();
   }
 
@@ -65,6 +67,7 @@ public class ProductVariantAggregate {
     this.colorName = event.getColorName();
     this.colorHex = event.getColorHex();
     this.price = event.getPrice();
+    this.originalPrice = event.getOriginalPrice();
     this.quantity = event.getQuantity();
   }
 

@@ -39,6 +39,7 @@ public class ProductVariantService {
               .colorName(event.getColorName())
               .colorHex(event.getColorHex())
               .price(event.getPrice())
+              .originalPrice(event.getOriginalPrice())
               .quantity(event.getQuantity())
               .build();
       /// Save product variant to database.
@@ -60,6 +61,7 @@ public class ProductVariantService {
       productVariant.setColorName(event.getColorName());
       productVariant.setColorHex(event.getColorHex());
       productVariant.setPrice(event.getPrice());
+      productVariant.setOriginalPrice(event.getOriginalPrice());
       productVariant.setQuantity(event.getQuantity());
       /// Save updated product variant to database.
       productVariantRepository.save(productVariant);
@@ -82,6 +84,7 @@ public class ProductVariantService {
               .colorName(productVariant.getColorName())
               .colorHex(productVariant.getColorHex())
               .price(productVariant.getPrice())
+              .originalPrice(productVariant.getOriginalPrice())
               .quantity(productVariant.getQuantity())
               .build();
 
@@ -118,6 +121,7 @@ public class ProductVariantService {
               .colorName(productVariant.getColorName())
               .colorHex(productVariant.getColorHex())
               .price(productVariant.getPrice())
+              .originalPrice(productVariant.getOriginalPrice())
               .quantity(productVariant.getQuantity())
               .build()).collect(Collectors.toList());
 
@@ -158,6 +162,7 @@ public class ProductVariantService {
               .colorName(productVariant.getColorName())
               .colorHex(productVariant.getColorHex())
               .price(productVariant.getPrice())
+              .originalPrice(productVariant.getOriginalPrice())
               .quantity(productVariant.getQuantity())
               .build()).collect(Collectors.toList());
 
