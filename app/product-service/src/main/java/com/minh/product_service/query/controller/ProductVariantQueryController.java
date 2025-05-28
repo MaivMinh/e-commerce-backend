@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(value = "/api/products", produces = {"application/json"})
 @RequiredArgsConstructor
 @Validated
-public class ProductVariantController {
+public class ProductVariantQueryController {
   private final QueryGateway queryGateway;
 
   /// Hàm này dùng để lấy tất cả các biến thể sản phẩm với phân trang và sắp xếp.

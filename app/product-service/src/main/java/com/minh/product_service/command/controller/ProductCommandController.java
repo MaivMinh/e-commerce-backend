@@ -125,6 +125,7 @@ public class ProductCommandController {
             .colorName(productVariantDTO.getColorName())
             .colorHex(productVariantDTO.getColorHex())
             .price(productVariantDTO.getPrice())
+            .originalPrice(productVariantDTO.getOriginalPrice())
             .quantity(productVariantDTO.getQuantity())
             .build();
     commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);
@@ -148,6 +149,7 @@ public class ProductCommandController {
             .colorName(productVariantDTO.getColorName())
             .colorHex(productVariantDTO.getColorHex())
             .price(productVariantDTO.getPrice())
+            .originalPrice(productVariantDTO.getOriginalPrice())
             .quantity(productVariantDTO.getQuantity())
             .build();
     commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);

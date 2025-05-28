@@ -1,159 +1,107 @@
-create table if not exists `categories`
+-- 2. Quản lý Sản Phẩm
+CREATE TABLE Categories
 (
-    id           varchar(255) primary key,
-    name         varchar(255) not null,
-    description  varchar(255),
-    `created_at` date         NOT NULL,
-    `created_by` varchar(20)  NOT NULL,
-    `updated_at` date        DEFAULT NULL,
-    `updated_by` varchar(20) DEFAULT NULL
+    id          VARCHAR(36) PRIMARY KEY,
+    parent_id   VARCHAR(36),
+    name        VARCHAR(100)                NOT NULL,
+    slug        VARCHAR(120)                NOT NULL UNIQUE,
+    description TEXT,
+    image       VARCHAR(255),
+    status      ENUM ('active', 'inactive') NOT NULL DEFAULT 'active',
+    created_at  TIMESTAMP                   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by  varchar(255)                NOT NULL,
+    updated_at  TIMESTAMP                   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_by  varchar(255)                         DEFAULT NULL,
+    FOREIGN KEY (parent_id) REFERENCES Categories (id) ON DELETE SET NULL
 );
 
-create table if not exists `sub_categories`
+CREATE TABLE Products
 (
-    id           varchar(255) primary key,
-    parent_id    varchar(255),
-    name         varchar(255) not null,
-    description  varchar(255),
-    `created_at` date         NOT NULL,
-    `created_by` varchar(20)  NOT NULL,
-    `updated_at` date        DEFAULT NULL,
-    `updated_by` varchar(20) DEFAULT NULL,
-    foreign key (parent_id) references categories (id)
-);
-create index idx_sub_categories_parent_id on sub_categories (parent_id);
-
-create table if not exists `products`
-(
-    id           varchar(255) primary key,
-    name         varchar(255) not null,
-    description  varchar(255),
-    cover        varchar(255),
-    `created_at` date         NOT NULL,
-    `created_by` varchar(20)  NOT NULL,
-    `updated_at` date        DEFAULT NULL,
-    `updated_by` varchar(20) DEFAULT NULL
+    id             VARCHAR(36) PRIMARY KEY,
+    name           VARCHAR(255)                                NOT NULL,
+    slug           VARCHAR(300)                                NOT NULL UNIQUE,
+    description    TEXT,
+    cover_image    VARCHAR(255),
+    price          DECIMAL(15, 2)                              NOT NULL,
+    original_price DECIMAL(15, 2),
+    status         ENUM ('active', 'inactive', 'out_of_stock') NOT NULL DEFAULT 'active',
+    is_featured    BOOLEAN                                     NOT NULL DEFAULT FALSE,
+    is_new         BOOLEAN                                     NOT NULL DEFAULT FALSE,
+    is_bestseller  BOOLEAN                                     NOT NULL DEFAULT FALSE,
+    category_id    VARCHAR(36),
+    created_at     TIMESTAMP                                   NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by     varchar(255)                                NOT NULL,
+    updated_at     TIMESTAMP                                   NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_by     varchar(255)                                         DEFAULT NULL,
+    FOREIGN KEY (category_id) REFERENCES Categories (id) ON DELETE SET NULL
 );
 
-CREATE TABLE IF NOT EXISTS `product_images`
+CREATE TABLE ProductImages
 (
-    id           varchar(255) PRIMARY KEY,
-    product_id   varchar(255) NOT NULL,
-    url          VARCHAR(255) NOT NULL,
-    `created_at` date         NOT NULL,
-    `created_by` varchar(20)  NOT NULL,
-    `updated_at` date        DEFAULT NULL,
-    `updated_by` varchar(20) DEFAULT NULL,
-    FOREIGN KEY (product_id) REFERENCES products (id)
-);
-create index idx_product_images_product_id on product_images (product_id);
-
-
-create table if not exists `products_sub_categories`
-(
-    id              varchar(255) primary key,
-    product_id      varchar(255) not null,
-    sub_category_id varchar(255) not null,
-    `created_at`    date         NOT NULL,
-    `created_by`    varchar(20)  NOT NULL,
-    `updated_at`    date        DEFAULT NULL,
-    `updated_by`    varchar(20) DEFAULT NULL,
-    foreign key (product_id) references products (id),
-    foreign key (sub_category_id) references sub_categories (id)
-);
-create index idx_products_sub_categories_product_id on products_sub_categories (product_id);
-
-create table if not exists `product_skus`
-(
-    id                 varchar(255) primary key,
-    product_id         varchar(255)   not null,
-    size_attribute_id  varchar(255),
-    color_attribute_id varchar(255),
-    price              decimal(10, 2) not null,
-    quantity           int            not null,
-    `created_at`       date           NOT NULL,
-    `created_by`       varchar(20)    NOT NULL,
-    `updated_at`       date        DEFAULT NULL,
-    `updated_by`       varchar(20) DEFAULT NULL
-);
-create index idx_product_skus_size_attribute_id on product_skus (size_attribute_id);
-create index idx_product_skus_color_attribute_id on product_skus (color_attribute_id);
-
-
-create table if not exists `product_attributes`
-(
-    id           varchar(255) primary key,
-    type         varchar(255) not null, -- ENUM ('color', 'size')
-    value        varchar(255) not null,
-    `created_at` date         NOT NULL,
-    `created_by` varchar(20)  NOT NULL,
-    `updated_at` date        DEFAULT NULL,
-    `updated_by` varchar(20) DEFAULT NULL
+    id            VARCHAR(36) PRIMARY KEY,
+    product_id    VARCHAR(36)  NOT NULL,
+    image_url     VARCHAR(255) NOT NULL,
+    display_order INT          NOT NULL DEFAULT 0,
+    created_at    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by    varchar(255) NOT NULL,
+    updated_at    TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_by    varchar(255)          DEFAULT NULL,
+    FOREIGN KEY (product_id) REFERENCES Products (id) ON DELETE CASCADE
 );
 
-create table if not exists `product_attributes_product_skus`
+CREATE TABLE ProductVariants
 (
-    id                   varchar(255) primary key,
-    product_sku_id       varchar(255) not null,
-    product_attribute_id varchar(255) not null,
-    `created_at`         date         NOT NULL,
-    `created_by`         varchar(20)  NOT NULL,
-    `updated_at`         date        DEFAULT NULL,
-    `updated_by`         varchar(20) DEFAULT NULL,
-    foreign key (product_sku_id) references product_skus (id),
-    foreign key (product_attribute_id) references product_attributes (id)
-);
-create index idx_product_attributes_product_skus_product_sku_id on product_attributes_product_skus (product_sku_id);
-create index idx_product_attributes_product_skus_product_attribute_id on product_attributes_product_skus (product_attribute_id);
-
-create table if not exists `promotions`
-(
-    id           varchar(255) primary key,
-    name         varchar(255) not null,
-    description  varchar(255),
-    start_date   timestamp    not null,
-    end_date     timestamp    not null,
-    `created_at` date         NOT NULL,
-    `created_by` varchar(20)  NOT NULL,
-    `updated_at` date        DEFAULT NULL,
-    `updated_by` varchar(20) DEFAULT NULL
+    id             VARCHAR(36) PRIMARY KEY,
+    product_id     VARCHAR(36)    NOT NULL,
+    -- Trong các biến thể của Product, sẽ không có 2 variant nào có cùng size và color_hex.
+    -- Điều này đảm bảo rằng mỗi biến thể là duy nhất theo size và color.
+    -- Khi client nhấn chọn size, thì hệ thống sẽ lọc ra các biến thể có size đó. Tiếp đó, người dùng chọn color, và sẽ chỉ hiển thị ra 1 biến thể duy nhất đi kèm số lượng.
+    size           VARCHAR(20)    NOT NULL,
+    color_name     VARCHAR(50)    NOT NULL,
+    color_hex      VARCHAR(10),
+    price          DECIMAL(15, 2) NOT NULL,
+    stock_quantity INT            NOT NULL DEFAULT 0,
+    sku            VARCHAR(100)   NOT NULL UNIQUE,
+    created_at     TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by     varchar(255)   NOT NULL,
+    updated_at     TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_by     varchar(255)            DEFAULT NULL,
+    FOREIGN KEY (product_id) REFERENCES Products (id) ON DELETE CASCADE
 );
 
-create table if not exists `promotion_product_mappings`
+-- 7. Danh Sách Yêu Thích
+CREATE TABLE Wishlists
 (
-    id           varchar(255) primary key,
-    promotion_id varchar(255) not null,
-    product_id   varchar(255) not null,
-    `created_at` date         NOT NULL,
-    `created_by` varchar(20)  NOT NULL,
-    `updated_at` date        DEFAULT NULL,
-    `updated_by` varchar(20) DEFAULT NULL,
-    foreign key (product_id) references products (id)
-);
-create index idx_promotion_product_mappings_product_id on promotion_product_mappings (product_id);
-
-create table `wishlists`
-(
-    id           varchar(255) primary key,
-    user_id      varchar(255) not null, -- one user just has one wishlist
-    `created_at` date         NOT NULL,
-    `created_by` varchar(20)  NOT NULL,
-    `updated_at` date        DEFAULT NULL,
-    `updated_by` varchar(20) DEFAULT NULL
-);
-create index idx_wishlists_user_id on wishlists (user_id);
-
-create table `wishlists_products`
-(
-    id           varchar(255) primary key,
-    wishlist_id  varchar(255) not null,
-    product_id   varchar(255) not null, -- will be referred to products table, not product_skus table.
-    `created_at` date         NOT NULL,
-    `created_by` varchar(20)  NOT NULL,
-    `updated_at` date        DEFAULT NULL,
-    `updated_by` varchar(20) DEFAULT NULL,
-    foreign key (wishlist_id) references wishlists (id),
-    foreign key (product_id) references products (id)
+    id         VARCHAR(36)  PRIMARY KEY,
+    account_id    VARCHAR(36)  NOT NULL,
+    created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by varchar(255) NOT NULL,
+    updated_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_by varchar(255)          DEFAULT NULL,
+    UNIQUE KEY (account_id) -- mỗi người dùng chỉ có một danh sách yêu thích
 );
 
-create index idx_wishlists_products_product_id on wishlists_products (product_id);
+CREATE TABLE IF NOT EXISTS WishlistProducts
+(
+    id          VARCHAR(36)  PRIMARY KEY,
+    wishlist_id VARCHAR(36)  NOT NULL,
+    product_id  VARCHAR(36)  NOT NULL,
+    created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by  varchar(255) NOT NULL,
+    updated_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_by  varchar(255)          DEFAULT NULL,
+    FOREIGN KEY (wishlist_id) REFERENCES Wishlists (id) ON DELETE CASCADE,
+    FOREIGN KEY (product_id) REFERENCES Products (id) ON DELETE CASCADE,
+    UNIQUE KEY (wishlist_id, product_id) -- mỗi sản phẩm chỉ có thể có một lần trong danh sách yêu thích
+);
+
+CREATE INDEX idx_categories_parent ON Categories (parent_id);
+create index idx_categories_slug ON Categories (slug);
+create index idx_products_slug ON Products (slug);
+CREATE INDEX idx_products_category ON Products (category_id);
+CREATE INDEX idx_products_featured ON Products (is_featured);
+CREATE INDEX idx_products_bestseller ON Products (is_bestseller);
+create index idx_product_variants_product ON ProductVariants (product_id);
+create index ix_product_images_product ON ProductImages (product_id);
+create index idx_wishlist on Wishlists (user_id);
+CREATE INDEX idx_wishlist_products ON WishlistProducts (wishlist_id, product_id);
