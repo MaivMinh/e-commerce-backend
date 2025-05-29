@@ -18,4 +18,10 @@ public class RedisService {
   public void set(String key, String value, long ttl) {
     redisOperations.opsForValue().set(key, value, Duration.ofSeconds(ttl));
   }
+
+  public void delete(String s) {
+    if (Boolean.TRUE.equals(redisOperations.hasKey(s))) {
+      redisOperations.delete(s);
+    }
+  }
 }

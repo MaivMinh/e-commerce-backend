@@ -65,6 +65,15 @@ spring:
     virtual:
       enabled: true
 
+
+grpc:
+  client:
+    authService:
+      address: ${GRPC_SERVER_AUTH_SERVICE_ADDRESS:static://localhost:9093}
+      negotiation-type: plaintext
+      enable-keep-alive: true
+      keep-alive-without-calls: true
+
 management:
   # Cấu hình dành cho phần metrics của Spring Boot Actuator. Tìm hiểu sau.
   metrics:
@@ -119,11 +128,11 @@ resilience4j:
   # Just like the CircuitBreaker module, this module provides an in-memory TimeLimiterRegistry which you can use to manage (create and retrieve) TimeLimiter instances.
   # Điều này có nghĩa là TimeLimiter cũng sẽ là một Resiliency Pattern trong Resilience4j.
   # Do đó, chúng ta cũng có thể sử dụng auto-configuration của Spring Boot để tự động cấu hình cho TimeLimiter.
-#  timelimiter:
-#    instances:
-#      default:
-#        timeout-duration: 20s
-#        cancel-running-future: false
+  timelimiter:
+    instances:
+      authService:
+        timeout-duration: 10s
+        cancel-running-future: true
   circuitbreaker:
     instances:
       authService:

@@ -1,6 +1,5 @@
 package com.minh.auth_service.services;
 
-import com.google.auth.oauth2.AccessToken;
 import com.minh.auth_service.DTOs.AccountDTO;
 import com.minh.auth_service.DTOs.LoginDTO;
 import com.minh.auth_service.DTOs.ProfileDTO;
@@ -10,6 +9,9 @@ import com.minh.auth_service.model.Role;
 import com.minh.auth_service.model.Status;
 import com.minh.auth_service.repository.AccountRepository;
 import com.minh.auth_service.response.ResponseData;
+import com.minh.grpc_service.auth.AuthInfo;
+import com.minh.grpc_service.auth.AuthRequest;
+import com.minh.grpc_service.auth.AuthResponse;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -30,6 +32,8 @@ import org.springframework.web.client.RestClient;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.*;
 
 @Slf4j
@@ -74,11 +78,10 @@ public class AuthService {
     }
   }
 
-
   public ResponseData register(@Valid AccountDTO accountDTO) {
     try {
       /// Hàm tạo một Account mới bên trong hệ thống.
-      Optional<Account> saved = accountRepository.checkWhetherAccountIsValidOrNot(accountDTO.getUsername(), accountDTO.getEmail());
+      Optional<Account> saved = accountRepository.checkWhetherAccountIsAlreadyExistsOrNot(accountDTO.getUsername(), accountDTO.getEmail());
       if (saved.isPresent()) {
         return ResponseData.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
@@ -261,7 +264,7 @@ public class AuthService {
             .compact();
 
     /// Trả dữ liệu về cho client, trả về access token và refresh token. Bên cạnh đó, lưu trữ refresh token vào Redis để có thể sử dụng lại sau này.
-    redisService.set(refreshToken, saved.getId(), refreshTokenExpiration / 1000); // Lưu trữ refresh token vào Redis với thời gian hết hạn tương ứng
+    redisService.set("refresh_token:" + saved.getId(), refreshToken, refreshTokenExpiration / 1000); // Lưu trữ refresh token vào Redis với thời gian hết hạn tương ứng
 
     return ResponseData.builder()
             .status(HttpStatus.OK.value())
@@ -420,6 +423,152 @@ public class AuthService {
     return ResponseData.builder()
             .status(HttpStatus.OK.value())
             .message("Password reset successfully")
+            .build();
+  }
+
+  /// Hàm thực hiện refresh token.
+  public ResponseData refreshToken(String token) {
+    if (!StringUtils.hasText(token)) {
+      return ResponseData.builder()
+              .status(HttpStatus.BAD_REQUEST.value())
+              .message("Token is empty")
+              .build();
+    }
+
+    Claims claims;
+    try {
+      claims = Jwts.parserBuilder()
+              .setSigningKey(Keys.hmacShaKeyFor(refreshToken.getBytes(StandardCharsets.UTF_8)))
+              .build()
+              .parseClaimsJws(token)
+              .getBody();
+    } catch (RuntimeException e) {
+      return ResponseData.builder()
+              .status(HttpStatus.UNAUTHORIZED.value())
+              .message("Token is invalid")
+              .build();
+    }
+
+    String accountId = claims.get("account_id").toString();
+    Optional<Account> account = accountRepository.findAccountById(accountId);
+    if (account.isEmpty()) {
+      return ResponseData.builder()
+              .status(HttpStatus.NOT_FOUND.value())
+              .message("Account not found")
+              .build();
+    }
+    Account saved = account.get();
+    SecretKey secretKey = Keys.hmacShaKeyFor(accessToken.getBytes(StandardCharsets.UTF_8));
+    String newAccessToken = Jwts.builder()
+            .setIssuer("auth-service")
+            .setSubject("Access Token")
+            .addClaims(Map.of("account_id", saved.getId(), "role", saved.getRole().toString()))
+            .setExpiration(new Date(System.currentTimeMillis() + expiration)) ///  12 hour.
+            .setIssuedAt(new Date())
+            .signWith(secretKey)
+            .compact();
+
+    return ResponseData.builder()
+            .status(HttpStatus.OK.value())
+            .message("Refresh token successfully")
+            .data(Map.of("accessToken", newAccessToken))
+            .build();
+  }
+
+  public ResponseData logout(String token) {
+    System.out.println("Received access token for logout: " + token);
+
+    if (!StringUtils.hasText(accessToken)) {
+      return ResponseData.builder()
+              .status(HttpStatus.BAD_REQUEST.value())
+              .message("Access token is empty")
+              .build();
+    }
+
+    Claims claims;
+    try {
+      claims = Jwts.parserBuilder()
+              .setSigningKey(Keys.hmacShaKeyFor(accessToken.getBytes(StandardCharsets.UTF_8)))
+              .build()
+              .parseClaimsJws(token)
+              .getBody();
+    } catch (RuntimeException e) {
+      return ResponseData.builder()
+              .status(HttpStatus.UNAUTHORIZED.value())
+              .message("Access token is invalid")
+              .build();
+    }
+
+    String accountId = claims.get("account_id").toString();
+    redisService.delete("refresh_token:" + accountId); // Xóa refresh token khỏi Redis
+    /// Thêm access token vào blacklist (nếu có)
+
+    // Parse token để lấy thời gian hết hạn
+    Date expiration = Jwts.parserBuilder()
+            .setSigningKey(Keys.hmacShaKeyFor(accessToken.getBytes(StandardCharsets.UTF_8)))
+            .build()
+            .parseClaimsJws(token)
+            .getBody()
+            .getExpiration();
+
+    long ttl = Duration.between(Instant.now(), expiration.toInstant()).getSeconds();
+    redisService.set("blacklist:" + token, "true", ttl); // Lưu access token vào blacklist với thời gian hết hạn tương ứng
+    return ResponseData.builder()
+            .status(HttpStatus.OK.value())
+            .message("Logout successfully")
+            .build();
+  }
+
+  public AuthResponse authenticate(AuthRequest request) {
+    String token = request.getToken();
+    System.out.println("Token received for authentication: " + token);
+
+    if (!StringUtils.hasText(token)) {
+      return AuthResponse.newBuilder()
+              .setIsValid(false)
+              .setMessage("Token is empty")
+              .build();
+    }
+
+    Claims claims;
+    try {
+      claims = Jwts.parserBuilder()
+              .setSigningKey(Keys.hmacShaKeyFor(accessToken.getBytes(StandardCharsets.UTF_8)))
+              .build()
+              .parseClaimsJws(token)
+              .getBody();
+    } catch (RuntimeException e) {
+      return AuthResponse.newBuilder()
+              .setIsValid(false)
+              .setMessage("Token is invalid")
+              .build();
+    }
+
+    String accountId = claims.get("account_id").toString();
+    Optional<Account> account = accountRepository.findAccountById(accountId);
+    if (account.isEmpty()) {
+      return AuthResponse.newBuilder()
+              .setIsValid(false)
+              .setMessage("Account not found")
+              .build();
+    }
+
+    Account saved = account.get();
+    if (saved.getStatus().equals(Status.inactive)) {
+      return AuthResponse.newBuilder()
+              .setIsValid(false)
+              .setMessage("Account is not activated. Please verify your email first.")
+              .build();
+    }
+    String role = saved.getRole().toString();
+
+    return AuthResponse.newBuilder()
+            .setIsValid(true)
+            .setMessage("Authentication successful")
+            .setAuthInfo(AuthInfo.newBuilder()
+                    .setAccountId(accountId)
+                    .setRole(role)
+                    .build())
             .build();
   }
 }

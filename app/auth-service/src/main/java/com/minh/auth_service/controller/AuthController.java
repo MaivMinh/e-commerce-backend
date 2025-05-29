@@ -56,6 +56,7 @@ public class AuthController {
   }
 
   /// Hàm thực hiện lấy lại mật khẩu.
+  /// DONE
   @GetMapping(value = "/forgot-password")
   public ResponseEntity<ResponseData> forgotPassword(@RequestParam String email, @RequestParam String host) {
     ResponseData response = authService.forgotPassword(email, host);
@@ -63,9 +64,26 @@ public class AuthController {
   }
 
   /// Hàm thực hiện reset password.
+  /// DONE
   @PostMapping(value = "/reset-password")
   public ResponseEntity<ResponseData> resetPassword(@RequestParam String token, @RequestBody @Valid RequestPasswordDTO requestPasswordDTO) {
     ResponseData response = authService.resetPassword(token, requestPasswordDTO);
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
+
+
+  /// Hàm thực hiện refresh token.
+  @GetMapping(value = "/refresh-token")
+  public ResponseEntity<ResponseData> refreshToken(@RequestParam String token) {
+    ResponseData response = authService.refreshToken(token);
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
+
+
+  /// Hàm thực hiện đăng xuất tài khoản.
+  @PostMapping(value = "/logout")
+  public ResponseEntity<ResponseData> logout(@RequestParam String token ) {
+    ResponseData response = authService.logout(token);
     return ResponseEntity.status(response.getStatus()).body(response);
   }
 }

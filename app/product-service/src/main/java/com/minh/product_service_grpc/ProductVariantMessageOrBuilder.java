@@ -4,7 +4,7 @@
 package com.minh.product_service_grpc;
 
 public interface ProductVariantMessageOrBuilder extends
-    // @@protoc_insertion_point(interface_extends:net.devh.boot.grpc.example.ProductVariantMessageDTO)
+    // @@protoc_insertion_point(interface_extends:net.devh.boot.grpc.example.ProductVariantMessage)
     com.google.protobuf.MessageOrBuilder {
 
   /**

@@ -4,14 +4,14 @@
 package com.minh.product_service_grpc;
 
 /**
- * Protobuf type {@code net.devh.boot.grpc.example.ProductVariantMessageDTO}
+ * Protobuf type {@code net.devh.boot.grpc.example.ProductVariantMessage}
  */
 public final class ProductVariantMessage extends
     com.google.protobuf.GeneratedMessageV3 implements
-    // @@protoc_insertion_point(message_implements:net.devh.boot.grpc.example.ProductVariantMessageDTO)
+    // @@protoc_insertion_point(message_implements:net.devh.boot.grpc.example.ProductVariantMessage)
     ProductVariantMessageOrBuilder {
 private static final long serialVersionUID = 0L;
-  // Use ProductVariantMessageDTO.newBuilder() to construct.
+  // Use ProductVariantMessage.newBuilder() to construct.
   private ProductVariantMessage(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
     super(builder);
   }
@@ -628,11 +628,11 @@ private static final long serialVersionUID = 0L;
     return builder;
   }
   /**
-   * Protobuf type {@code net.devh.boot.grpc.example.ProductVariantMessageDTO}
+   * Protobuf type {@code net.devh.boot.grpc.example.ProductVariantMessage}
    */
   public static final class Builder extends
       com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-      // @@protoc_insertion_point(builder_implements:net.devh.boot.grpc.example.ProductVariantMessageDTO)
+      // @@protoc_insertion_point(builder_implements:net.devh.boot.grpc.example.ProductVariantMessage)
       com.minh.product_service_grpc.ProductVariantMessageOrBuilder {
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
@@ -647,7 +647,7 @@ private static final long serialVersionUID = 0L;
               com.minh.product_service_grpc.ProductVariantMessage.class, com.minh.product_service_grpc.ProductVariantMessage.Builder.class);
     }
 
-    // Construct using com.minh.product_service_grpc.ProductVariantMessageDTO.newBuilder()
+    // Construct using com.minh.product_service_grpc.ProductVariantMessage.newBuilder()
     private Builder() {
 
     }
@@ -1576,10 +1576,10 @@ private static final long serialVersionUID = 0L;
     }
 
 
-    // @@protoc_insertion_point(builder_scope:net.devh.boot.grpc.example.ProductVariantMessageDTO)
+    // @@protoc_insertion_point(builder_scope:net.devh.boot.grpc.example.ProductVariantMessage)
   }
 
-  // @@protoc_insertion_point(class_scope:net.devh.boot.grpc.example.ProductVariantMessageDTO)
+  // @@protoc_insertion_point(class_scope:net.devh.boot.grpc.example.ProductVariantMessage)
   private static final com.minh.product_service_grpc.ProductVariantMessage DEFAULT_INSTANCE;
   static {
     DEFAULT_INSTANCE = new com.minh.product_service_grpc.ProductVariantMessage();

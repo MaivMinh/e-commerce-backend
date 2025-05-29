@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+package net.devh.boot.grpc.example;
+option java_multiple_files = true;
+option java_outer_classname = "AuthProto";
+option java_package = "com.minh.grpc_service.auth";
+
+service AuthService {
+  // RPC method to authenticate a user
+  rpc Authenticate (AuthRequest) returns (AuthResponse);
+}
+
+message AuthRequest {
+  string token = 1; // The Authorization token provided by the user
+}
+message AuthInfo {
+  string account_id = 1; // The ID of the account being authenticated
+  string role = 2; // The role of the user (e.g., admin, user)
+}
+message AuthResponse {
+  bool isValid = 1; // Indicates if the authentication was successful
+  string message = 2; // A message providing additional information about the authentication result
+  AuthInfo authInfo = 3; // Additional information about the authenticated user
+}

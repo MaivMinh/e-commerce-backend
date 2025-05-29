@@ -26,25 +26,25 @@ public interface FindProductVariantsByIdsResponseOrBuilder extends
       getMessageBytes();
 
   /**
-   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
    */
   java.util.List<com.minh.product_service_grpc.ProductVariantMessage> 
       getProductVariantsList();
   /**
-   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
    */
   com.minh.product_service_grpc.ProductVariantMessage getProductVariants(int index);
   /**
-   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
    */
   int getProductVariantsCount();
   /**
-   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
    */
   java.util.List<? extends com.minh.product_service_grpc.ProductVariantMessageOrBuilder> 
       getProductVariantsOrBuilderList();
   /**
-   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
    */
   com.minh.product_service_grpc.ProductVariantMessageOrBuilder getProductVariantsOrBuilder(
       int index);

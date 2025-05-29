@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, String> {
   @Query(value = "select * from accounts where username = :username or email = :email", nativeQuery = true)
-  Optional<Account> checkWhetherAccountIsValidOrNot(String username, String email);
+  Optional<Account> checkWhetherAccountIsAlreadyExistsOrNot(String username, String email);
 
   Optional<Account> findAccountByEmail(String email);
 

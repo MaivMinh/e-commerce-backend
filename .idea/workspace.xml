@@ -5,41 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/AccountDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/LoginDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/ProfileDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/RequestPasswordDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/aspects/LoggerAspect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/audit/AuditAwareImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/config/ProjectSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/config/RestClientConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/controller/AuthController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/model/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/model/AccountAddress.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/model/BaseEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/model/Role.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/model/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/repository/AccountAddressRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/repository/AccountRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/response/ResponseData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/response/ResponseError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/security/OwnUserDetailsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/security/UsernamePwdAuthenticationProvider.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AccountService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/JwtUtilsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/RedisService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/resources/schema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/filter/AuthenticationFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/grpc/AuthServiceGrpcClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/interceptor/CircuitBreakerClientInterceptor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/service/AuthService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/api-gateway/src/main/proto/auth.proto" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/config/GrpcConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/grpc/AuthServiceGrpcServer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/proto/auth.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/controller/FallbackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/controller/FallbackController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/config/ProjectSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/config/ProjectSecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/config/RedisConfig.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/test/java/com/minh/api_gateway/ApiGatewayApplicationTests.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/app/auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/AuthServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/AuthServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/repository/AccountRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/repository/AccountRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/RedisService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/RedisService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/test/java/com/minh/auth_service/AuthServiceApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/grpc/ProductServiceServerGrpc.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/grpc/ProductServiceServerGrpc.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/ProductQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/ProductQueryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service_grpc/FindProductVariantsByIdsResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service_grpc/FindProductVariantsByIdsResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service_grpc/FindProductVariantsByIdsResponseOrBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service_grpc/FindProductVariantsByIdsResponseOrBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service_grpc/ProductVariantMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service_grpc/ProductVariantMessage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service_grpc/ProductVariantMessageOrBuilder.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service_grpc/ProductVariantMessageOrBuilder.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,7 +90,7 @@
     &quot;Spring Boot.ServiceDiscoveryApplication.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;auth-service&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/back-end/app/auth-service/src/main/java/com/minh/auth_service&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/back-end/app&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
@@ -114,23 +111,24 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.minh.api_gateway.grpc" />
       <recent name="com.minh.auth_service.DTOs" />
       <recent name="com.minh.auth_service.services" />
       <recent name="com.minh.auth_service.model" />
       <recent name="com.minh.cart_service.repository" />
-      <recent name="com.minh.cart_service.service" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app" />
+      <recent name="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway" />
       <recent name="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service" />
       <recent name="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh" />
       <recent name="$PROJECT_DIR$/app/auth-service/src/main/resources" />
-      <recent name="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service" />
-      <recent name="$PROJECT_DIR$/app/file-service/src/main/java/com/minh/file_service/exception" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.microservice.apigateway.controller" />
       <recent name="com.minh.auth_service.config" />
       <recent name="com.minh.config" />
       <recent name="com.minh.product_service.service" />
@@ -144,7 +142,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.AuthServiceApplication">
+  <component name="RunManager" selected="Makefile Target.proto">
     <configuration name="proto" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
       <makefile filename="$PROJECT_DIR$/Makefile" target="proto" workingDirectory="" arguments="">
         <envs />
@@ -270,6 +268,7 @@
       <list>
         <item itemvalue="Makefile Target.proto" />
         <item itemvalue="Makefile Target.proto" />
+        <item itemvalue="Makefile Target.proto" />
       </list>
     </recent_temporary>
   </component>
@@ -333,6 +332,19 @@
       <workItem from="1748485037004" duration="2371000" />
       <workItem from="1748491469651" duration="108000" />
       <workItem from="1748491583030" duration="4697000" />
+      <workItem from="1748507066311" duration="2478000" />
+      <workItem from="1748509982676" duration="3477000" />
+      <workItem from="1748513707980" duration="3378000" />
+      <workItem from="1748522673631" duration="1182000" />
+      <workItem from="1748524072828" duration="4320000" />
+      <workItem from="1748528595083" duration="612000" />
+      <workItem from="1748529225027" duration="45000" />
+      <workItem from="1748529304606" duration="40000" />
+      <workItem from="1748529773390" duration="35000" />
+      <workItem from="1748529830692" duration="1421000" />
+      <workItem from="1748531266154" duration="8000" />
+      <workItem from="1748531291549" duration="299000" />
+      <workItem from="1748531615501" duration="618000" />
     </task>
     <servers />
   </component>
