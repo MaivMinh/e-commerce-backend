@@ -16,8 +16,8 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
         <module name="config-server" />
-        <module name="auth-service" />
         <module name="cart-service" />
+        <module name="auth-service" />
         <module name="payment-service" />
         <module name="review-service" />
         <module name="promotion-service" />
