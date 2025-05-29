@@ -97,14 +97,14 @@ private static final long serialVersionUID = 0L;
   public static final int PRODUCTVARIANTS_FIELD_NUMBER = 3;
   private java.util.List<com.minh.product_service_grpc.ProductVariantMessage> productVariants_;
   /**
-   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
    */
   @java.lang.Override
   public java.util.List<com.minh.product_service_grpc.ProductVariantMessage> getProductVariantsList() {
     return productVariants_;
   }
   /**
-   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
    */
   @java.lang.Override
   public java.util.List<? extends com.minh.product_service_grpc.ProductVariantMessageOrBuilder> 
@@ -112,21 +112,21 @@ private static final long serialVersionUID = 0L;
     return productVariants_;
   }
   /**
-   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
    */
   @java.lang.Override
   public int getProductVariantsCount() {
     return productVariants_.size();
   }
   /**
-   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
    */
   @java.lang.Override
   public com.minh.product_service_grpc.ProductVariantMessage getProductVariants(int index) {
     return productVariants_.get(index);
   }
   /**
-   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+   * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
    */
   @java.lang.Override
   public com.minh.product_service_grpc.ProductVariantMessageOrBuilder getProductVariantsOrBuilder(
@@ -661,7 +661,7 @@ private static final long serialVersionUID = 0L;
         com.minh.product_service_grpc.ProductVariantMessage, com.minh.product_service_grpc.ProductVariantMessage.Builder, com.minh.product_service_grpc.ProductVariantMessageOrBuilder> productVariantsBuilder_;
 
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public java.util.List<com.minh.product_service_grpc.ProductVariantMessage> getProductVariantsList() {
       if (productVariantsBuilder_ == null) {
@@ -671,7 +671,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public int getProductVariantsCount() {
       if (productVariantsBuilder_ == null) {
@@ -681,7 +681,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public com.minh.product_service_grpc.ProductVariantMessage getProductVariants(int index) {
       if (productVariantsBuilder_ == null) {
@@ -691,7 +691,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public Builder setProductVariants(
         int index, com.minh.product_service_grpc.ProductVariantMessage value) {
@@ -708,7 +708,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public Builder setProductVariants(
         int index, com.minh.product_service_grpc.ProductVariantMessage.Builder builderForValue) {
@@ -722,7 +722,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public Builder addProductVariants(com.minh.product_service_grpc.ProductVariantMessage value) {
       if (productVariantsBuilder_ == null) {
@@ -738,7 +738,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public Builder addProductVariants(
         int index, com.minh.product_service_grpc.ProductVariantMessage value) {
@@ -755,7 +755,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public Builder addProductVariants(
         com.minh.product_service_grpc.ProductVariantMessage.Builder builderForValue) {
@@ -769,7 +769,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public Builder addProductVariants(
         int index, com.minh.product_service_grpc.ProductVariantMessage.Builder builderForValue) {
@@ -783,7 +783,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public Builder addAllProductVariants(
         java.lang.Iterable<? extends com.minh.product_service_grpc.ProductVariantMessage> values) {
@@ -798,7 +798,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public Builder clearProductVariants() {
       if (productVariantsBuilder_ == null) {
@@ -811,7 +811,7 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public Builder removeProductVariants(int index) {
       if (productVariantsBuilder_ == null) {
@@ -824,14 +824,14 @@ private static final long serialVersionUID = 0L;
       return this;
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public com.minh.product_service_grpc.ProductVariantMessage.Builder getProductVariantsBuilder(
         int index) {
       return getProductVariantsFieldBuilder().getBuilder(index);
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public com.minh.product_service_grpc.ProductVariantMessageOrBuilder getProductVariantsOrBuilder(
         int index) {
@@ -841,7 +841,7 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public java.util.List<? extends com.minh.product_service_grpc.ProductVariantMessageOrBuilder> 
          getProductVariantsOrBuilderList() {
@@ -852,14 +852,14 @@ private static final long serialVersionUID = 0L;
       }
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public com.minh.product_service_grpc.ProductVariantMessage.Builder addProductVariantsBuilder() {
       return getProductVariantsFieldBuilder().addBuilder(
           com.minh.product_service_grpc.ProductVariantMessage.getDefaultInstance());
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public com.minh.product_service_grpc.ProductVariantMessage.Builder addProductVariantsBuilder(
         int index) {
@@ -867,7 +867,7 @@ private static final long serialVersionUID = 0L;
           index, com.minh.product_service_grpc.ProductVariantMessage.getDefaultInstance());
     }
     /**
-     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessageDTO productVariants = 3;</code>
+     * <code>repeated .net.devh.boot.grpc.example.ProductVariantMessage productVariants = 3;</code>
      */
     public java.util.List<com.minh.product_service_grpc.ProductVariantMessage.Builder> 
          getProductVariantsBuilderList() {

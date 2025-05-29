@@ -80,32 +80,26 @@
 		<!--        Dependencies for JSONWEBTOKEN.-->
 
 		<!--        Google API Client-->
-		<dependency>
-			<groupId>com.google.api-client</groupId>
-			<artifactId>google-api-client</artifactId>
-			<version>2.6.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>com.google.api-client</groupId>-->
+<!--			<artifactId>google-api-client</artifactId>-->
+<!--			<version>2.6.0</version>-->
+<!--		</dependency>-->
 		<!--        Google API Client-->
 
 		<!--        gRPC dependencies-->
-<!--		<dependency> &lt;!&ndash; necessary for Java 9+ &ndash;&gt;-->
-<!--			<groupId>org.apache.tomcat</groupId>-->
-<!--			<artifactId>annotations-api</artifactId>-->
-<!--			<version>6.0.53</version>-->
-<!--			<scope>provided</scope>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>net.devh</groupId>-->
-<!--			<artifactId>grpc-server-spring-boot-starter</artifactId>-->
-<!--			<version>${grpc-server-spring-boot-starter.version}</version>-->
-<!--		</dependency>-->
-		<!--        gRPC dependencies-->
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
+		<dependency> <!-- necessary for Java 9+ -->
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>annotations-api</artifactId>
+			<version>6.0.53</version>
+			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>net.devh</groupId>
+			<artifactId>grpc-server-spring-boot-starter</artifactId>
+			<version>${grpc-server-spring-boot-starter.version}</version>
+		</dependency>
+		<!--        gRPC dependencies-->
 	</dependencies>
 
 	<build>

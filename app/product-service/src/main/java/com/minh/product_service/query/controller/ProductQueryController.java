@@ -5,6 +5,7 @@ import com.minh.product_service.query.queries.FetchProductQuery;
 import com.minh.product_service.query.queries.FindProductBySlugQuery;
 import com.minh.product_service.query.queries.FindProductsQuery;
 import com.minh.product_service.response.ResponseData;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
@@ -48,8 +49,10 @@ public class ProductQueryController {
   @GetMapping(value = "")
   public ResponseEntity<ResponseData> findProducts(@RequestParam(value = "sort", defaultValue = "", required = false) String sort,
                                                    @RequestParam(value = "page", defaultValue = "1", required = false) Integer page,
-                                                   @RequestParam(value = "size", defaultValue = "10", required = false) Integer size) {
-
+                                                   @RequestParam(value = "size", defaultValue = "10", required = false) Integer size,
+                                                   HttpServletRequest request) {
+    System.out.println(request.getHeader("ACCOUNT-ID"));
+    System.out.println(request.getHeader("ROLE"));
     page = (page > 0) ? (page - 1) : 0;
     size = (size > 0) ? size : 10;
     FindProductsQuery query = FindProductsQuery.builder()
