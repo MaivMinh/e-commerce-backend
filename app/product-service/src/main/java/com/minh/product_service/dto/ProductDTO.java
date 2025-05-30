@@ -18,7 +18,6 @@ public class ProductDTO {
   @NotEmpty(message = "Name is required")
   @Size(min = 5, max = 30, message = "The length of the products name should be between 5 and 30")
   private String name;
-
   @NotEmpty(message = "Slug is required")
   private String slug;
   @NotEmpty(message = "Description is required")
@@ -32,6 +31,7 @@ public class ProductDTO {
   private Double price;
   @NotNull(message = "Original price is required")
   private Double originalPrice;
+  private Long soldItems;
   private String status;
   private Boolean isFeatured;
   private Boolean isNew;

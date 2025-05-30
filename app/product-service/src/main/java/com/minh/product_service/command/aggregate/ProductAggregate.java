@@ -1,13 +1,9 @@
 package com.minh.product_service.command.aggregate;
 
-import com.minh.product_service.command.commands.CreateProductCommand;
-import com.minh.product_service.command.commands.CreateProductVariantCommand;
-import com.minh.product_service.command.commands.DeleteProductCommand;
-import com.minh.product_service.command.commands.UpdateProductCommand;
+import com.minh.product_service.command.commands.*;
 import com.minh.product_service.command.events.ProductCreatedEvent;
 import com.minh.product_service.command.events.ProductDeletedEvent;
 import com.minh.product_service.command.events.ProductUpdatedEvent;
-import com.minh.product_service.repository.ProductRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
@@ -15,9 +11,6 @@ import org.axonframework.modelling.command.AggregateIdentifier;
 import org.axonframework.modelling.command.AggregateLifecycle;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.springframework.beans.BeanUtils;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j

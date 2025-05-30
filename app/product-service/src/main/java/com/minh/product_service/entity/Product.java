@@ -20,6 +20,7 @@ public class Product extends BaseEntity {
   private String cover;
   private Double price;
   private Double originalPrice;
+  private Long soldItems;
   private Boolean isFeatured;
   private Boolean isNew;
   private Boolean isBestseller;

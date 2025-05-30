@@ -5,15 +5,15 @@ import com.minh.product_service.command.events.ProductDeletedEvent;
 import com.minh.product_service.command.events.ProductUpdatedEvent;
 import com.minh.product_service.dto.ProductCartDTO;
 import com.minh.product_service.dto.ProductDTO;
+import com.minh.product_service.dto.ProductFilterDTO;
 import com.minh.product_service.dto.ProductVariantMessageDTO;
 import com.minh.product_service.entity.Product;
 import com.minh.product_service.entity.ProductImage;
 import com.minh.product_service.entity.ProductStatus;
 import com.minh.product_service.mapper.ProductMapper;
 import com.minh.product_service.query.queries.FindProductBySlugQuery;
+import com.minh.product_service.query.queries.FindProductsByFilterQuery;
 import com.minh.product_service.query.queries.FindProductsQuery;
-import com.minh.product_service.query.queries.SearchProductsQuery;
-import com.minh.product_service.repository.CategoryRepository;
 import com.minh.product_service.repository.ProductImageRepository;
 import com.minh.product_service.repository.ProductRepository;
 import com.minh.product_service.repository.ProductVariantRepository;
@@ -31,13 +31,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.minh.product_service.specifications.ProductSpecs.containsName;
-import static org.springframework.data.jpa.domain.Specification.where;
+import static com.minh.product_service.specifications.ProductSpecification.hasCategoryIds;
+import static com.minh.product_service.specifications.ProductSpecification.hasPriceBetween;
 
 @Slf4j
 @Service
@@ -254,5 +253,43 @@ public class ProductService {
               .setMessage("Error occurred while finding product variants by IDs: " + e.getMessage())
               .build();
     }
+  }
+
+  public ResponseData findProductsByFilter(FindProductsByFilterQuery query) {
+    Specification<Product> spec = Specification.where(null);
+    ProductFilterDTO filter = query.getFilter();
+    if (!filter.getCategoryIds().isEmpty()) {
+      spec = spec.and(hasCategoryIds(filter.getCategoryIds()));
+    }
+    spec = spec.and(hasPriceBetween(filter.getMinPrice(), filter.getMaxPrice()));
+
+    Pageable pageable = null;
+    if (StringUtils.hasText(query.getSort())) {
+      /// sort = soldItems:desc,price:asc,price:desc,newest:desc
+      List<Sort.Order> orders = new ArrayList<>();
+      String[] sortFields = query.getSort().split(",");
+      for (String field : sortFields) {
+        orders.add(new Sort.Order(Sort.Direction.fromString(field.split(":")[1].toUpperCase()), field.split(":")[0]));
+      }
+      pageable = PageRequest.of(query.getPage(), query.getSize(), Sort.by(orders));
+    } else {
+      pageable = PageRequest.of(query.getPage(), query.getSize());
+    }
+
+    Page<Product> products = productRepository.findAll(spec, pageable);
+    List<ProductDTO> productDTOs = products.stream()
+            .map(product -> {
+              ProductDTO productDTO = new ProductDTO();
+              ProductMapper.mapToProductDTO(product, productDTO);
+              return productDTO;
+            }).collect(Collectors.toList());
+
+    Map<String, Object> data = new HashMap<>();
+    data.put("products", productDTOs);
+    data.put("size", products.getSize());
+    data.put("page", products.getNumber() + 1);
+    data.put("totalElements", products.getTotalElements());
+    data.put("totalPages", products.getTotalPages());
+    return new ResponseData(HttpStatus.OK.value(), "Success", data);
   }
 }

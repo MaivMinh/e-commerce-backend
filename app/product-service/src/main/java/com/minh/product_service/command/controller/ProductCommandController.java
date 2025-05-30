@@ -3,7 +3,6 @@ package com.minh.product_service.command.controller;
 import com.minh.product_service.command.commands.*;
 import com.minh.product_service.dto.ProductDTO;
 import com.minh.product_service.dto.ProductVariantDTO;
-import com.minh.product_service.entity.ProductVariant;
 import com.minh.product_service.response.ResponseData;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -159,7 +159,7 @@ public class ProductCommandController {
   /// Hàm thực hiện xóa một variant của sản phẩm.
   @DeleteMapping(value = "/{productId}/variants/{variantId}")
   public ResponseEntity<ResponseData> deleteProductVariant(@PathVariable String productId,
-                                                            @PathVariable String variantId) {
+                                                           @PathVariable String variantId) {
     DeleteProductVariantCommand command = DeleteProductVariantCommand.builder()
             .id(variantId)
             .productId(productId)

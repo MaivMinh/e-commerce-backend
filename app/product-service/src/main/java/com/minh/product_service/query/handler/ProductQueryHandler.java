@@ -3,6 +3,7 @@ package com.minh.product_service.query.handler;
 import com.minh.product_service.dto.ProductDTO;
 import com.minh.product_service.query.queries.FetchProductQuery;
 import com.minh.product_service.query.queries.FindProductBySlugQuery;
+import com.minh.product_service.query.queries.FindProductsByFilterQuery;
 import com.minh.product_service.query.queries.FindProductsQuery;
 import com.minh.product_service.response.ResponseData;
 import com.minh.product_service.service.ProductService;
@@ -29,5 +30,10 @@ public class ProductQueryHandler {
   @QueryHandler
   public ResponseData handle(FindProductsQuery query) {
     return productService.findProducts(query);
+  }
+
+  @QueryHandler
+  public ResponseData handle(FindProductsByFilterQuery query) {
+    return productService.findProductsByFilter(query);
   }
 }

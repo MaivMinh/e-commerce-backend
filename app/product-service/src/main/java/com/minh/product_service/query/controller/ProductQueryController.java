@@ -1,11 +1,14 @@
 package com.minh.product_service.query.controller;
 
 import com.minh.product_service.dto.ProductDTO;
+import com.minh.product_service.dto.ProductFilterDTO;
 import com.minh.product_service.query.queries.FetchProductQuery;
 import com.minh.product_service.query.queries.FindProductBySlugQuery;
+import com.minh.product_service.query.queries.FindProductsByFilterQuery;
 import com.minh.product_service.query.queries.FindProductsQuery;
 import com.minh.product_service.response.ResponseData;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
 import org.axonframework.queryhandling.QueryGateway;
@@ -65,4 +68,27 @@ public class ProductQueryController {
     ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
     return ResponseEntity.status(response.getStatus()).body(response);
   }
+
+  /// Phương thức thực hiện filter.
+  @PostMapping(value = "/filter")
+  public ResponseEntity<ResponseData> filterProducts(@RequestBody ProductFilterDTO productFilterDTO,
+                                                     @RequestParam(value = "sort", defaultValue = "", required = false) String sort,
+                                                     @RequestParam(value = "page", defaultValue = "1", required = false) Integer page,
+                                                     @RequestParam(value = "size", defaultValue = "10", required = false) Integer size) {
+    page = (page > 0) ? (page - 1) : 0;
+    size = (size > 0) ? size : 10;
+
+    FindProductsByFilterQuery query = FindProductsByFilterQuery.builder()
+            .filter(productFilterDTO)
+            .sort(sort)
+            .page(page)
+            .size(size)
+            .build();
+
+
+    /// Send query to Query Bus and wait for result.
+    ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
+
 }

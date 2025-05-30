@@ -20,6 +20,7 @@ public class ProductMapper {
     productDto.setCategoryId(product.getCategoryId());
     productDto.setSlug(product.getSlug());
     productDto.setStatus(product.getStatus().toString());
+    productDto.setSoldItems(product.getSoldItems());
   }
 
   public static void mapToProduct(ProductDTO productDTO, Product product) {
