@@ -1,5 +1,7 @@
 package com.minh.product_service.command.aggregate;
 
+import com.minh.common.commands.ReserveProductCommand;
+import com.minh.common.events.ProductReservedEvent;
 import com.minh.product_service.command.commands.*;
 import com.minh.product_service.command.events.ProductCreatedEvent;
 import com.minh.product_service.command.events.ProductDeletedEvent;
@@ -111,4 +113,5 @@ public class ProductAggregate {
     this.isBestseller = null;
     this.errorMsg = null;
   }
+
 }

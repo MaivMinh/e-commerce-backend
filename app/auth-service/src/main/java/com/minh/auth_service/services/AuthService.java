@@ -1,12 +1,11 @@
 package com.minh.auth_service.services;
 
-import com.minh.auth_service.DTOs.AccountDTO;
-import com.minh.auth_service.DTOs.LoginDTO;
-import com.minh.auth_service.DTOs.ProfileDTO;
-import com.minh.auth_service.DTOs.RequestPasswordDTO;
+import com.minh.auth_service.DTOs.*;
 import com.minh.auth_service.model.Account;
+import com.minh.auth_service.model.AccountAddress;
 import com.minh.auth_service.model.Role;
 import com.minh.auth_service.model.Status;
+import com.minh.auth_service.repository.AccountAddressRepository;
 import com.minh.auth_service.repository.AccountRepository;
 import com.minh.auth_service.response.ResponseData;
 import com.minh.grpc_service.auth.AuthInfo;
@@ -42,6 +41,7 @@ import java.util.*;
 public class AuthService {
   private final JwtUtilsService jwtUtilsService;
   private final HttpServletResponse httpServletResponse;
+  private final AccountAddressRepository accountAddressRepository;
   @Value("${spring.application.security.jwt.access-token-key}")
   private String accessToken;
   @Value("${spring.application.security.jwt.refresh-token-key}")
@@ -289,7 +289,24 @@ public class AuthService {
     profileDTO.setEmail(saved.getEmail());
     profileDTO.setRole(saved.getRole().toString());
     profileDTO.setAvatar(saved.getAvatar());
-
+    List<AccountAddress> addresses = accountAddressRepository.findAllByAccountId(accountId);
+    if (addresses.isEmpty()) {
+      profileDTO.setAddressDTOs(Collections.emptyList());
+    } else {
+      List<AccountAddressDTO> addressList = new ArrayList<>();
+      for (AccountAddress address : addresses) {
+        AccountAddressDTO dto = new AccountAddressDTO();
+        dto.setId(address.getId());
+        dto.setFullName(address.getFullName());
+        dto.setPhone(address.getPhone());
+        dto.setAddress(address.getAddress());
+        dto.setCity(address.getCity());
+        dto.setDistrict(address.getDistrict());
+        dto.setWard(address.getWard());
+        addressList.add(dto);
+      }
+      profileDTO.setAddressDTOs(addressList);
+    }
     return ResponseData.builder()
             .status(HttpStatus.OK.value())
             .message("Get profile successfully")
@@ -569,6 +586,39 @@ public class AuthService {
                     .setAccountId(accountId)
                     .setRole(role)
                     .build())
+            .build();
+  }
+
+  /// Hàm thực hiện tạo mới địa chỉ.
+  public ResponseData createAddress(AccountAddressDTO accountAddressDTO) {
+    String accountId = accountAddressDTO.getAccountId();
+    Account account = accountRepository.findAccountById(accountId)
+            .orElseThrow(() -> new RuntimeException("Account not found"));
+
+    AccountAddress accountAddress = AccountAddress.builder()
+            .id(UUID.randomUUID().toString())
+            .accountId(accountId)
+            .fullName(accountAddressDTO.getFullName())
+            .phone(accountAddressDTO.getPhone())
+            .address(accountAddressDTO.getAddress())
+            .city(accountAddressDTO.getCity())
+            .district(accountAddressDTO.getDistrict())
+            .ward(accountAddressDTO.getWard())
+            .country(accountAddressDTO.getCountry())
+            .build();
+
+    try {
+      accountAddress = accountAddressRepository.save(accountAddress);
+    } catch (RuntimeException e) {
+      return ResponseData.builder()
+              .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+              .message("Error occurred while creating address")
+              .build();
+    }
+    return ResponseData.builder()
+            .status(HttpStatus.CREATED.value())
+            .message("Address created successfully")
+            .data(null)
             .build();
   }
 }
