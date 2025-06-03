@@ -1,7 +1,9 @@
 package com.minh.product_service.command.aggregate;
 
 import com.minh.common.commands.ReserveProductCommand;
+import com.minh.common.commands.RollbackReserveProductCommand;
 import com.minh.common.dto.ReserveProductItem;
+import com.minh.common.events.ProductReserveRollbackedEvent;
 import com.minh.common.events.ProductReservedEvent;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandHandler;
@@ -31,7 +33,7 @@ public class ReserveProductAggregate {
 
   @CommandHandler
   public ReserveProductAggregate(ReserveProductCommand command) {
-    log.info("Handling ReserveProductCommand for orderId: {}", command.getReserveProductId());
+    log.info("Handling ReserveProductCommand for orderId: {}", command.getOrderId());
     /// create new event.
     ProductReservedEvent event = new ProductReservedEvent();
     BeanUtils.copyProperties(command, event);
@@ -46,5 +48,21 @@ public class ReserveProductAggregate {
     this.reserveProductItems = event.getReserveProductItems();
     this.promotionId = event.getPromotionId();
     this.accountId = event.getAccountId();
+  }
+
+  @CommandHandler
+  public void handle(RollbackReserveProductCommand command) {
+    log.info("Handling RollbackReserveProductCommand for orderId: {}", command.getOrderId());
+    /// Create new event to rollback the reserve product.
+    ProductReserveRollbackedEvent event = new ProductReserveRollbackedEvent();
+    BeanUtils.copyProperties(command, event);
+    AggregateLifecycle.apply(event);
+  }
+
+  @EventSourcingHandler
+  public void on(ProductReserveRollbackedEvent event) {
+    log.info("Rolling back reserve product for orderId: {}", event.getOrderId());
+    this.reserveProductId = event.getReserveProductId();
+    this.errorMsg = event.getErrorMsg();
   }
 }

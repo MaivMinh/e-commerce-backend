@@ -19,8 +19,9 @@ public class CreateOrderCommand {
   private Double subTotal;
   private Double discount;
   private Double total;
-  private String paymentMethod;
+  private String paymentMethodId;
   private String promotionId;
+  private String currency;
   private String note;
   private List<OrderItemCreateDTO> orderItemDTOs;
 }

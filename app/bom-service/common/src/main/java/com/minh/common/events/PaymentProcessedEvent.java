@@ -1,12 +1,19 @@
 package com.minh.common.events;
 
-import com.minh.common.dto.ReserveProductItem;
+import lombok.*;
 
-import java.util.List;
-
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class PaymentProcessedEvent {
+  private String paymentId;
   private String orderId;
-  private List<ReserveProductItem> reserveProductItems;
-  private String promotionId;
-  private String accountId;
+  private String paymentMethodId;
+  private Double amount;
+  private String status;
+  private String transactionId;
+  private String currency;
+  private String errorMsg;
 }

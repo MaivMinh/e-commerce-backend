@@ -1,5 +1,6 @@
 package com.minh.product_service.query.projection;
 
+import com.minh.common.events.ProductReserveRollbackedEvent;
 import com.minh.common.events.ProductReservedEvent;
 import com.minh.product_service.service.ReserveProductService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,13 @@ public class ReserveProductProjection {
 
   @EventHandler
   public void on(ProductReservedEvent event) {
-    log.info("Handling ProductReservedEvent for reserveProductId: {}", event.getReserveProductId());
-    reserveProductService.reserveProduct(event.getOrderId(), event.getReserveProductItems());
+    log.info("Handling ProductReservedEvent for orderId: {}", event.getOrderId());
+    reserveProductService.reserveProduct(event);
+  }
+
+  @EventHandler
+  public void on(ProductReserveRollbackedEvent event) {
+    log.info("Handling ProductReserveRollbackedEvent for orderId: {}", event.getOrderId());
+    reserveProductService.rollbackReserveProduct(event);
   }
 }

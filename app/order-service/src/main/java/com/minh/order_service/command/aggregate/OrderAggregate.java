@@ -28,9 +28,10 @@ public class OrderAggregate {
   private Double subTotal;
   private Double discount;
   private Double total;
-  private String paymentMethod;
+  private String paymentMethodId;
   private String paymentStatus;
   private String promotionId;
+  private String currency;
   private String note;
   private List<OrderItemCreateDTO> orderItemDTOs;
   private String errorMsg;
@@ -60,8 +61,9 @@ public class OrderAggregate {
     this.subTotal = event.getSubTotal();
     this.discount = event.getDiscount();
     this.total = event.getTotal();
-    this.paymentMethod = event.getPaymentMethod();
+    this.paymentMethodId = event.getPaymentMethodId();
     this.paymentStatus = PaymentStatus.pending.toString();
+    this.currency = event.getCurrency();
     this.promotionId = event.getPromotionId();
     this.note = event.getNote();
     this.orderItemDTOs = event.getOrderItemDTOs();

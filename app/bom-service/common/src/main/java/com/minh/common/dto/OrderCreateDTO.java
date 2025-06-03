@@ -20,8 +20,9 @@ public class OrderCreateDTO {
   private Double discount;
   private Double total;
   @NotEmpty(message = "Payment method cannot be empty")
-  private String paymentMethod;
+  private String paymentMethodId;
   private String promotionId;
+  private String currency;
   private String note;
   List<OrderItemCreateDTO> orderItemDTOs;
 }

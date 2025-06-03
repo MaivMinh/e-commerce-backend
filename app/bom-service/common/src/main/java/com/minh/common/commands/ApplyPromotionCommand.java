@@ -1,13 +1,20 @@
 package com.minh.common.commands;
 
-import com.minh.common.dto.ReserveProductItem;
+import lombok.*;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
-import java.util.List;
 
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ApplyPromotionCommand {
   @TargetAggregateIdentifier
+  private String orderPromotionId;
   private String orderId;
-  private List<ReserveProductItem> reserveProductItems;
   private String promotionId;
-  private String accountId;
+  private String paymentMethodId;
+  private Double amount;
+  private String currency;
+  private String errorMsg;
 }

@@ -17,4 +17,8 @@ public class ProductReservedEvent {
   private List<ReserveProductItem> reserveProductItems;
   private String promotionId;
   private String accountId;
+  private String paymentMethodId;
+  private Double amount;
+  private String currency;
+  private String errorMsg;
 }

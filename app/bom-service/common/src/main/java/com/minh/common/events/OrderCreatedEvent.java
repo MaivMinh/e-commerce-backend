@@ -14,13 +14,12 @@ public class OrderCreatedEvent {
   private String orderId;
   private String accountId;
   private String shippingAddress;
-  private String orderStatus;
   private Double subTotal;
   private Double discount;
   private Double total;
-  private String paymentMethod;
-  private String paymentStatus;
+  private String paymentMethodId;
   private String promotionId;
+  private String currency;
   private String note;
   private List<OrderItemCreateDTO> orderItemDTOs;
 }
