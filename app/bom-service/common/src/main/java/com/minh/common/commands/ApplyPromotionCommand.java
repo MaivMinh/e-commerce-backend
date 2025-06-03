@@ -11,6 +11,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class ApplyPromotionCommand {
   @TargetAggregateIdentifier
   private String orderPromotionId;
+  private String reserveProductId;
   private String orderId;
   private String promotionId;
   private String paymentMethodId;

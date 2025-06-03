@@ -21,7 +21,7 @@ public class Order extends BaseEntity {
   private Double subTotal;
   private Double discount;
   private Double total;
-  private PaymentMethod paymentMethod;
+  private String paymentMethodId;
   private PaymentStatus paymentStatus;
   private String promotionId;
   private String note;

@@ -56,7 +56,7 @@ public class ReserveProductService {
     List<ReserveProduct> reserveProducts = reserveProductRepository.findAllByOrderId(orderId);
     if (reserveProducts.isEmpty()) {
       log.warn("No reserve products found for orderId: {}", orderId);
-      return;
+      throw new RuntimeException("No reserve products found for orderId: " + orderId);
     }
 
     reserveProducts.forEach(reserveProduct -> {

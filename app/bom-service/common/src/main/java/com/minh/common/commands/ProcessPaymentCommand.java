@@ -11,6 +11,8 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier;
 public class ProcessPaymentCommand {
   @TargetAggregateIdentifier
   private String paymentId;
+  private String orderPromotionId;
+  private String reserveProductId;
   private String orderId;
   private String paymentMethodId;
   private Double amount;

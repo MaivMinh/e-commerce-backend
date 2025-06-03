@@ -26,12 +26,12 @@ public class OrderService {
     Order order = new Order();
     order.setId(event.getOrderId());
     order.setAccountId(event.getAccountId());
-    order.setShippingAddressId(event.getShippingAddress());
+    order.setShippingAddressId(event.getShippingAddressId());
     order.setOrderStatus(OrderStatus.pending);
     order.setSubTotal(event.getSubTotal());
     order.setDiscount(event.getDiscount());
     order.setTotal(event.getTotal());
-    order.setPaymentMethod(PaymentMethod.valueOf(event.getPaymentMethod()));
+    order.setPaymentMethodId(event.getPaymentMethodId());
     order.setPaymentStatus(PaymentStatus.pending);
     order.setPromotionId(event.getPromotionId());
     order.setNote(event.getNote());

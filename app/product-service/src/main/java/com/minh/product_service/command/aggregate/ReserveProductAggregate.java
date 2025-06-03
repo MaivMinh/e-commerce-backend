@@ -21,10 +21,12 @@ public class ReserveProductAggregate {
   @AggregateIdentifier
   private String reserveProductId;
   private String orderId;
-  private List<ReserveProductItem> reserveProductItems;
   private String promotionId;
-  private String accountId;
   private String errorMsg;
+  private String paymentMethodId;
+  private Double amount;
+  private List<ReserveProductItem> reserveProductItems;
+  private String currency;
 
 
   public ReserveProductAggregate() {
@@ -45,9 +47,11 @@ public class ReserveProductAggregate {
   public void on(ProductReservedEvent event) {
     this.reserveProductId = event.getReserveProductId();
     this.orderId = event.getOrderId();
-    this.reserveProductItems = event.getReserveProductItems();
     this.promotionId = event.getPromotionId();
-    this.accountId = event.getAccountId();
+    this.paymentMethodId = event.getPaymentMethodId();
+    this.reserveProductItems = event.getReserveProductItems();
+    this.amount = event.getAmount();
+    this.currency = event.getCurrency();
   }
 
   @CommandHandler

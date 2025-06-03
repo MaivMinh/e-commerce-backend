@@ -20,6 +20,7 @@ public class PaymentMethod extends BaseEntity {
   private String description;
   private PaymentMethodType type;
   private String provider;
+  private PaymentCurrency currency;
   private String iconUrl;
   private Boolean isActive;
 }

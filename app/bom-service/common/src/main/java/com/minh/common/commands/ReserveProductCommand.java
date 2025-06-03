@@ -15,11 +15,10 @@ public class ReserveProductCommand {
   @TargetAggregateIdentifier
   private String reserveProductId;
   private String orderId;
-  private List<ReserveProductItem> reserveProductItems;
   private String promotionId;
-  private String accountId;
   private String paymentMethodId;
   private Double amount;
   private String currency;
+  private List<ReserveProductItem> reserveProductItems;
   private String errorMsg;
 }

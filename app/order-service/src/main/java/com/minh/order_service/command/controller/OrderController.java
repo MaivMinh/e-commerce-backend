@@ -33,7 +33,7 @@ public class OrderController {
     CreateOrderCommand command = CreateOrderCommand.builder()
             .orderId(orderId)
             .accountId(orderCreateDTO.getAccountId())
-            .shippingAddress(orderCreateDTO.getShippingAddress())
+            .shippingAddressId(orderCreateDTO.getShippingAddressId())
             .subTotal(orderCreateDTO.getSubTotal())
             .discount(orderCreateDTO.getDiscount())
             .total(orderCreateDTO.getTotal())

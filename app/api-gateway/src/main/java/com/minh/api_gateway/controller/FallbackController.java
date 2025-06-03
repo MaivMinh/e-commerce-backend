@@ -48,4 +48,52 @@ public class FallbackController {
             .status(HttpStatus.SERVICE_UNAVAILABLE)
             .body(response));
   }
+
+  @RequestMapping(value = "/orders/contact-support")
+  public Mono<ResponseEntity<Map<String, Object>>> orderServiceContactSupport() {
+    Map<String, Object> response = new HashMap<>();
+    response.put("status", HttpStatus.SERVICE_UNAVAILABLE.value());
+    response.put("message", "Order Service is currently unavailable. Please contact support team!");
+    response.put("timestamp", new Date());
+
+    return Mono.just(ResponseEntity
+            .status(HttpStatus.SERVICE_UNAVAILABLE)
+            .body(response));
+  }
+
+  @RequestMapping(value = "/payments/contact-support")
+  public Mono<ResponseEntity<Map<String, Object>>> paymentServiceContactSupport() {
+    Map<String, Object> response = new HashMap<>();
+    response.put("status", HttpStatus.SERVICE_UNAVAILABLE.value());
+    response.put("message", "Payment Service is currently unavailable. Please contact support team!");
+    response.put("timestamp", new Date());
+
+    return Mono.just(ResponseEntity
+            .status(HttpStatus.SERVICE_UNAVAILABLE)
+            .body(response));
+  }
+
+  @RequestMapping(value = "/promotions/contact-support")
+  public Mono<ResponseEntity<Map<String, Object>>> promotionServiceContactSupport() {
+    Map<String, Object> response = new HashMap<>();
+    response.put("status", HttpStatus.SERVICE_UNAVAILABLE.value());
+    response.put("message", "Promotion Service is currently unavailable. Please contact support team!");
+    response.put("timestamp", new Date());
+
+    return Mono.just(ResponseEntity
+            .status(HttpStatus.SERVICE_UNAVAILABLE)
+            .body(response));
+  }
+
+  @RequestMapping(value = "/files/contact-support")
+  public Mono<ResponseEntity<Map<String, Object>>> fileServiceContactSupport() {
+    Map<String, Object> response = new HashMap<>();
+    response.put("status", HttpStatus.SERVICE_UNAVAILABLE.value());
+    response.put("message", "File Service is currently unavailable. Please contact support team!");
+    response.put("timestamp", new Date());
+
+    return Mono.just(ResponseEntity
+            .status(HttpStatus.SERVICE_UNAVAILABLE)
+            .body(response));
+  }
 }

@@ -13,7 +13,7 @@ import java.util.List;
 public class OrderCreatedEvent {
   private String orderId;
   private String accountId;
-  private String shippingAddress;
+  private String shippingAddressId;
   private Double subTotal;
   private Double discount;
   private Double total;

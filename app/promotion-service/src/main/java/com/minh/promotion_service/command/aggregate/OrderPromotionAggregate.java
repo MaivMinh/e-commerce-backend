@@ -1,7 +1,9 @@
 package com.minh.promotion_service.command.aggregate;
 
 import com.minh.common.commands.ApplyPromotionCommand;
+import com.minh.common.commands.RollbackApplyPromotionCommand;
 import com.minh.common.events.PromotionAppliedEvent;
+import com.minh.common.events.PromotionApplyRollbackedEvent;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -15,6 +17,7 @@ public class OrderPromotionAggregate {
   private String orderPromotionId;
   private String orderId;
   private String promotionId;
+  private String errorMsg;
 
   public OrderPromotionAggregate() {
     // Default constructor for Axon framework
@@ -35,5 +38,19 @@ public class OrderPromotionAggregate {
     this.orderPromotionId = event.getOrderPromotionId();
     this.orderId = event.getOrderId();
     this.promotionId = event.getPromotionId();
+  }
+
+  @CommandHandler
+  public void handle(RollbackApplyPromotionCommand command) {
+    ///  validate if needed.
+    /// create new event.
+    PromotionApplyRollbackedEvent event = new PromotionApplyRollbackedEvent();
+    BeanUtils.copyProperties(command, event);
+    AggregateLifecycle.apply(event);
+  }
+  @EventSourcingHandler
+  public void on(PromotionApplyRollbackedEvent event) {
+    this.orderPromotionId = event.getOrderPromotionId();
+    this.errorMsg = event.getErrorMsg();
   }
 }

@@ -23,7 +23,7 @@ public class OrderAggregate {
   @AggregateIdentifier
   private String orderId;
   private String accountId;
-  private String shippingAddress;
+  private String shippingAddressId;
   private String orderStatus;
   private Double subTotal;
   private Double discount;
@@ -35,7 +35,6 @@ public class OrderAggregate {
   private String note;
   private List<OrderItemCreateDTO> orderItemDTOs;
   private String errorMsg;
-
 
   public OrderAggregate() {
     // Default constructor for Axon framework
@@ -56,7 +55,7 @@ public class OrderAggregate {
     /// Set the properties of the aggregate from the event to store event into event store.
     this.orderId = event.getOrderId();
     this.accountId = event.getAccountId();
-    this.shippingAddress = event.getShippingAddress();
+    this.shippingAddressId = event.getShippingAddressId();
     this.orderStatus = OrderStatus.pending.toString();
     this.subTotal = event.getSubTotal();
     this.discount = event.getDiscount();

@@ -9,6 +9,7 @@ import lombok.*;
 @AllArgsConstructor
 public class PromotionAppliedEvent {
   private String orderPromotionId;
+  private String reserveProductId;
   private String orderId;
   private String promotionId;
   private String paymentMethodId;

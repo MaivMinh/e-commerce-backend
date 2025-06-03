@@ -2,10 +2,7 @@ package com.minh.order_service.saga;
 
 import com.minh.common.commands.*;
 import com.minh.common.dto.ReserveProductItem;
-import com.minh.common.events.OrderCreatedEvent;
-import com.minh.common.events.PaymentProcessedEvent;
-import com.minh.common.events.ProductReservedEvent;
-import com.minh.common.events.PromotionAppliedEvent;
+import com.minh.common.events.*;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandCallback;
 import org.axonframework.commandhandling.CommandMessage;
@@ -49,10 +46,9 @@ public class CreateOrderSaga {
     ReserveProductCommand command = ReserveProductCommand.builder()
             .reserveProductId(UUID.randomUUID().toString())
             .orderId(event.getOrderId())
-            .reserveProductItems(reserveProductItems)
             .promotionId(event.getPromotionId())
-            .accountId(event.getAccountId())
             .paymentMethodId(event.getPaymentMethodId())
+            .reserveProductItems(reserveProductItems)
             .amount(event.getTotal())
             .currency(event.getCurrency())
             .build();
@@ -69,7 +65,6 @@ public class CreateOrderSaga {
         }
       }
     });
-
   }
 
   @SagaEventHandler(associationProperty = "orderId")
@@ -78,6 +73,7 @@ public class CreateOrderSaga {
     /// Apply promotion for the order if needed.
     ApplyPromotionCommand command = ApplyPromotionCommand.builder()
             .orderPromotionId(UUID.randomUUID().toString())
+            .reserveProductId(event.getReserveProductId())
             .orderId(event.getOrderId())
             .promotionId(event.getPromotionId())
             .paymentMethodId(event.getPaymentMethodId())
@@ -105,16 +101,16 @@ public class CreateOrderSaga {
   public void on(PromotionAppliedEvent event) {
     log.info("Saga Event 3 : Received PromotionAppliedEvent for order id: {}", event.getOrderId());
     /// Kết thúc saga sau khi đã áp dụng khuyến mãi thành công.
-
     /// Process payment.
     ProcessPaymentCommand command = ProcessPaymentCommand.builder()
             .paymentId(UUID.randomUUID().toString())
+            .orderPromotionId(event.getOrderPromotionId())
+            .reserveProductId(event.getReserveProductId())
             .orderId(event.getOrderId())
             .paymentMethodId(event.getPaymentMethodId())
             .amount(event.getAmount())
             .currency(event.getCurrency())
             .build();
-
 
     commandGateway.send(command, new CommandCallback<>() {
       @Override
@@ -123,6 +119,7 @@ public class CreateOrderSaga {
           log.error("Saga Event 3 [Error] : Failed to process payment for order id: {}, rolling back order creation.", event.getOrderId());
           RollbackApplyPromotionCommand rollbackCommand = RollbackApplyPromotionCommand.builder()
                   .orderPromotionId(event.getOrderPromotionId())
+                  .reserveProductId(event.getReserveProductId())
                   .orderId(event.getOrderId())
                   .errorMsg(commandResultMessage.exceptionResult().getMessage())
                   .build();
@@ -137,5 +134,36 @@ public class CreateOrderSaga {
   public void on(PaymentProcessedEvent event) {
     log.info("Saga Event 4 [End] : Payment processed successfully for order id: {}", event.getOrderId());
     /// Kết thúc saga sau khi thanh toán thành công.
+  }
+
+
+
+  @SagaEventHandler(associationProperty = "orderId")
+  public void on(PromotionApplyRollbackedEvent event) {
+    log.info("Saga Event Rollback [1] : Received PromotionApplyRollbackedEvent for order id: {}", event.getOrderId());
+    /// Rollback the reserve product command.
+    RollbackReserveProductCommand rollbackCommand = RollbackReserveProductCommand.builder()
+            .reserveProductId(event.getReserveProductId())
+            .orderId(event.getOrderId())
+            .errorMsg(event.getErrorMsg())
+            .build();
+    commandGateway.sendAndWait(rollbackCommand);
+  }
+
+  @SagaEventHandler(associationProperty = "orderId")
+  public void on(ProductReserveRollbackedEvent event) {
+    log.info("Saga Event Rollback [2]: Received ProductReserveRollbackedEvent for order id: {}", event.getOrderId());
+    /// Rollback the order creation.
+    RollbackCreateOrderCommand rollbackCommand = new RollbackCreateOrderCommand();
+    rollbackCommand.setOrderId(event.getOrderId());
+    rollbackCommand.setErrorMsg(event.getErrorMsg());
+    commandGateway.sendAndWait(rollbackCommand);
+  }
+
+
+  @EndSaga
+  @SagaEventHandler(associationProperty = "orderId")
+  public void on(OrderCreateRollbackedEvent event) {
+    log.info("Saga Event Rollback [END]: Received OrderCreateRollbackedEvent for order id: {}", event.getOrderId());
   }
 }

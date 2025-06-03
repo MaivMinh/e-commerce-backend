@@ -9,6 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 public class PaymentProcessedEvent {
   private String paymentId;
+  private String orderPromotionId;
+  private String reserveProductId;
   private String orderId;
   private String paymentMethodId;
   private Double amount;
@@ -16,4 +18,5 @@ public class PaymentProcessedEvent {
   private String transactionId;
   private String currency;
   private String errorMsg;
+
 }
