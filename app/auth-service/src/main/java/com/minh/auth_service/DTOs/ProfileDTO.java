@@ -2,6 +2,8 @@ package com.minh.auth_service.DTOs;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -14,4 +16,5 @@ public class ProfileDTO {
   private String name;
   private String role;
   private String avatar;
+  List<AccountAddressDTO> addressDTOs;
 }

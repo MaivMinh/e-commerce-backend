@@ -31,9 +31,21 @@
 	</properties>
 	<dependencies>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<groupId>com.minh</groupId>
+			<artifactId>common</artifactId>
+			<version>1.0.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<!--        Axon Framework Configurations-->
+		<dependency>
+			<groupId>org.axonframework</groupId>
+			<artifactId>axon-spring-boot-starter</artifactId>
+			<version>4.11.2</version>
+		</dependency>
+		<!--        Axon Framework Configurations-->
 	</dependencies>
 
 	<build>

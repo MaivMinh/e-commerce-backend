@@ -36,7 +36,7 @@ CREATE TABLE Products
     FOREIGN KEY (category_id) REFERENCES Categories (id) ON DELETE SET NULL
 );
 
-CREATE TABLE ProductImages
+CREATE TABLE product_images
 (
     id            VARCHAR(36) PRIMARY KEY,
     product_id    VARCHAR(36)  NOT NULL,
@@ -49,7 +49,7 @@ CREATE TABLE ProductImages
     FOREIGN KEY (product_id) REFERENCES Products (id) ON DELETE CASCADE
 );
 
-CREATE TABLE ProductVariants
+CREATE TABLE product_variants
 (
     id             VARCHAR(36) PRIMARY KEY,
     product_id     VARCHAR(36)    NOT NULL,
@@ -60,7 +60,8 @@ CREATE TABLE ProductVariants
     color_name     VARCHAR(50)    NOT NULL,
     color_hex      VARCHAR(10),
     price          DECIMAL(15, 2) NOT NULL,
-    stock_quantity INT            NOT NULL DEFAULT 0,
+    original_price DECIMAL(15, 2),
+    quantity       INT            NOT NULL DEFAULT 0,
     sku            VARCHAR(100)   NOT NULL UNIQUE,
     created_at     TIMESTAMP      NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_by     varchar(255)   NOT NULL,
@@ -72,18 +73,18 @@ CREATE TABLE ProductVariants
 -- 7. Danh Sách Yêu Thích
 CREATE TABLE Wishlists
 (
-    id         VARCHAR(36)  PRIMARY KEY,
-    account_id    VARCHAR(36)  NOT NULL,
+    id         VARCHAR(36) PRIMARY KEY,
+    user_id    VARCHAR(36)  NOT NULL,
     created_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_by varchar(255) NOT NULL,
     updated_at TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     updated_by varchar(255)          DEFAULT NULL,
-    UNIQUE KEY (account_id) -- mỗi người dùng chỉ có một danh sách yêu thích
+    UNIQUE KEY (user_id) -- mỗi người dùng chỉ có một danh sách yêu thích
 );
 
-CREATE TABLE IF NOT EXISTS WishlistProducts
+CREATE TABLE IF NOT EXISTS wishlist_products
 (
-    id          VARCHAR(36)  PRIMARY KEY,
+    id          VARCHAR(36) PRIMARY KEY,
     wishlist_id VARCHAR(36)  NOT NULL,
     product_id  VARCHAR(36)  NOT NULL,
     created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -95,13 +96,28 @@ CREATE TABLE IF NOT EXISTS WishlistProducts
     UNIQUE KEY (wishlist_id, product_id) -- mỗi sản phẩm chỉ có thể có một lần trong danh sách yêu thích
 );
 
+
+create table if not exists reserved_stock
+(
+    id                 varchar(255) primary key,
+    product_variant_id varchar(36)  not null,
+    order_id           varchar(36)  not null,
+    quantity           int          not null,
+    reserved_at        TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_at         TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by         varchar(255) NOT NULL,
+    updated_at         TIMESTAMP             default null,
+    updated_by         varchar(255)          DEFAULT NULL
+);
+
+create index idx_reserved_stock_order_id on reserved_stock(order_id);
 CREATE INDEX idx_categories_parent ON Categories (parent_id);
 create index idx_categories_slug ON Categories (slug);
 create index idx_products_slug ON Products (slug);
 CREATE INDEX idx_products_category ON Products (category_id);
 CREATE INDEX idx_products_featured ON Products (is_featured);
 CREATE INDEX idx_products_bestseller ON Products (is_bestseller);
-create index idx_product_variants_product ON ProductVariants (product_id);
-create index ix_product_images_product ON ProductImages (product_id);
+create index idx_product_variants_product ON product_variants (product_id);
+create index ix_product_images_product ON product_images (product_id);
 create index idx_wishlist on Wishlists (user_id);
-CREATE INDEX idx_wishlist_products ON WishlistProducts (wishlist_id, product_id);
+CREATE INDEX idx_wishlist_products ON wishlist_products (wishlist_id, product_id);

@@ -12,8 +12,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Validated
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
@@ -41,17 +43,6 @@ public class AuthController {
   @PostMapping("/login")
   public ResponseEntity<ResponseData> login(@RequestBody @Valid LoginDTO loginDTO) {
     ResponseData response = authService.login(loginDTO);
-    return ResponseEntity.status(response.getStatus()).body(response);
-  }
-
-  /// Hàm thực hiện lấy thông tin tài khoản đã đăng nhập.
-  @GetMapping("/profile")
-  public ResponseEntity<ResponseData> getProfile(HttpServletRequest request) {
-    if (!StringUtils.hasText(request.getHeader("account_id"))) {
-      return ResponseEntity.status(HttpStatus.UNAUTHORIZED.value()).body(new ResponseData(HttpStatus.UNAUTHORIZED.value(), "Unauthorized", null));
-    }
-    String accountId = request.getHeader("account_id");
-    ResponseData response = authService.getProfile(accountId);
     return ResponseEntity.status(response.getStatus()).body(response);
   }
 
