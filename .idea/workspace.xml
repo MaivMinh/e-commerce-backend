@@ -5,17 +5,48 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/DTOs/PromotionDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/aggregate/PromotionAggregate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/commands/CreatePromotionCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/commands/DeletePromotionCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/commands/UpdatePromotionCommand.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/controller/PromotionCommandController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/events/PromotionCreatedEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/events/PromotionUpdatedEvent.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/query/projection/PromotionProjection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/service/PromotionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bom-service/common/src/main/java/com/minh/common/commands/ConfirmCreateOrderCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bom-service/common/src/main/java/com/minh/common/commands/ConfirmReserveProductCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bom-service/common/src/main/java/com/minh/common/commands/RollbackProcessPaymentCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bom-service/common/src/main/java/com/minh/common/events/CreateOrderConfirmedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bom-service/common/src/main/java/com/minh/common/events/PaymentProcessRollbackedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bom-service/common/src/main/java/com/minh/common/events/ProcessPaymentRollbackedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/bom-service/common/src/main/java/com/minh/common/events/ReserveProductConfirmedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/common/commands/RollbackConfirmReserveProductCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ReserveProductStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/mapper/PromotionMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/query/controller/PromotionQueryController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/query/handler/PromotionQueryHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/query/queries/FindAllPromotionsQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/query/queries/FindPromotionQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/OrderServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/OrderServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/command/aggregate/OrderAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/command/aggregate/OrderAggregate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/entity/OrderStatus.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/entity/OrderStatus.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/projection/OrderProjection.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/projection/OrderProjection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/saga/CreateOrderSaga.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/saga/CreateOrderSaga.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/command/aggregate/PaymentAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/command/aggregate/PaymentAggregate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/query/projection/PaymentProjection.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/query/projection/PaymentProjection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/service/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/ReserveProductAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/ReserveProductAggregate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ReserveProduct.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/ReserveProduct.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/projection/ReserveProductProjection.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/projection/ReserveProductProjection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ReserveProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ReserveProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/DTOs/PromotionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/DTOs/PromotionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/PromotionServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/PromotionServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/aggregate/OrderPromotionAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/aggregate/OrderPromotionAggregate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/commands/CreatePromotionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/commands/CreatePromotionCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/controller/PromotionCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/controller/PromotionCommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/query/projection/OrderPromotionProjection.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/query/projection/OrderPromotionProjection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/repository/PromotionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/repository/PromotionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/service/OrderPromotionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/service/OrderPromotionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/service/PromotionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/service/PromotionService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,8 +56,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -75,7 +106,7 @@
     &quot;Spring Boot.ServiceDiscoveryApplication.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/back-end/app/payment-service/src/main/java/com/minh/payment_service&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
@@ -96,11 +127,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.minh.common.events" />
+      <recent name="com.minh.product_service.entity" />
+      <recent name="com.minh.common.commands" />
+      <recent name="com.minh.promotion_service.query.queries" />
       <recent name="com.minh.promotion_service.command.commands" />
-      <recent name="com.minh.promotion_service.command.events" />
-      <recent name="com.minh.promotion_service.service" />
-      <recent name="com.minh.promotion_service.DTOs" />
-      <recent name="com.minh.payment_service.query.queries" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service" />
@@ -353,6 +384,8 @@
       <workItem from="1748918502676" duration="21350000" />
       <workItem from="1748956938672" duration="7579000" />
       <workItem from="1748965244210" duration="5672000" />
+      <workItem from="1749041691158" duration="4165000" />
+      <workItem from="1749045888336" duration="14578000" />
     </task>
     <servers />
   </component>

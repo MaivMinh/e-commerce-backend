@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 @RestController
@@ -25,7 +26,7 @@ public class PromotionCommandController {
   @PostMapping(value = "")
   public ResponseEntity<ResponseData> createPromotion(@RequestBody @Valid PromotionDTO promotionDTO) {
     CreatePromotionCommand command = CreatePromotionCommand.builder()
-            .promotionId(promotionDTO.getId())
+            .promotionId(UUID.randomUUID().toString())
             .code(promotionDTO.getCode())
             .type(promotionDTO.getType())
             .discountValue(promotionDTO.getDiscountValue())

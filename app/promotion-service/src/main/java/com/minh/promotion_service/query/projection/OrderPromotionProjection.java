@@ -1,5 +1,6 @@
 package com.minh.promotion_service.query.projection;
 
+import com.minh.common.events.CreateOrderConfirmedEvent;
 import com.minh.common.events.PromotionAppliedEvent;
 import com.minh.common.events.PromotionApplyRollbackedEvent;
 import com.minh.promotion_service.service.OrderPromotionService;
@@ -15,12 +16,12 @@ public class OrderPromotionProjection {
   private final OrderPromotionService orderPromotionService;
 
   @EventHandler
-  public void handle(PromotionAppliedEvent event) {
+  public void on(PromotionAppliedEvent event) {
     orderPromotionService.applyPromotion(event);
   }
 
   @EventHandler
-  public void handle(PromotionApplyRollbackedEvent event) {
+  public void on(PromotionApplyRollbackedEvent event) {
     orderPromotionService.rollbackApplyPromotion(event);
   }
 }

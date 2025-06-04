@@ -1,6 +1,7 @@
 package com.minh.order_service.query.service;
 
 import com.minh.common.dto.OrderItemCreateDTO;
+import com.minh.common.events.CreateOrderConfirmedEvent;
 import com.minh.common.events.OrderCreateRollbackedEvent;
 import com.minh.common.events.OrderCreatedEvent;
 import com.minh.order_service.entity.*;
@@ -51,7 +52,7 @@ public class OrderService {
     });
   }
 
-  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
   public void rollbackOrderCreated(OrderCreateRollbackedEvent event) {
     /// Hàm thực hiện rollback đơn hàng khi có lỗi xảy ra trong quá trình tạo đơn hàng.
     Order order = orderRepository.findById(event.getOrderId())
@@ -67,5 +68,16 @@ public class OrderService {
     if (orderItems != null && !orderItems.isEmpty()) {
       orderItemRepository.deleteAll(orderItems);
     }
+  }
+
+  public void confirmCreateOrder(CreateOrderConfirmedEvent event) {
+    /// Hàm xác nhận việc tạo đơn hàng thành công.
+    throw new RuntimeException("Simulated failure for testing rollback");
+
+//    Order order = orderRepository.findById(event.getOrderId())
+//            .orElseThrow(() -> new RuntimeException("Order not found for id: " + event.getOrderId()));
+//    order.setOrderStatus(OrderStatus.completed);
+//    order.setPaymentStatus(PaymentStatus.completed);
+//    orderRepository.save(order);
   }
 }

@@ -69,13 +69,13 @@ spring:
         - id: promotion-service
           uri: lb://promotion-service
           predicates:
-              - Path=/api/promotions/**,/api/promotions
-              - Method=GET,POST,PUT,DELETE,PATCH
+            - Path=/api/promotions/**,/api/promotions
+            - Method=GET,POST,PUT,DELETE,PATCH
           filters:
-              - name: CircuitBreaker
-                args:
-                    name: promotionService
-                    fallbackUri: "forward:/promotions/contact-support"
+            - name: CircuitBreaker
+              args:
+                name: promotionService
+                fallbackUri: "forward:/promotions/contact-support"
 
         - id: file-service
           uri: lb://file-service
@@ -194,49 +194,56 @@ resilience4j:
     instances:
       authService:
         registerHealthIndicator: true
-        slidingWindowSize: 6
+        slidingWindowSize: 10
+        minimum-number-of-calls: 10
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
         waitDurationInOpenState: 20000
         failureRateThreshold: 50
       productService:
         registerHealthIndicator: true
-        slidingWindowSize: 6
+        slidingWindowSize: 10
+        minimum-number-of-calls: 10
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
         waitDurationInOpenState: 20000
         failureRateThreshold: 50
       cartService:
         registerHealthIndicator: true
-        slidingWindowSize: 6
+        slidingWindowSize: 10
+        minimum-number-of-calls: 10
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
         waitDurationInOpenState: 20000
         failureRateThreshold: 50
       orderService:
         registerHealthIndicator: true
-        slidingWindowSize: 6
+        slidingWindowSize: 10
+        minimum-number-of-calls: 10
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
         waitDurationInOpenState: 20000
         failureRateThreshold: 50
       paymentService:
         registerHealthIndicator: true
-        slidingWindowSize: 6
+        slidingWindowSize: 10
+        minimum-number-of-calls: 10
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
         waitDurationInOpenState: 20000
         failureRateThreshold: 50
       promotionService:
         registerHealthIndicator: true
-        slidingWindowSize: 6
+        slidingWindowSize: 10
+        minimum-number-of-calls: 10
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
         waitDurationInOpenState: 20000
         failureRateThreshold: 50
       fileService:
         registerHealthIndicator: true
-        slidingWindowSize: 6
+        slidingWindowSize: 10
+        minimum-number-of-calls: 10
         permittedNumberOfCallsInHalfOpenState: 3
         automaticTransitionFromOpenToHalfOpenEnabled: true
         waitDurationInOpenState: 20000

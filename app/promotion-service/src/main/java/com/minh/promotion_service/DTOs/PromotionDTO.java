@@ -17,7 +17,7 @@ public class PromotionDTO {
   private String code;
   @NotEmpty(message = "Promotion type cannot be empty")
   private String type;
-  @NotEmpty(message = "Promotion name cannot be empty")
+  @NotNull(message = "Promotion name cannot be null")
   private Double discountValue;
   private Double minOrderValue;
   @NotNull(message = "Start date cannot be null")

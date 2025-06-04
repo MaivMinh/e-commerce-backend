@@ -20,4 +20,5 @@ public class CreatePromotionCommand {
   private Integer usageLimit;
   private Integer usageCount;
   private String status;
+  private String errorMsg;
 }

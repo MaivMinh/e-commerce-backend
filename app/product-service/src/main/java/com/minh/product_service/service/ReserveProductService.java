@@ -3,8 +3,10 @@ package com.minh.product_service.service;
 import com.minh.common.dto.ReserveProductItem;
 import com.minh.common.events.ProductReserveRollbackedEvent;
 import com.minh.common.events.ProductReservedEvent;
+import com.minh.common.events.ReserveProductConfirmedEvent;
 import com.minh.product_service.entity.ProductVariant;
 import com.minh.product_service.entity.ReserveProduct;
+import com.minh.product_service.entity.ReserveProductStatus;
 import com.minh.product_service.repository.ProductVariantRepository;
 import com.minh.product_service.repository.ReserveProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +47,7 @@ public class ReserveProductService {
       reserve.setOrderId(orderId);
       reserve.setProductVariantId(item.getProductVariantId());
       reserve.setQuantity(item.getQuantity());
+      reserve.setStatus(ReserveProductStatus.locking);
       reserveProductRepository.save(reserve);
     });
   }
@@ -67,6 +70,21 @@ public class ReserveProductService {
       productVariantRepository.save(variant);
       /// Xoá bản ghi đặt chỗ sản phẩm.
       reserveProductRepository.delete(reserveProduct);
+    });
+  }
+
+  public void confirmReserveProduct(ReserveProductConfirmedEvent event) {
+    String orderId = event.getOrderId();
+    List<ReserveProduct> reserveProducts = reserveProductRepository.findAllByOrderId(orderId);
+    if (reserveProducts.isEmpty()) {
+      log.warn("No reserve products found for orderId: {}", orderId);
+      throw new RuntimeException("No reserve products found for orderId: " + orderId);
+    }
+
+    reserveProducts.forEach(reserveProduct -> {
+      /// Cập nhật lại trạng thái của bản ghi đặt chỗ sản phẩm.
+      reserveProduct.setStatus(ReserveProductStatus.completed);
+      reserveProductRepository.save(reserveProduct);
     });
   }
 }

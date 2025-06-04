@@ -1,5 +1,6 @@
 package com.minh.promotion_service.service;
 
+import com.minh.common.events.CreateOrderConfirmedEvent;
 import com.minh.common.events.PromotionAppliedEvent;
 import com.minh.common.events.PromotionApplyRollbackedEvent;
 import com.minh.promotion_service.entity.OrderPromotion;
@@ -8,6 +9,7 @@ import com.minh.promotion_service.entity.PromotionStatus;
 import com.minh.promotion_service.repository.OrderPromotionRepository;
 import com.minh.promotion_service.repository.PromotionRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,8 +17,8 @@ import org.springframework.util.StringUtils;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class OrderPromotionService {
@@ -24,11 +26,12 @@ public class OrderPromotionService {
   private final PromotionRepository promotionRepository;
 
 
-  @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
   public void applyPromotion(PromotionAppliedEvent event) {
+    log.info("Saving OrderPromotion for orderId: {}", event.getOrderId());
     String promotionId = event.getPromotionId();
-    if (StringUtils.hasText(promotionId)) {
-      /// User doesn't provide promotionId, so we will not apply promotion
+    if (!StringUtils.hasText(promotionId)) {
+      log.warn("Promotion ID is empty, skipping saving OrderPromotion for orderId: {}", event.getOrderId());
       return;
     }
     String orderId = event.getOrderId();
@@ -40,7 +43,7 @@ public class OrderPromotionService {
     }
     // Create a new order promotion record
     OrderPromotion orderPromotion = OrderPromotion.builder()
-            .id(UUID.randomUUID().toString())
+            .id(event.getOrderPromotionId())
             .orderId(orderId)
             .promotionId(promotionId)
             .isUsed(true)
@@ -49,13 +52,15 @@ public class OrderPromotionService {
 
     // Save the order promotion record
     orderPromotionRepository.save(orderPromotion);
+    log.info("Saved OrderPromotion for orderId: {}, promotionId: {}", orderId, promotionId);
 
     // Update the promotion usage count
     promotion.setUsageCount(promotion.getUsageCount() + 1);
     promotionRepository.save(promotion);
+    log.info("Save promotion usage count for promotionId: {}", promotionId);
   }
 
-  @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
+  @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
   public void rollbackApplyPromotion(PromotionApplyRollbackedEvent event) {
     /// Hàm thực hiện rollback lại việc áp dụng khuyến mãi cho đơn hàng
     String orderId = event.getOrderId();
@@ -63,6 +68,7 @@ public class OrderPromotionService {
             .orElse(null);
     if (orderPromotion == null) {
       /// User didn't apply any promotion for this order
+      log.warn("Promotion ID is empty, skipping saving OrderPromotion for orderId: {}", event.getOrderId());
       return;
     }
     Promotion promotion = promotionRepository.findById(orderPromotion.getPromotionId()).orElseThrow(

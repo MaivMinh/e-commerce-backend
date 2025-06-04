@@ -19,7 +19,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableDiscoveryClient
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
 @EnableJpaRepositories(basePackages = "com.minh.promotion_service.repository")
-@EntityScan(value = "com.minh.promotion_service.entity")
 @Import(AxonConfig.class)
 public class PromotionServiceApplication {
 

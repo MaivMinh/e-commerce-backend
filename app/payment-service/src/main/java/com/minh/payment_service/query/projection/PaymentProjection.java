@@ -1,6 +1,7 @@
 package com.minh.payment_service.query.projection;
 
 import com.minh.common.events.PaymentProcessedEvent;
+import com.minh.common.events.ProcessPaymentRollbackedEvent;
 import com.minh.payment_service.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.config.ProcessingGroup;
@@ -18,4 +19,8 @@ public class PaymentProjection {
     paymentService.processPayment(event);
   }
 
+  @EventHandler
+  public void on(ProcessPaymentRollbackedEvent event) {
+    paymentService.rollbackProcessPayment(event);
+  }
 }

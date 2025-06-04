@@ -1,5 +1,6 @@
 package com.minh.order_service.query.projection;
 
+import com.minh.common.events.CreateOrderConfirmedEvent;
 import com.minh.common.events.OrderCreateRollbackedEvent;
 import com.minh.common.events.OrderCreatedEvent;
 import com.minh.order_service.query.service.OrderService;
@@ -29,5 +30,12 @@ public class OrderProjection {
     ///  Rollback the order creation in case of failure.
     log.info("Handling OrderCreateRollbackedEvent for orderId: {}", event.getOrderId());
     orderService.rollbackOrderCreated(event);
+  }
+
+  @EventHandler
+  public void on(CreateOrderConfirmedEvent event) {
+    /// Confirm the order creation.
+    log.info("Handling CreateOrderConfirmedEvent for orderId: {}", event.getOrderId());
+    orderService.confirmCreateOrder(event);
   }
 }

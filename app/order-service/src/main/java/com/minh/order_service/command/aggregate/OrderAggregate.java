@@ -1,8 +1,10 @@
 package com.minh.order_service.command.aggregate;
 
+import com.minh.common.commands.ConfirmCreateOrderCommand;
 import com.minh.common.commands.CreateOrderCommand;
 import com.minh.common.commands.RollbackCreateOrderCommand;
 import com.minh.common.dto.OrderItemCreateDTO;
+import com.minh.common.events.CreateOrderConfirmedEvent;
 import com.minh.common.events.OrderCreateRollbackedEvent;
 import com.minh.common.events.OrderCreatedEvent;
 import com.minh.order_service.entity.OrderStatus;
@@ -29,11 +31,14 @@ public class OrderAggregate {
   private Double discount;
   private Double total;
   private String paymentMethodId;
+  private String paymentId;
   private String paymentStatus;
   private String promotionId;
   private String currency;
   private String note;
   private List<OrderItemCreateDTO> orderItemDTOs;
+  private String orderPromotionId;
+  private String reserveProductId;
   private String errorMsg;
 
   public OrderAggregate() {
@@ -61,11 +66,15 @@ public class OrderAggregate {
     this.discount = event.getDiscount();
     this.total = event.getTotal();
     this.paymentMethodId = event.getPaymentMethodId();
+    this.paymentId = null;
     this.paymentStatus = PaymentStatus.pending.toString();
     this.currency = event.getCurrency();
     this.promotionId = event.getPromotionId();
     this.note = event.getNote();
     this.orderItemDTOs = event.getOrderItemDTOs();
+    this.orderPromotionId = null;
+    this.reserveProductId = null;
+    this.errorMsg = null;
   }
 
 
@@ -82,6 +91,26 @@ public class OrderAggregate {
   public void on(OrderCreateRollbackedEvent event) {
     /// Set the properties of the aggregate from the event to store event into event store.
     this.orderId = event.getOrderId();
+    this.errorMsg = event.getErrorMsg();
+  }
+
+  @CommandHandler
+  public void handle(ConfirmCreateOrderCommand command) {
+    log.info("Handling ConfirmCreateOrderCommand for orderId: {}", command.getOrderId());
+    /// Create new event to confirm the order creation.
+    CreateOrderConfirmedEvent event = new CreateOrderConfirmedEvent();
+    BeanUtils.copyProperties(command, event);
+    AggregateLifecycle.apply(event);
+  }
+
+  @EventSourcingHandler
+  public void on(CreateOrderConfirmedEvent event) {
+    log.info("Confirming order creation for orderId: {}", event.getOrderId());
+    /// Set the properties of the aggregate from the event to store event into event store.
+    this.orderId = event.getOrderId();
+    this.paymentId = event.getPaymentId();
+    this.orderPromotionId = event.getOrderPromotionId();
+    this.reserveProductId = event.getReserveProductId();
     this.errorMsg = event.getErrorMsg();
   }
 }

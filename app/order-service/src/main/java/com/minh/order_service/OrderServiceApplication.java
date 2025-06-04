@@ -16,11 +16,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableDiscoveryClient
 @EnableJpaAuditing(auditorAwareRef = "auditAwareImpl")
 @EnableJpaRepositories(basePackages = "com.minh.order_service.repository")
-@EntityScan(basePackages = {
-        "com.minh.order_service.entity",
-        "org.axonframework.modelling.saga.repository.jpa",
-        "org.axonframework.eventhandling.tokenstore.jpa"
-})
 @Import(AxonConfig.class)
 public class OrderServiceApplication {
 

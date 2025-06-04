@@ -22,4 +22,5 @@ public class ReserveProduct extends BaseEntity {
   private String orderId;
   private Integer quantity;
   private Timestamp reserveAt;
+  private ReserveProductStatus status;
 }
