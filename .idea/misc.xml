@@ -26,6 +26,7 @@
         <option value="$PROJECT_DIR$/app/file-service/pom.xml" />
         <option value="$PROJECT_DIR$/app/api-gateway-2/pom.xml" />
         <option value="$PROJECT_DIR$/app/bom-service/pom.xml" />
+        <option value="$PROJECT_DIR$/app/user-service/pom.xml" />
       </list>
     </option>
   </component>

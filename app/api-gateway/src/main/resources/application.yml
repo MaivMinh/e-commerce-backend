@@ -88,10 +88,21 @@ spring:
                 name: fileService
                 fallbackUri: "forward:/files/contact-support"
 
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**,/api/users
+            - Method=GET,POST,PUT,DELETE,PATCH
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: authService
+                fallbackUri: "forward:/users/contact-support"
+
         - id: auth-service
           uri: lb://auth-service
           predicates:
-            - Path=/api/auth/**,/api/auth, /api/user/profile, /api/user/**
+            - Path=/api/auth/**,/api/auth
             - Method=GET,POST,PUT,DELETE,PATCH
           filters:
             - name: CircuitBreaker
@@ -189,6 +200,8 @@ resilience4j:
         timeoutDuration: 15s
       fileService:
         timeoutDuration: 15s
+      userService:
+        timeoutDuration: 15s
 
   circuitbreaker:
     instances:
@@ -241,6 +254,14 @@ resilience4j:
         waitDurationInOpenState: 20000
         failureRateThreshold: 50
       fileService:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimum-number-of-calls: 10
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 20000
+        failureRateThreshold: 50
+      userService:
         registerHealthIndicator: true
         slidingWindowSize: 10
         minimum-number-of-calls: 10

@@ -54,8 +54,6 @@ public class ProductQueryController {
                                                    @RequestParam(value = "page", defaultValue = "1", required = false) Integer page,
                                                    @RequestParam(value = "size", defaultValue = "10", required = false) Integer size,
                                                    HttpServletRequest request) {
-    System.out.println(request.getHeader("ACCOUNT-ID"));
-    System.out.println(request.getHeader("ROLE"));
     page = (page > 0) ? (page - 1) : 0;
     size = (size > 0) ? size : 10;
     FindProductsQuery query = FindProductsQuery.builder()

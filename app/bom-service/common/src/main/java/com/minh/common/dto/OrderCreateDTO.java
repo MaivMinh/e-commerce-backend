@@ -24,9 +24,10 @@ public class OrderCreateDTO {
   private Double total;
   @NotEmpty(message = "Payment method cannot be empty")
   private String paymentMethodId;
-  @NotEmpty(message = "Promotion ID cannot be empty")
   private String promotionId;
+  @NotEmpty(message = "Currency cannot be empty")
   private String currency;
   private String note;
-  List<OrderItemCreateDTO> orderItemDTOs;
+  @NotNull(message = "Order items cannot be null")
+  private List<OrderItemCreateDTO> orderItemDTOs;
 }
