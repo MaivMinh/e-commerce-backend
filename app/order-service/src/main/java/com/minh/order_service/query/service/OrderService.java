@@ -72,12 +72,10 @@ public class OrderService {
 
   public void confirmCreateOrder(CreateOrderConfirmedEvent event) {
     /// Hàm xác nhận việc tạo đơn hàng thành công.
-    throw new RuntimeException("Simulated failure for testing rollback");
-
-//    Order order = orderRepository.findById(event.getOrderId())
-//            .orElseThrow(() -> new RuntimeException("Order not found for id: " + event.getOrderId()));
-//    order.setOrderStatus(OrderStatus.completed);
-//    order.setPaymentStatus(PaymentStatus.completed);
-//    orderRepository.save(order);
+    Order order = orderRepository.findById(event.getOrderId())
+            .orElseThrow(() -> new RuntimeException("Order not found for id: " + event.getOrderId()));
+    order.setOrderStatus(OrderStatus.completed);
+    order.setPaymentStatus(PaymentStatus.completed);
+    orderRepository.save(order);
   }
 }

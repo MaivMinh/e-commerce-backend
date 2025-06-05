@@ -9,25 +9,26 @@
         <outputRelativeToContentRoot value="true" />
         <module name="common" />
       </profile>
-      <profile name="Annotation profile for e-commerce" enabled="true">
+      <profile name="Annotation profile for cart-service" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar" />
         </processorPath>
-        <module name="config-server" />
         <module name="cart-service" />
-        <module name="auth-service" />
-        <module name="payment-service" />
         <module name="review-service" />
         <module name="promotion-service" />
-        <module name="api-gateway" />
         <module name="product-service" />
-        <module name="order-service" />
+        <module name="user-service" />
         <module name="file-service" />
-        <module name="service-discovery" />
         <module name="notification-service" />
+        <module name="config-server" />
+        <module name="auth-service" />
+        <module name="payment-service" />
+        <module name="api-gateway" />
+        <module name="order-service" />
+        <module name="service-discovery" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -51,6 +52,7 @@
       <module name="promotion-service" options="-parameters" />
       <module name="review-service" options="-parameters" />
       <module name="service-discovery" options="-parameters" />
+      <module name="user-service" options="-parameters" />
     </option>
   </component>
 </project>

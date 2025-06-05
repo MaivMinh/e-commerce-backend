@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 @Validated
 @RequestMapping(value = "/api/orders")
 @RequiredArgsConstructor
-public class OrderController {
+public class OrderCommandController {
   private final CommandGateway commandGateway;
 
   /// Hàm thực hiện tạo đơn hàng.
