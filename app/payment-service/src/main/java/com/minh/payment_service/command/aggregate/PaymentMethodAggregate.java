@@ -55,7 +55,7 @@ public class PaymentMethodAggregate {
     this.provider = event.getProvider();
     this.currency = event.getCurrency();
     this.iconUrl = event.getIconUrl();
-    this.isActive = true; // Default to active when created
+    this.isActive = event.getIsActive(); // Default to active when created
   }
 
   @CommandHandler

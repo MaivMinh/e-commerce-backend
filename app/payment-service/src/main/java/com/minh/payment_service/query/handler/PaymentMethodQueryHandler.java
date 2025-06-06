@@ -14,7 +14,7 @@ public class PaymentMethodQueryHandler {
   private final PaymentMethodService paymentMethodService;
   @QueryHandler
   public ResponseData handle(FindAllPaymentMethodsQuery query) {
-    return paymentMethodService.findAllPaymentMethods();
+    return paymentMethodService.findAllPaymentMethods(query);
   }
 
   @QueryHandler

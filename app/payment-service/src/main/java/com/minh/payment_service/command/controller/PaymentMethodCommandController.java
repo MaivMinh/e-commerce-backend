@@ -1,5 +1,6 @@
 package com.minh.payment_service.command.controller;
 
+import com.minh.payment_service.DTOs.PaymentMethodCreateDTO;
 import com.minh.payment_service.DTOs.PaymentMethodDTO;
 import com.minh.payment_service.command.commands.CreatePaymentMethodCommand;
 import com.minh.payment_service.command.commands.DeletePaymentMethodCommand;
@@ -24,16 +25,17 @@ public class PaymentMethodCommandController {
   private final CommandGateway commandGateway;
 
   @PostMapping(value = "")
-  public ResponseEntity<ResponseData> createPaymentMethod(@RequestBody @Valid PaymentMethodDTO paymentMethodDTO) {
+  public ResponseEntity<ResponseData> createPaymentMethod(@RequestBody @Valid PaymentMethodCreateDTO paymentMethodCreateDTO) {
     CreatePaymentMethodCommand command = CreatePaymentMethodCommand.builder()
             .paymentMethodId(UUID.randomUUID().toString())
-            .code(paymentMethodDTO.getCode())
-            .name(paymentMethodDTO.getName())
-            .description(paymentMethodDTO.getDescription())
-            .type(paymentMethodDTO.getType())
-            .provider(paymentMethodDTO.getProvider())
-            .iconUrl(paymentMethodDTO.getIconUrl())
-            .currency(paymentMethodDTO.getCurrency())
+            .code(paymentMethodCreateDTO.getCode())
+            .name(paymentMethodCreateDTO.getName())
+            .description(paymentMethodCreateDTO.getDescription())
+            .type(paymentMethodCreateDTO.getType())
+            .provider(paymentMethodCreateDTO.getProvider())
+            .iconUrl(paymentMethodCreateDTO.getIconUrl())
+            .currency(paymentMethodCreateDTO.getCurrency())
+            .isActive(paymentMethodCreateDTO.getIsActive())
             .build();
     commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);
     return ResponseEntity.status(HttpStatus.CREATED.value()).body(ResponseData.builder().message("Payment method created successfully").build());
@@ -58,13 +60,13 @@ public class PaymentMethodCommandController {
 
 
   @DeleteMapping(value = "/{paymentMethodId}")
-  public void deletePaymentMethod(@PathVariable String paymentMethodId) {
+  public ResponseEntity<ResponseData> deletePaymentMethod(@PathVariable String paymentMethodId) {
     DeletePaymentMethodCommand command = DeletePaymentMethodCommand.builder()
             .paymentMethodId(paymentMethodId)
             .build();
 
     commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);
     // No response body needed for deletion, just return 204 No Content
-    ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ResponseData(204, "Payment method deleted successfully"));
   }
 }

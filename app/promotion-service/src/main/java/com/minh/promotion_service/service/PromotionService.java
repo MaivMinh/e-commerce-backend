@@ -67,9 +67,6 @@ public class PromotionService {
 
   public ResponseData findAllPromotions(FindAllPromotionsQuery query) {
     List<Promotion> promotions = promotionRepository.findAll();
-    if (promotions.isEmpty()) {
-      return ResponseData.builder().status(HttpStatus.OK.value()).message("No promotions found").data(null).build();
-    }
     List<PromotionDTO> dtos = promotions.stream().map(promotion -> {
       PromotionDTO dto = new PromotionDTO();
       PromotionMapper.mapToPromotionDTO(promotion, dto);
@@ -113,9 +110,6 @@ public class PromotionService {
       promotionPage = promotionRepository.findAll(pageable);
     }
 
-    if (promotionPage.isEmpty()) {
-      return ResponseData.builder().status(HttpStatus.OK.value()).message("No promotions found").data(null).build();
-    }
 
     Map<String, Object> data = new HashMap<>();
     data.put("promotions", promotionPage.getContent().stream().map(promotion -> {

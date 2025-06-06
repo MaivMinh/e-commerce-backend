@@ -1,17 +1,18 @@
 CREATE TABLE payment_methods
 (
     id          VARCHAR(36) PRIMARY KEY,
-    code        VARCHAR(50)  NOT NULL UNIQUE, -- e.g., 'credit_card', 'e_wallet_momo'
-    name        VARCHAR(100) NOT NULL,        -- e.g., 'Credit Card', 'MoMo Wallet'
+    code        VARCHAR(50)                                              NOT NULL UNIQUE, -- e.g., 'credit_card', 'e_wallet_momo'
+    name        VARCHAR(100)                                             NOT NULL,        -- e.g., 'Credit Card', 'MoMo Wallet'
     description TEXT,
-    type        VARCHAR(50)  NOT NULL,        -- 'credit_card', 'bank_transfer', 'e_wallet', 'cod'
-    provider    VARCHAR(50),                  -- For e-wallets: 'momo', 'zalopay', 'vnpay'
+    type        ENUM ( 'bank_transfer','credit_card', 'cod', 'e_wallet') NOT NULL,
+    provider    VARCHAR(255),                                                              -- For e-wallets: 'momo', 'zalopay', 'vnpay'
     icon_url    VARCHAR(255),
-    is_active   BOOLEAN               DEFAULT TRUE,
-    created_at  TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    created_by  VARCHAR(255) NOT NULL,
-    updated_at  TIMESTAMP             DEFAULT NULL,
-    updated_by  VARCHAR(255)          DEFAULT NULL
+    currency    ENUM ('vnd', 'usd', 'eur')                                        DEFAULT 'vnd',
+    is_active   BOOLEAN                                                           DEFAULT TRUE,
+    created_at  TIMESTAMP                                                NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    created_by  VARCHAR(255)                                             NOT NULL,
+    updated_at  TIMESTAMP                                                         DEFAULT NULL,
+    updated_by  VARCHAR(255)                                                      DEFAULT NULL
 );
 
 CREATE TABLE payments
@@ -28,9 +29,6 @@ CREATE TABLE payments
     created_by        VARCHAR(255)   NOT NULL,
     updated_at        TIMESTAMP               DEFAULT NULL,
     updated_by        VARCHAR(255)            DEFAULT NULL,
-    gateway_response  TEXT,                    -- Store response from payment gateway
-    qr_code_url       VARCHAR(255),            -- For e-wallet payments
-    payer_info        TEXT,                    -- JSON data for payer information
     FOREIGN KEY (payment_method_id) REFERENCES payment_methods (id)
 );
 create index idx_payments_order_id on payments (order_id);

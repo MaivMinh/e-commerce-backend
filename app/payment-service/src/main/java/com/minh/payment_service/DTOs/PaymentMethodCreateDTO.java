@@ -9,8 +9,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PaymentMethodDTO {
-  @NotEmpty(message = "Payment Method ID cannot be empty")
+public class PaymentMethodCreateDTO {
   private String paymentMethodId;
   @NotEmpty(message = "Code cannot be empty")
   private String code;
@@ -23,7 +22,7 @@ public class PaymentMethodDTO {
   private String provider;
   @NotEmpty(message = "Currency cannot be empty")
   private String currency;
-  @NotNull(message = "Is Active cannot be null")
+  @NotNull(message = "Icon URL cannot be null")
   private Boolean isActive;
   private String iconUrl;
 }
