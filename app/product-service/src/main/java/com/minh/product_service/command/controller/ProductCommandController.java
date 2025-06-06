@@ -1,6 +1,7 @@
 package com.minh.product_service.command.controller;
 
 import com.minh.product_service.command.commands.*;
+import com.minh.product_service.dto.ProductCreateDTO;
 import com.minh.product_service.dto.ProductDTO;
 import com.minh.product_service.dto.ProductVariantDTO;
 import com.minh.product_service.response.ResponseData;
@@ -11,10 +12,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -27,9 +26,8 @@ public class ProductCommandController {
 
   /// ================== ADMIN ROLE ================== ///
   /// Hàm thực hiện tạo mới một sản phẩm.
-  /// DONE!
   @PostMapping(value = "")
-  public ResponseEntity<ResponseData> createProduct(@RequestBody @Valid ProductDTO productDTO) {
+  public ResponseEntity<ResponseData> createProduct(@RequestBody @Valid ProductCreateDTO productCreateDTO) {
     /**
      *   {
      *   "name": "Product Name",
@@ -41,6 +39,16 @@ public class ProductCommandController {
      *   "https://example.com/image1.jpg",
      *   "https://example.com/image2.jpg"
      *   ],
+     *   "productVariants": [
+     {
+     "size": "M",
+     "colorName": "Red",
+     "colorHex": "#FF0000",
+     "price": 100.0,
+     "originalPrice": 120.0,
+     "quantity": 10
+     },
+     *   ]
      *   "price": 100.0,
      *   "originalPrice": 120.0,
      *   "isFeatured": true,
@@ -52,23 +60,23 @@ public class ProductCommandController {
 
     CreateProductCommand command = CreateProductCommand.builder()
             .id(UUID.randomUUID().toString())
-            .name(productDTO.getName())
-            .slug(productDTO.getSlug())
-            .categoryId(productDTO.getCategoryId())
-            .description(productDTO.getDescription())
-            .cover(productDTO.getCover())
-            .images(!productDTO.getImages().isEmpty() ? productDTO.getImages() : new ArrayList<>())
-            .price(productDTO.getPrice())
-            .originalPrice(productDTO.getOriginalPrice())
-            .isFeatured(productDTO.getIsFeatured())
-            .isNew(productDTO.getIsNew())
-            .isBestseller(productDTO.getIsBestseller())
-            .status(productDTO.getStatus())
+            .name(productCreateDTO.getName())
+            .slug(productCreateDTO.getSlug())
+            .categoryId(productCreateDTO.getCategoryId())
+            .description(productCreateDTO.getDescription())
+            .cover(productCreateDTO.getCover())
+            .images(!productCreateDTO.getImages().isEmpty() ? productCreateDTO.getImages() : new ArrayList<>())
+            .price(productCreateDTO.getPrice())
+            .originalPrice(productCreateDTO.getOriginalPrice())
+            .productVariants(productCreateDTO.getProductVariants() != null ? productCreateDTO.getProductVariants() : new ArrayList<>())
+            .isFeatured(productCreateDTO.getIsFeatured())
+            .isNew(productCreateDTO.getIsNew())
+            .isBestseller(productCreateDTO.getIsBestseller())
+            .status(productCreateDTO.getStatus())
             .build();
     commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);
-    return ResponseEntity.ok(new ResponseData(HttpStatus.CREATED.value(), "Product is created successfully", null));
+    return ResponseEntity.status(201).body(new ResponseData(HttpStatus.CREATED.value(), "Product is created successfully", null));
   }
-
 
   /// Hàm thực hiện cập nhật thông tin một sản phẩm.
   /// DONE!
@@ -79,16 +87,18 @@ public class ProductCommandController {
             .name(productDTO.getName())
             .slug(productDTO.getSlug())
             .cover(productDTO.getCover())
+            .images(productDTO.getImages())
+            .productVariants(productDTO.getProductVariants())
             .categoryId(productDTO.getCategoryId())
             .price(productDTO.getPrice())
             .originalPrice(productDTO.getOriginalPrice())
             .description(productDTO.getDescription())
-            .price(productDTO.getPrice())
             .status(productDTO.getStatus())
             .isBestseller(productDTO.getIsBestseller())
             .isFeatured(productDTO.getIsFeatured())
             .isNew(productDTO.getIsNew())
             .build();
+
     commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);
     return ResponseEntity.ok(new ResponseData(HttpStatus.OK.value(), "Product is updated successfully", null));
   }
@@ -105,7 +115,7 @@ public class ProductCommandController {
   }
 
 
-  /// Hàm thực hiện tạo ra các variant của một sản phẩm.
+  /// Hàm thực hiện tạo rphẩm.a các variant của một sản
   @PostMapping(value = "/{productId}/variants")
   public ResponseEntity<ResponseData> createProductVariants(@RequestBody @Valid ProductVariantDTO productVariantDTO,
                                                             @PathVariable String productId) {
@@ -115,6 +125,7 @@ public class ProductCommandController {
      *   "colorName": "Red",
      *   "colorHex": "#FF0000",
      *   "price": 99999.99,
+     *   "originalPrice": 109999.99,
      *   "quantity": 10
      *   }
      */

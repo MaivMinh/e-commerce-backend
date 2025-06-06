@@ -14,7 +14,7 @@ public class CategoryDTO {
   @NotEmpty(message = "Category name must not be empty")
   @Size(max = 100, message = "Category name must not exceed 100 characters")
   private String name;
-  @NotEmpty(message = "Category description must not be empty")
-  @Size(max = 1000, message = "Category description must not exceed 1000 characters")
   private String description;
+  @NotEmpty(message = "Category slug must not be empty")
+  private String slug;
 }

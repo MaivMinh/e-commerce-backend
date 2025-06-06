@@ -1,18 +1,17 @@
 package com.minh.product_service.command.commands;
 
+import com.minh.product_service.dto.ProductVariantDTO;
 import lombok.*;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
+
 
 @Getter
 @Setter
-@ToString
 @Builder
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class CreateProductCommand {
   @TargetAggregateIdentifier
   private String id;
@@ -20,12 +19,13 @@ public class CreateProductCommand {
   private String slug;
   private String description;
   private String cover;
+  private List<String> images;
   private Double price;
   private Double originalPrice;
+  private List<ProductVariantDTO> productVariants;
   private String status;
   private Boolean isFeatured;
   private Boolean isNew;
   private Boolean isBestseller;
   private String categoryId;
-  private List<String> images;
 }

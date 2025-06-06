@@ -2,6 +2,7 @@ package com.minh.product_service.query.handler;
 
 import com.minh.product_service.query.queries.FetchCategoriesQuery;
 import com.minh.product_service.query.queries.FetchCategoryQuery;
+import com.minh.product_service.query.queries.FindAllCategoriesQuery;
 import com.minh.product_service.query.queries.SearchCategoriesQuery;
 import com.minh.product_service.response.ResponseData;
 import com.minh.product_service.service.CategoryService;
@@ -17,6 +18,11 @@ public class CategoryQueryHandler {
   @QueryHandler
   public ResponseData handle(FetchCategoriesQuery query) {
     return categoryService.fetchCategories(query.getPage(), query.getSize(), query.getSort());
+  }
+
+  @QueryHandler
+  public ResponseData handle(FindAllCategoriesQuery query) {
+    return categoryService.findAllCategories(query);
   }
 
   @QueryHandler

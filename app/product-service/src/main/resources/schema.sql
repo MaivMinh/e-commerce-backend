@@ -97,20 +97,21 @@ CREATE TABLE IF NOT EXISTS wishlist_products
 );
 
 
-create table if not exists reserved_stock
+create table if not exists reserved_products
 (
     id                 varchar(255) primary key,
     product_variant_id varchar(36)  not null,
     order_id           varchar(36)  not null,
     quantity           int          not null,
     reserved_at        TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    status             ENUM ('locking', 'completed'),
     created_at         TIMESTAMP    NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_by         varchar(255) NOT NULL,
     updated_at         TIMESTAMP             default null,
     updated_by         varchar(255)          DEFAULT NULL
 );
 
-create index idx_reserved_stock_order_id on reserved_stock(order_id);
+create index idx_reserved_stock_order_id on reserved_products(order_id);
 CREATE INDEX idx_categories_parent ON Categories (parent_id);
 create index idx_categories_slug ON Categories (slug);
 create index idx_products_slug ON Products (slug);

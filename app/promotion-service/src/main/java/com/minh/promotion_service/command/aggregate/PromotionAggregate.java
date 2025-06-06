@@ -68,7 +68,6 @@ public class PromotionAggregate {
   }
   @EventSourcingHandler
   public void on(PromotionUpdatedEvent event) {
-    this.promotionId = event.getPromotionId();
     this.code = event.getCode();
     this.type = event.getType();
     this.discountValue = event.getDiscountValue();

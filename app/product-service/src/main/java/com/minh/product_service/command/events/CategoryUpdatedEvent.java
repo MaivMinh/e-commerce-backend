@@ -13,4 +13,5 @@ public class CategoryUpdatedEvent {
   private String parentId; // Optional, can be null if no parent category.
   private String name;
   private String description;
+  private String slug;
 }

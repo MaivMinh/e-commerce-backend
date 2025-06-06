@@ -1,6 +1,5 @@
 package com.minh.product_service.command.events;
 
-
 import com.minh.product_service.dto.ProductVariantDTO;
 import lombok.*;
 
@@ -8,11 +7,10 @@ import java.util.List;
 
 @Getter
 @Setter
-@ToString
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class ProductCreatedEvent {
+@NoArgsConstructor
+public class ProductWithProductVariantsCreatedEvent {
   private String id;
   private String name;
   private String slug;

@@ -1,5 +1,6 @@
 package com.minh.product_service.command.commands;
 
+import com.minh.product_service.dto.ProductVariantDTO;
 import lombok.*;
 import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
@@ -16,8 +17,10 @@ public class UpdateProductCommand {
   private String slug;
   private String description;
   private String cover;
+  private List<String> images;
   private Double price;
   private Double originalPrice;
+  private List<ProductVariantDTO> productVariants;
   private String status;
   private Boolean isFeatured;
   private Boolean isNew;

@@ -13,4 +13,5 @@ public class CategoryCreatedEvent {
   private String parentId;
   private String name;
   private String description;
+  private String slug;
 }

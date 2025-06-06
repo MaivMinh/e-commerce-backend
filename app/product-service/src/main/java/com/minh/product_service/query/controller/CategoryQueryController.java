@@ -2,6 +2,7 @@ package com.minh.product_service.query.controller;
 
 import com.minh.product_service.query.queries.FetchCategoriesQuery;
 import com.minh.product_service.query.queries.FetchCategoryQuery;
+import com.minh.product_service.query.queries.FindAllCategoriesQuery;
 import com.minh.product_service.query.queries.SearchCategoriesQuery;
 import com.minh.product_service.response.ResponseData;
 import lombok.RequiredArgsConstructor;
@@ -40,6 +41,17 @@ public class CategoryQueryController {
     ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
     return ResponseEntity.status(response.getStatus()).body(response);
   }
+
+
+  /// Phương thức lấy hết
+  @GetMapping(value = "/all")
+  public ResponseEntity<ResponseData> findAllCategories() {
+    FindAllCategoriesQuery query = new FindAllCategoriesQuery();
+    /// dispatch query
+    ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
+
 
   /// Phương thức lấy một danh mục theo id.
   /// DONE.

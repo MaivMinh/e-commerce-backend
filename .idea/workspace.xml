@@ -5,41 +5,41 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/AddressCreateDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/AddressDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/ProfileDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/UserCreateDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/UserDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/aspect/LoggerAspect.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/audit/AuditAwareImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/config/ProjectSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/controller/AddressController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/Address.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/BaseEntity.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/Gender.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/exception/GlobalExceptionHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/mapper/AddressMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/mapper/UserMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/repository/AddressRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/response/ResponseData.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/response/ResponseError.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/AddressService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/resources/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/ProductWithProductVariantsCreatedEvent.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductCreateDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/queries/FindAllCategoriesQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/controller/FallbackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/controller/FallbackController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/bom-service/common/src/main/java/com/minh/common/dto/OrderCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/bom-service/common/src/main/java/com/minh/common/dto/OrderCreateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/command/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/command/controller/OrderCommandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/ProductQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/ProductQueryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/resources/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/resources/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/aspect/LoggerAspect.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/CategoryAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/CategoryAggregate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/ProductAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/ProductAggregate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateCategoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateCategoryCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateProductCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateProductCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/UpdateCategoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/UpdateCategoryCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/UpdateProductCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/UpdateProductCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/CategoryCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/CategoryCommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/ProductCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/ProductCommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryCreatedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryUpdatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryUpdatedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/ProductCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/ProductCreatedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/ProductUpdatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/ProductUpdatedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/CategoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/CategoryDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/mapper/CategoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/mapper/CategoryMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/mapper/ProductMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/mapper/ProductMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/CategoryQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/CategoryQueryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/handler/CategoryQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/handler/CategoryQueryHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/projection/ProductProjection.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/projection/ProductProjection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/repository/ProductImageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/repository/ProductImageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/repository/ProductVariantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/repository/ProductVariantRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/resources/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/aggregate/PromotionAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/command/aggregate/PromotionAggregate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/resources/schema.sql" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,60 +72,60 @@
     <option name="showLibraryContents" value="true" />
     <option name="sortKey" value="BY_TIME_ASCENDING" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Makefile Target.proto.executor": "Run",
-    "Maven.e-commerce [clean].executor": "Run",
-    "Maven.e-commerce [compile].executor": "Run",
-    "Maven.service-discovery [clean].executor": "Run",
-    "Maven.service-discovery [compile].executor": "Run",
-    "Notification.DisplayName-DoNotAsk-Database detector": "Database detector",
-    "Notification.DoNotAsk-Database detector": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.ApiGatewayApplication.executor": "Run",
-    "Spring Boot.AuthServiceApplication.executor": "Run",
-    "Spring Boot.CartServiceApplication.executor": "Run",
-    "Spring Boot.ConfigServerApplication.executor": "Run",
-    "Spring Boot.FileServiceApplication.executor": "Run",
-    "Spring Boot.OrderServiceApplication.executor": "Run",
-    "Spring Boot.PaymentServiceApplication.executor": "Run",
-    "Spring Boot.ProductServiceApplication.executor": "Run",
-    "Spring Boot.PromotionServiceApplication.executor": "Run",
-    "Spring Boot.ServiceDiscoveryApplication.executor": "Run",
-    "Spring Boot.UserServiceApplication.executor": "Run",
-    "git-widget-placeholder": "user-service",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/user-service/src/main/java/com/minh/user_service",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Makefile Target.proto.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.e-commerce [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.e-commerce [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.service-discovery [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.service-discovery [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Database detector&quot;: &quot;Database detector&quot;,
+    &quot;Notification.DoNotAsk-Database detector&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.AuthServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CartServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ConfigServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FileServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.OrderServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ProductServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PromotionServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ServiceDiscoveryApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/user-service/src/main/java/com/minh/user_service&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
-      "MySQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
+      &quot;MySQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.minh.product_service.query.queries" />
+      <recent name="com.minh.product_service.dto" />
+      <recent name="com.minh.product_service.command.events" />
+      <recent name="com.minh.product_service.command.commands" />
       <recent name="com.minh.user_service.DTOs" />
-      <recent name="com.minh.user_service.service" />
-      <recent name="com.minh.user_service.entity" />
-      <recent name="com.minh.common.events" />
-      <recent name="com.minh.product_service.entity" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service" />
@@ -152,7 +152,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Makefile Target.proto">
+  <component name="RunManager" selected="Spring Boot.AuthServiceApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="file-service" />
       <method v="2">
@@ -179,7 +179,7 @@
     </configuration>
     <configuration name="AuthServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <envs>
-        <env name="BRAVO_API_KEY" value="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" />
+        <env name="BRAVO_API_KEY" value="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" />
       </envs>
       <module name="auth-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.minh.auth_service.AuthServiceApplication" />
@@ -399,6 +399,13 @@
       <workItem from="1748965244210" duration="5672000" />
       <workItem from="1749041691158" duration="4165000" />
       <workItem from="1749045888336" duration="14578000" />
+      <workItem from="1749141299976" duration="1748000" />
+      <workItem from="1749145955843" duration="993000" />
+      <workItem from="1749146968919" duration="7895000" />
+      <workItem from="1749183137182" duration="1212000" />
+      <workItem from="1749184387170" duration="1049000" />
+      <workItem from="1749185777797" duration="4674000" />
+      <workItem from="1749190537733" duration="1767000" />
     </task>
     <servers />
   </component>

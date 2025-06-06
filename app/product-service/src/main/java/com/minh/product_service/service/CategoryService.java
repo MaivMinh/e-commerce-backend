@@ -5,6 +5,7 @@ import com.minh.product_service.command.events.CategoryUpdatedEvent;
 import com.minh.product_service.dto.CategoryDTO;
 import com.minh.product_service.entity.Category;
 import com.minh.product_service.mapper.CategoryMapper;
+import com.minh.product_service.query.queries.FindAllCategoriesQuery;
 import com.minh.product_service.repository.CategoryRepository;
 import com.minh.product_service.response.ResponseData;
 import lombok.RequiredArgsConstructor;
@@ -24,6 +25,26 @@ import java.util.stream.Collectors;
 public class CategoryService {
   private final CategoryRepository categoryRepository;
 
+  private String generateSlug(String name) {
+    if (name == null || name.isEmpty()) {
+      return "";
+    }
+    // Convert to lowercase
+    String slug = name.toLowerCase();
+    // Handle Vietnamese accents and other diacritical marks
+    slug = java.text.Normalizer.normalize(slug, java.text.Normalizer.Form.NFD);
+    // Replace spaces with hyphens
+    slug = slug.replaceAll("\\s+", "-");
+    // Remove special characters but keep normalized characters
+    slug = slug.replaceAll("[^\\p{ASCII}]", "");
+    slug = slug.replaceAll("[^a-z0-9-]", "");
+    // Replace multiple hyphens with a single one
+    slug = slug.replaceAll("-+", "-");
+    // Remove leading and trailing hyphens
+    slug = slug.replaceAll("^-|-$", "");
+    return slug;
+  }
+
   /// Hàm thêm mới danh mục sản phẩm.
   /// DONE!!!
   public void createCategory(Category category) {
@@ -34,8 +55,11 @@ public class CategoryService {
     }
     /// Save category.
     try {
-      Category cate = categoryRepository.save(category);
-      System.out.println("New category with id: " + cate.getId());
+      if (!StringUtils.hasText(category.getSlug())) {
+        String slug = generateSlug(category.getName());
+        category.setSlug(slug);
+      }
+      categoryRepository.save(category);
     } catch (Exception e) {
       throw new RuntimeException("Failed to create new category");
     }
@@ -50,11 +74,13 @@ public class CategoryService {
       saved.setName(event.getName());
       saved.setParentId(event.getParentId());
       saved.setDescription(event.getDescription());
+      saved.setSlug(event.getSlug());
       categoryRepository.save(saved);
     } catch (Exception e) {
       throw new RuntimeException("Failed to update category");
     }
   }
+
   public void deleteCategory(CategoryDeletedEvent event) {
     Category saved = categoryRepository.findById(event.getId()).orElseThrow(
             () -> new RuntimeException("Category not found")
@@ -119,6 +145,24 @@ public class CategoryService {
               .build();
     } catch (Exception e) {
       throw new RuntimeException("Failed to fetch categories");
+    }
+  }
+
+  public ResponseData findAllCategories(FindAllCategoriesQuery query) {
+    try {
+      List<Category> categories = categoryRepository.findAll();
+      List<CategoryDTO> categoryDTOs = categories.stream().map(category -> {
+        CategoryDTO categoryDTO = new CategoryDTO();
+        CategoryMapper.mapToCategoryDTO(category, categoryDTO);
+        return categoryDTO;
+      }).collect(Collectors.toList());
+      return ResponseData.builder()
+              .message("Fetched all categories successfully")
+              .status(HttpStatus.OK.value())
+              .data(categoryDTOs)
+              .build();
+    } catch (Exception e) {
+      throw new RuntimeException("Failed to fetch all categories");
     }
   }
 }

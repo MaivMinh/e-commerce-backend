@@ -1,3 +1,4 @@
+-- Quản lý người dùng và địa chỉ
 CREATE TABLE users
 (
     id         VARCHAR(36) PRIMARY KEY,

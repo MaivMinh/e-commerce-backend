@@ -14,4 +14,5 @@ public class Category extends BaseEntity {
   private String parentId;
   private String name;
   private String description;
+  private String slug;
 }

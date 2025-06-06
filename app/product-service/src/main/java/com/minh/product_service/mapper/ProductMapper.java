@@ -10,6 +10,7 @@ public class ProductMapper {
   public static void mapToProductDTO(Product product, ProductDTO productDto) {
     productDto.setId(product.getId());
     productDto.setName(product.getName());
+    productDto.setSlug(product.getSlug());
     productDto.setDescription(product.getDescription());
     productDto.setCover(product.getCover());
     productDto.setPrice(product.getPrice());
@@ -18,7 +19,6 @@ public class ProductMapper {
     productDto.setIsBestseller(product.getIsBestseller());
     productDto.setIsNew(product.getIsNew());
     productDto.setCategoryId(product.getCategoryId());
-    productDto.setSlug(product.getSlug());
     productDto.setStatus(product.getStatus().toString());
     productDto.setSoldItems(product.getSoldItems());
   }

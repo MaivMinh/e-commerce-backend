@@ -3,10 +3,8 @@ package com.minh.product_service.service;
 import com.minh.product_service.command.events.ProductCreatedEvent;
 import com.minh.product_service.command.events.ProductDeletedEvent;
 import com.minh.product_service.command.events.ProductUpdatedEvent;
-import com.minh.product_service.dto.ProductCartDTO;
-import com.minh.product_service.dto.ProductDTO;
-import com.minh.product_service.dto.ProductFilterDTO;
-import com.minh.product_service.dto.ProductVariantMessageDTO;
+import com.minh.product_service.command.events.ProductWithProductVariantsCreatedEvent;
+import com.minh.product_service.dto.*;
 import com.minh.product_service.entity.Product;
 import com.minh.product_service.entity.ProductImage;
 import com.minh.product_service.entity.ProductStatus;
@@ -46,7 +44,7 @@ public class ProductService {
   private final ProductImageRepository productImageRepository;
   private final ProductVariantRepository productVariantRepository;
 
-  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
   /// Done.
   public void createProduct(ProductCreatedEvent event) {
     try {
@@ -54,7 +52,11 @@ public class ProductService {
       Product product = new Product();
       product.setId(event.getId());
       product.setName(event.getName());
-      product.setSlug(event.getSlug());
+      if (StringUtils.hasText(event.getSlug())) {
+        product.setSlug(event.getSlug());
+      } else {
+        product.setSlug(this.generateSlug(event.getName()));
+      }
       product.setDescription(event.getDescription());
       product.setCover(event.getCover());
       product.setPrice(event.getPrice());
@@ -66,7 +68,7 @@ public class ProductService {
       ProductStatus status = ProductStatus.valueOf(event.getStatus().toLowerCase());
       product.setStatus(status);
       productRepository.save(product);  /// Ensure that product is saved before saving images.
-      System.out.println(event.getImages().size());
+
       for (String image : event.getImages()) {
         ProductImage productImage = new ProductImage();
         productImage.setId(UUID.randomUUID().toString());
@@ -74,13 +76,27 @@ public class ProductService {
         productImage.setUrl(image);
         productImageRepository.save(productImage);
       }
+
+      for (ProductVariantDTO variant : event.getProductVariants()) {
+        com.minh.product_service.entity.ProductVariant productVariant = new com.minh.product_service.entity.ProductVariant();
+        productVariant.setId(UUID.randomUUID().toString());
+        productVariant.setProductId(product.getId());
+        productVariant.setSize(variant.getSize());
+        productVariant.setColorName(variant.getColorName());
+        productVariant.setColorHex(variant.getColorHex());
+        productVariant.setPrice(variant.getPrice());
+        productVariant.setOriginalPrice(variant.getOriginalPrice());
+        productVariant.setQuantity(variant.getQuantity());
+        productVariantRepository.save(productVariant);
+      }
     } catch (Exception e) {
-      log.error(e.getMessage());
-      throw new RuntimeException("Error when save product to database");
+      log.error(e.getMessage(), e);
+      throw new RuntimeException("Error when save product with variants to database");
     }
   }
 
 
+  @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
   /// Done.
   public void updateProduct(ProductUpdatedEvent event) {
     String productId = event.getId();
@@ -101,13 +117,51 @@ public class ProductService {
     ProductStatus status = ProductStatus.valueOf(event.getStatus().toLowerCase());
     product.setStatus(status);
     product.setCover(event.getCover());
-    try {
-      productRepository.save(product);
-    } catch (Exception e) {
-      throw new RuntimeException("Error when update product to database");
+
+    /// Update images.
+    if (event.getImages() == null || event.getImages().isEmpty()) {
+      /// Clear old images.
+      productImageRepository.deleteAllByProductId(productId);
+    } else {
+      /// Clear old images.
+      log.warn("Update new images for product ID: {}", productId);
+      productImageRepository.deleteAllByProductId(productId);
+      /// Save new images.
+      for (String image : event.getImages()) {
+        ProductImage productImage = new ProductImage();
+        productImage.setId(UUID.randomUUID().toString());
+        productImage.setProductId(productId);
+        productImage.setUrl(image);
+        productImageRepository.save(productImage);
+      }
     }
+
+    /// Update product variants.
+    if (event.getProductVariants() == null || event.getProductVariants().isEmpty()) {
+      /// Clear old product variants.
+      productVariantRepository.deleteAllByProductId(productId);
+    } else {
+      log.warn("Update new variants for product ID: {}", productId);
+      /// Clear old product variants.
+      productVariantRepository.deleteAllByProductId(productId);
+      /// Save new product variants.
+      for (ProductVariantDTO variant : event.getProductVariants()) {
+        com.minh.product_service.entity.ProductVariant productVariant = new com.minh.product_service.entity.ProductVariant();
+        productVariant.setId(UUID.randomUUID().toString());
+        productVariant.setProductId(productId);
+        productVariant.setSize(variant.getSize());
+        productVariant.setColorName(variant.getColorName());
+        productVariant.setColorHex(variant.getColorHex());
+        productVariant.setPrice(variant.getPrice());
+        productVariant.setOriginalPrice(variant.getOriginalPrice());
+        productVariant.setQuantity(variant.getQuantity());
+        productVariantRepository.save(productVariant);
+      }
+    }
+    productRepository.save(product);
   }
 
+  @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
   /// Done.
   public void deleteProduct(ProductDeletedEvent event) {
     /// Validate again.
@@ -118,6 +172,10 @@ public class ProductService {
     /// Update product into database.
     try {
       Product product = saved.get();
+
+      /// Delete images of product and product variants.
+      productImageRepository.deleteAllByProductId(product.getId());
+      productVariantRepository.deleteAllByProductId(product.getId());
       productRepository.delete(product);
     } catch (Exception e) {
       throw new RuntimeException("Error when delete product to database. Try again");
@@ -136,6 +194,22 @@ public class ProductService {
     /// Get images of product.
     List<String> images = new ArrayList<>(productImageRepository.findImagesByProductId(id));
     productDTO.setImages(images);
+
+    /// Get product variants.
+    List<com.minh.product_service.entity.ProductVariant> variants = productVariantRepository.findAllByProductId(id);
+    List<ProductVariantDTO> productVariants = variants.stream().map(variant -> {
+      ProductVariantDTO variantDTO = new ProductVariantDTO();
+      variantDTO.setId(variant.getId());
+      variantDTO.setSize(variant.getSize());
+      variantDTO.setColorName(variant.getColorName());
+      variantDTO.setColorHex(variant.getColorHex());
+      variantDTO.setPrice(variant.getPrice());
+      variantDTO.setOriginalPrice(variant.getOriginalPrice());
+      variantDTO.setQuantity(variant.getQuantity());
+      return variantDTO;
+    }).collect(Collectors.toList());
+    productDTO.setProductVariants(productVariants);
+
     return productDTO;
   }
 
@@ -158,6 +232,20 @@ public class ProductService {
                 ProductMapper.mapToProductDTO(product, productDTO);
                 List<String> images = new ArrayList<>(productImageRepository.findImagesByProductId(product.getId()));
                 productDTO.setImages(images);
+                List<com.minh.product_service.entity.ProductVariant> variants = productVariantRepository.findAllByProductId(product.getId());
+
+                List<ProductVariantDTO> productVariants = variants.stream().map(variant -> {
+                  ProductVariantDTO variantDTO = new ProductVariantDTO();
+                  variantDTO.setId(variant.getId());
+                  variantDTO.setSize(variant.getSize());
+                  variantDTO.setColorName(variant.getColorName());
+                  variantDTO.setColorHex(variant.getColorHex());
+                  variantDTO.setPrice(variant.getPrice());
+                  variantDTO.setOriginalPrice(variant.getOriginalPrice());
+                  variantDTO.setQuantity(variant.getQuantity());
+                  return variantDTO;
+                }).collect(Collectors.toList());
+                productDTO.setProductVariants(productVariants);
                 return productDTO;
               }).collect(Collectors.toList());
 
@@ -174,6 +262,7 @@ public class ProductService {
     }
   }
 
+  @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
   public ProductDTO findProductBySlug(FindProductBySlugQuery query) {
     /// Validate again.
     Optional<Product> saved = productRepository.findProductBySlug((query.getSlug()));
@@ -185,6 +274,22 @@ public class ProductService {
     /// Get images of product.
     List<String> images = new ArrayList<>(productImageRepository.findImagesByProductId(saved.get().getId()));
     productDTO.setImages(images);
+
+    /// Get product variants.
+    List<com.minh.product_service.entity.ProductVariant> variants = productVariantRepository.findAllByProductId(saved.get().getId());
+    List<ProductVariantDTO> productVariants = variants.stream().map(variant -> {
+      ProductVariantDTO variantDTO = new ProductVariantDTO();
+      variantDTO.setId(variant.getId());
+      variantDTO.setSize(variant.getSize());
+      variantDTO.setColorName(variant.getColorName());
+      variantDTO.setColorHex(variant.getColorHex());
+      variantDTO.setPrice(variant.getPrice());
+      variantDTO.setOriginalPrice(variant.getOriginalPrice());
+      variantDTO.setQuantity(variant.getQuantity());
+      return variantDTO;
+    }).collect(Collectors.toList());
+    productDTO.setProductVariants(productVariants);
+
     return productDTO;
   }
 
@@ -211,8 +316,10 @@ public class ProductService {
                         .build())
                 .build();
       }
-
-      return null;
+      return FindProductVariantByIdResponse.newBuilder()
+              .setStatus(HttpStatus.OK.value())
+              .setMessage("Product variant not found")
+              .build();
     } catch (Exception e) {
       log.error("Error occurred while finding product variant by ID: {}", e.getMessage());
       return FindProductVariantByIdResponse.newBuilder()
@@ -291,5 +398,25 @@ public class ProductService {
     data.put("totalElements", products.getTotalElements());
     data.put("totalPages", products.getTotalPages());
     return new ResponseData(HttpStatus.OK.value(), "Success", data);
+  }
+
+  private String generateSlug(String name) {
+    if (name == null || name.isEmpty()) {
+      return "";
+    }
+    // Convert to lowercase
+    String slug = name.toLowerCase();
+    // Handle Vietnamese accents and other diacritical marks
+    slug = java.text.Normalizer.normalize(slug, java.text.Normalizer.Form.NFD);
+    // Replace spaces with hyphens
+    slug = slug.replaceAll("\\s+", "-");
+    // Remove special characters but keep normalized characters
+    slug = slug.replaceAll("[^\\p{ASCII}]", "");
+    slug = slug.replaceAll("[^a-z0-9-]", "");
+    // Replace multiple hyphens with a single one
+    slug = slug.replaceAll("-+", "-");
+    // Remove leading and trailing hyphens
+    slug = slug.replaceAll("^-|-$", "");
+    return slug;
   }
 }

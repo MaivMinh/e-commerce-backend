@@ -3,6 +3,7 @@ package com.minh.product_service.command.controller;
 import com.minh.product_service.command.commands.CreateCategoryCommand;
 import com.minh.product_service.command.commands.DeleteCategoryCommand;
 import com.minh.product_service.command.commands.UpdateCategoryCommand;
+import com.minh.product_service.dto.CategoryCreateDTO;
 import com.minh.product_service.dto.CategoryDTO;
 import com.minh.product_service.response.ResponseData;
 import jakarta.validation.Valid;
@@ -29,12 +30,13 @@ public class CategoryCommandController {
   /// Hàm tạo mới danh mục sản phẩm.
   /// DONE!!!
   @PostMapping(value = "")
-  public ResponseEntity<ResponseData> createCategory(@RequestBody @Valid CategoryDTO categoryDTO) {
+  public ResponseEntity<ResponseData> createCategory(@RequestBody @Valid CategoryCreateDTO categoryCreateDTO) {
     CreateCategoryCommand command = CreateCategoryCommand.builder()
             .id(UUID.randomUUID().toString())
-            .parentId(categoryDTO.getParentId())
-            .name(categoryDTO.getName())
-            .description(categoryDTO.getDescription())
+            .parentId(categoryCreateDTO.getParentId())
+            .name(categoryCreateDTO.getName())
+            .description(categoryCreateDTO.getDescription())
+            .slug(categoryCreateDTO.getSlug())
             .build();
 
     commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);
@@ -50,6 +52,7 @@ public class CategoryCommandController {
             .parentId(categoryDTO.getParentId())
             .name(categoryDTO.getName())
             .description(categoryDTO.getDescription())
+            .slug(categoryDTO.getSlug())
             .build();
 
     commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);

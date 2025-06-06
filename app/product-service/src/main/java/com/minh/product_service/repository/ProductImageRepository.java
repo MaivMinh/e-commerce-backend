@@ -10,4 +10,6 @@ public interface ProductImageRepository extends JpaRepository<ProductImage, Stri
 
   @Query(value = "select url from product_images where product_id = :productId", nativeQuery = true)
   Collection<String> findImagesByProductId(String productId);
+
+  void deleteAllByProductId(String productId);
 }

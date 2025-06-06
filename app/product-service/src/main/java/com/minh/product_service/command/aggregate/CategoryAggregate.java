@@ -26,6 +26,7 @@ public class CategoryAggregate {
   private String parentId;
   private String name;
   private String description;
+  private String slug;
   private String errorMsg;
 
   public CategoryAggregate() {
@@ -40,13 +41,13 @@ public class CategoryAggregate {
     /// Apply events to the aggregate.
     AggregateLifecycle.apply(event);
   }
-
   @EventSourcingHandler
   public void on(CategoryCreatedEvent event) {
     this.id = event.getId();
     this.parentId = event.getParentId();
     this.name = event.getName();
     this.description = event.getDescription();
+    this.slug = event.getSlug();
   }
 
   @CommandHandler
@@ -62,6 +63,7 @@ public class CategoryAggregate {
     this.name = event.getName();
     this.parentId = event.getParentId();
     this.description = event.getDescription();
+    this.slug = event.getSlug();
   }
 
 
@@ -77,10 +79,5 @@ public class CategoryAggregate {
   @EventSourcingHandler
   public void on(CategoryDeletedEvent event) {
     /// Xóa danh mục sản phẩm.
-    this.id = null;
-    this.name = null;
-    this.parentId = null;
-    this.description = null;
-    this.errorMsg = null;
   }
 }
