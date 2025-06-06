@@ -90,7 +90,6 @@ public class OrderAggregate {
   @EventSourcingHandler
   public void on(OrderCreateRollbackedEvent event) {
     /// Set the properties of the aggregate from the event to store event into event store.
-    this.orderId = event.getOrderId();
     this.errorMsg = event.getErrorMsg();
   }
 
@@ -107,7 +106,6 @@ public class OrderAggregate {
   public void on(CreateOrderConfirmedEvent event) {
     log.info("Confirming order creation for orderId: {}", event.getOrderId());
     /// Set the properties of the aggregate from the event to store event into event store.
-    this.orderId = event.getOrderId();
     this.paymentId = event.getPaymentId();
     this.orderPromotionId = event.getOrderPromotionId();
     this.reserveProductId = event.getReserveProductId();

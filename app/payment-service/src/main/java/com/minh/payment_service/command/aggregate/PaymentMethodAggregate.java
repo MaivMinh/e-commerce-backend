@@ -70,7 +70,6 @@ public class PaymentMethodAggregate {
   @EventSourcingHandler
   public void on(PaymentMethodUpdatedEvent event) {
     // Update the properties of the aggregate from the event
-    this.paymentMethodId = event.getPaymentMethodId();
     this.code = event.getCode();
     this.name = event.getName();
     this.description = event.getDescription();
@@ -93,7 +92,6 @@ public class PaymentMethodAggregate {
   @EventSourcingHandler
   public void on(PaymentMethodDeletedEvent event) {
     // Set the properties of the aggregate from the event to store event into event store.
-    this.paymentMethodId = event.getPaymentMethodId();
     this.isActive = false; // Mark as inactive when deleted
   }
 }

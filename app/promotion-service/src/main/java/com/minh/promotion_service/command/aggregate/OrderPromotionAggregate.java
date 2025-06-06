@@ -63,7 +63,6 @@ public class OrderPromotionAggregate {
   }
   @EventSourcingHandler
   public void on(PromotionApplyRollbackedEvent event) {
-    this.orderPromotionId = event.getOrderPromotionId();
     this.errorMsg = event.getErrorMsg();
   }
 }

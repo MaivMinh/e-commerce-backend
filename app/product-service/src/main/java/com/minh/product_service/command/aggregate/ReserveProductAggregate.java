@@ -70,7 +70,6 @@ public class ReserveProductAggregate {
   @EventSourcingHandler
   public void on(ProductReserveRollbackedEvent event) {
     log.info("Rolling back reserve product for orderId: {}", event.getOrderId());
-    this.reserveProductId = event.getReserveProductId();
     this.errorMsg = event.getErrorMsg();
   }
 
@@ -87,7 +86,6 @@ public class ReserveProductAggregate {
   @EventSourcingHandler
   public void on(ReserveProductConfirmedEvent event) {
     log.info("Confirming reserve product for orderId: {}", event.getOrderId());
-    this.reserveProductId = event.getReserveProductId();
     this.orderId = event.getOrderId();
     this.paymentId = event.getPaymentId();
     this.promotionId = event.getOrderPromotionId();

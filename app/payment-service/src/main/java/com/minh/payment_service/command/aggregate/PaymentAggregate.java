@@ -58,7 +58,6 @@ public class PaymentAggregate {
   }
   @EventSourcingHandler
   public void on(ProcessPaymentRollbackedEvent event) {
-    this.paymentId = event.getPaymentId();
     this.errorMsg = event.getErrorMsg();
   }
 }
