@@ -3,6 +3,7 @@ package com.minh.user_service.DTOs;
 import lombok.*;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Getter
@@ -18,4 +19,5 @@ public class UserDTO {
   private String gender;
   private Date birthDate;
   private List<AddressDTO> addressDTOs;
+  private Timestamp createdAt;
 }

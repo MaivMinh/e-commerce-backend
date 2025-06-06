@@ -21,5 +21,6 @@ public class UserMapper {
     userDTO.setAvatar(user.getAvatar());
     userDTO.setGender(user.getGender().toString());
     userDTO.setBirthDate(user.getBirthDate());
+    userDTO.setCreatedAt(user.getCreatedAt());
   }
 }

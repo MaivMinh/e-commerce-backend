@@ -18,6 +18,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.ArrayList;
@@ -70,6 +72,7 @@ public class UserService {
             .build();
   }
 
+  @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
   public ResponseData getUserById(String userId) {
     User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
     UserDTO userDTO = new UserDTO();
@@ -92,6 +95,7 @@ public class UserService {
             .build();
   }
 
+  @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
   public ResponseData findAllUsers(int page, int size, String sort) {
     Pageable pageable = null;
     if (StringUtils.hasText(sort)) {
@@ -109,6 +113,15 @@ public class UserService {
             .map(user -> {
               UserDTO userDTO = new UserDTO();
               UserMapper.mapToUserDTO(user, userDTO);
+
+              List<Address> addresses = addressRepository.findAllByUserId(user.getId());
+              List<AddressDTO> addressDTOs = addresses.stream()
+                      .map(address -> {
+                        AddressDTO addressDTO = new AddressDTO();
+                        AddressMapper.mapToAddressDTO(address, addressDTO);
+                        return addressDTO;
+                      }).toList();
+              userDTO.setAddressDTOs(addressDTOs);
               return userDTO;
             }).toList();
 
@@ -133,6 +146,16 @@ public class UserService {
     return ResponseData.builder()
             .status(200)
             .message("User updated successfully")
+            .data(null)
+            .build();
+  }
+
+  public ResponseData deleteUser(String userId) {
+    User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
+    userRepository.delete(user);
+    return ResponseData.builder()
+            .status(200)
+            .message("User deleted successfully")
             .data(null)
             .build();
   }
