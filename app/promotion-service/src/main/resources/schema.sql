@@ -6,7 +6,6 @@ CREATE TABLE promotions
     type            ENUM ('percentage', 'fixed', 'shipping') NOT NULL,
     discount_value  DECIMAL(15, 2)                           NOT NULL,
     min_order_value DECIMAL(15, 2)                           NOT NULL DEFAULT 0,
-    max_discount    DECIMAL(15, 2),
     start_date      TIMESTAMP                                NOT NULL,
     end_date        TIMESTAMP                                NOT NULL,
     usage_limit     INT,
@@ -18,10 +17,10 @@ CREATE TABLE promotions
     updated_by      VARCHAR(255)                                      DEFAULT NULL,
 );
 
-CREATE TABLE account_promotions
+CREATE TABLE order_promotions
 (
     id         INT AUTO_INCREMENT PRIMARY KEY,
-    account_id    VARCHAR(36)  NOT NULL,
+    order_id    VARCHAR(36)  NOT NULL,
     promotion_id VARCHAR(36)  NOT NULL,
     is_used    BOOLEAN      NOT NULL DEFAULT FALSE,
     used_at    TIMESTAMP,
@@ -29,5 +28,5 @@ CREATE TABLE account_promotions
     created_by VARCHAR(255) NOT NULL,
     updated_at TIMESTAMP             DEFAULT NULL,
     updated_by VARCHAR(255)          DEFAULT NULL,
-    UNIQUE KEY (account_id, promotion_id)
+    UNIQUE (order_id, promotion_id)
 );

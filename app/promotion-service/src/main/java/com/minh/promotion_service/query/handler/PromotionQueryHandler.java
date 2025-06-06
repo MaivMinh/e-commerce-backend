@@ -2,6 +2,7 @@ package com.minh.promotion_service.query.handler;
 
 import com.minh.promotion_service.query.queries.FindAllPromotionsQuery;
 import com.minh.promotion_service.query.queries.FindPromotionQuery;
+import com.minh.promotion_service.query.queries.FindPromotionsWithParamsQuery;
 import com.minh.promotion_service.response.ResponseData;
 import com.minh.promotion_service.service.PromotionService;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,11 @@ public class PromotionQueryHandler {
   @QueryHandler
   public ResponseData handle(FindAllPromotionsQuery query) {
     return promotionService.findAllPromotions(query);
+  }
+
+  @QueryHandler
+  public ResponseData handle(FindPromotionsWithParamsQuery query) {
+    return promotionService.findPromotionsWithParams(query);
   }
 
   @QueryHandler

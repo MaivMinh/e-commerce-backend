@@ -1,5 +1,6 @@
 package com.minh.promotion_service.command.controller;
 
+import com.minh.promotion_service.DTOs.PromotionCreateDTO;
 import com.minh.promotion_service.DTOs.PromotionDTO;
 import com.minh.promotion_service.command.commands.CreatePromotionCommand;
 import com.minh.promotion_service.command.commands.DeletePromotionCommand;
@@ -24,18 +25,18 @@ public class PromotionCommandController {
   private final CommandGateway commandGateway;
 
   @PostMapping(value = "")
-  public ResponseEntity<ResponseData> createPromotion(@RequestBody @Valid PromotionDTO promotionDTO) {
+  public ResponseEntity<ResponseData> createPromotion(@RequestBody @Valid PromotionCreateDTO promotionCreateDTO) {
     CreatePromotionCommand command = CreatePromotionCommand.builder()
             .promotionId(UUID.randomUUID().toString())
-            .code(promotionDTO.getCode())
-            .type(promotionDTO.getType())
-            .discountValue(promotionDTO.getDiscountValue())
-            .minOrderValue(promotionDTO.getMinOrderValue())
-            .startDate(promotionDTO.getStartDate())
-            .endDate(promotionDTO.getEndDate())
-            .usageLimit(promotionDTO.getUsageLimit())
-            .usageCount(promotionDTO.getUsageCount())
-            .status(promotionDTO.getStatus())
+            .code(promotionCreateDTO.getCode())
+            .type(promotionCreateDTO.getType())
+            .discountValue(promotionCreateDTO.getDiscountValue())
+            .minOrderValue(promotionCreateDTO.getMinOrderValue())
+            .startDate(promotionCreateDTO.getStartDate())
+            .endDate(promotionCreateDTO.getEndDate())
+            .usageLimit(promotionCreateDTO.getUsageLimit())
+            .usageCount(promotionCreateDTO.getUsageCount())
+            .status(promotionCreateDTO.getStatus())
             .build();
 
     commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);

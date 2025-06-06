@@ -7,8 +7,5 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class FindAllPromotionsQuery {
-  private String status;
 }

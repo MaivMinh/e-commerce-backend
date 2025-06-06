@@ -1,6 +1,7 @@
 package com.minh.promotion_service.query.projection;
 
 import com.minh.promotion_service.command.events.PromotionCreatedEvent;
+import com.minh.promotion_service.command.events.PromotionDeletedEvent;
 import com.minh.promotion_service.command.events.PromotionUpdatedEvent;
 import com.minh.promotion_service.service.PromotionService;
 import lombok.RequiredArgsConstructor;
@@ -24,5 +25,10 @@ public class PromotionProjection {
   public void on(PromotionUpdatedEvent event) {
     /// Cập nhật vào trong database.
     promotionService.updatePromotion(event);
+  }
+
+  @EventHandler
+  public void on(PromotionDeletedEvent event) {
+    promotionService.deletePromotion(event);
   }
 }

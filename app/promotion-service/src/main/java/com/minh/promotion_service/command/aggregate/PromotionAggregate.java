@@ -1,8 +1,10 @@
 package com.minh.promotion_service.command.aggregate;
 
 import com.minh.promotion_service.command.commands.CreatePromotionCommand;
+import com.minh.promotion_service.command.commands.DeletePromotionCommand;
 import com.minh.promotion_service.command.commands.UpdatePromotionCommand;
 import com.minh.promotion_service.command.events.PromotionCreatedEvent;
+import com.minh.promotion_service.command.events.PromotionDeletedEvent;
 import com.minh.promotion_service.command.events.PromotionUpdatedEvent;
 import lombok.*;
 import lombok.extern.slf4j.Slf4j;
@@ -77,5 +79,18 @@ public class PromotionAggregate {
     this.usageLimit = event.getUsageLimit();
     this.usageCount = event.getUsageCount();
     this.status = event.getStatus();
+  }
+
+  @CommandHandler
+  public void handle(DeletePromotionCommand command) {
+    /// Validate if needed.
+    /// Create new event.
+    PromotionDeletedEvent event = new PromotionDeletedEvent();
+    BeanUtils.copyProperties(command, event);
+    AggregateLifecycle.apply(event);
+  }
+  @EventSourcingHandler
+  public void on(PromotionDeletedEvent event) {
+    this.status = "inactive"; // Mark as inactive instead of deleting
   }
 }

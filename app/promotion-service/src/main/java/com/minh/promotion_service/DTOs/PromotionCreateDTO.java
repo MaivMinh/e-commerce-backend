@@ -11,8 +11,7 @@ import java.sql.Timestamp;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PromotionDTO {
-  @NotEmpty(message = "Promotion ID cannot be empty")
+public class PromotionCreateDTO {
   private String id;
   @NotEmpty(message = "Promotion code cannot be empty")
   private String code;
