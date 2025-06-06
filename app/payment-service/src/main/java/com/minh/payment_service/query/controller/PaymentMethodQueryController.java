@@ -3,6 +3,7 @@ package com.minh.payment_service.query.controller;
 import com.minh.payment_service.DTOs.PaymentMethodDTO;
 import com.minh.payment_service.entity.PaymentMethod;
 import com.minh.payment_service.query.queries.FindAllPaymentMethodsQuery;
+import com.minh.payment_service.query.queries.FindAllPaymentMethodsWithoutParamsQuery;
 import com.minh.payment_service.query.queries.FindPaymentMethodsByTypeQuery;
 import com.minh.payment_service.response.ResponseData;
 import lombok.RequiredArgsConstructor;
@@ -27,9 +28,16 @@ public class PaymentMethodQueryController {
                                                             @RequestParam(value = "isActive", required = false) Boolean isActive) {
 
     size = size < 1 ? 10 : size; // Ensure size is at least 1
-    page = page < 0 ? 0 : page - 1; // Ensure page is not negative
+    page = page <= 0 ? 0 : page - 1; // Ensure page is not negative
 
     FindAllPaymentMethodsQuery query = new FindAllPaymentMethodsQuery(search, filter, isActive, size, page);
+    ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
+
+  @GetMapping(value = "/all")
+  public ResponseEntity<ResponseData> findAllPaymentMethods() {
+    FindAllPaymentMethodsWithoutParamsQuery query = new FindAllPaymentMethodsWithoutParamsQuery();
     ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
     return ResponseEntity.status(response.getStatus()).body(response);
   }

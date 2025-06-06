@@ -3,7 +3,7 @@ package com.minh.order_service.query.projection;
 import com.minh.common.events.CreateOrderConfirmedEvent;
 import com.minh.common.events.OrderCreateRollbackedEvent;
 import com.minh.common.events.OrderCreatedEvent;
-import com.minh.order_service.query.service.OrderService;
+import com.minh.order_service.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.config.ProcessingGroup;

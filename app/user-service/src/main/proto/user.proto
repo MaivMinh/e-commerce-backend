@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package net.devh.boot.grpc.example;
+option java_multiple_files = true;
+option java_outer_classname = "UserProto";
+option java_package = "com.minh.grpc_service.user";
+
+service UserService {
+  rpc GetUserInfo(GetUserInfoRequest) returns (GetUserInfoResponse);
+}
+message GetUserInfoRequest {
+  string accountId = 1;
+}
+message GetUserInfoResponse {
+  int32 status = 1;
+  string message = 2;
+  string accountId = 3;
+  string username = 4;
+  string fullName = 5;
+  string shippingAddress = 6;
+}

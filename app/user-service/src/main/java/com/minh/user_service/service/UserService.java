@@ -1,5 +1,7 @@
 package com.minh.user_service.service;
 
+import com.minh.grpc_service.user.GetUserInfoRequest;
+import com.minh.grpc_service.user.GetUserInfoResponse;
 import com.minh.user_service.DTOs.AddressDTO;
 import com.minh.user_service.DTOs.UserCreateDTO;
 import com.minh.user_service.DTOs.UserDTO;
@@ -157,6 +159,35 @@ public class UserService {
             .status(200)
             .message("User deleted successfully")
             .data(null)
+            .build();
+  }
+
+  public GetUserInfoResponse getUserInfo(GetUserInfoRequest request) {
+    String accountId = request.getAccountId();
+    if (!StringUtils.hasText(accountId)) {
+      return GetUserInfoResponse.newBuilder()
+              .setStatus(400)
+              .setMessage("accountId must not be null")
+              .build();
+    }
+    User user = userRepository.findUserByAccountId(accountId).orElse(null);
+    if (user == null) {
+      return GetUserInfoResponse.newBuilder()
+              .setStatus(404)
+              .setMessage("User not found")
+              .build();
+    }
+    String shippingAddress = addressRepository.findShippingAddressByUserId(user.getId());
+    if (shippingAddress == null) {
+      shippingAddress = "";
+    }
+    return GetUserInfoResponse.newBuilder()
+            .setStatus(200)
+            .setMessage("Success")
+            .setAccountId(accountId)
+            .setUsername(user.getUsername())
+            .setFullName(user.getFullName())
+            .setShippingAddress(shippingAddress)
             .build();
   }
 }

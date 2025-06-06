@@ -297,31 +297,44 @@ public class ProductService {
   public FindProductVariantByIdResponse findProductVariantById(FindProductVariantByIdRequest request) {
     try {
       String productVariantId = request.getProductVariantId();
-      Optional<ProductCartDTO> productCartDTO = productVariantRepository.findProductCartDTOByProductVariantId(productVariantId);
-      if (productCartDTO.isPresent()) {
-        ProductCartDTO dto = productCartDTO.get();
+      Optional<com.minh.product_service.entity.ProductVariant> productVariant =
+              productVariantRepository.findById(productVariantId);
+
+      if (productVariant.isPresent()) {
+        com.minh.product_service.entity.ProductVariant variant = productVariant.get();
+
+        // Get product information
+        Optional<Product> product = productRepository.findById(variant.getProductId());
+        if (product.isEmpty()) {
+          return FindProductVariantByIdResponse.newBuilder()
+                  .setStatus(HttpStatus.NOT_FOUND.value())
+                  .setMessage("Product not found for this variant")
+                  .build();
+        }
+
         return FindProductVariantByIdResponse.newBuilder()
                 .setStatus(HttpStatus.OK.value())
                 .setMessage("Success")
                 .setProductVariant(ProductVariant.newBuilder()
-                        .setId(dto.getProductVariantId())
-                        .setName(dto.getProductName())
-                        .setSlug(dto.getProductSlug())
-                        .setCover(dto.getProductCover())
-                        .setPrice(dto.getProductVariantPrice())
-                        .setOriginalPrice(dto.getProductVariantOriginalPrice())
-                        .setSize(dto.getProductVariantSize())
-                        .setColorName(dto.getProductVariantColorName())
-                        .setColorHex(dto.getProductVariantColorHex())
+                        .setId(variant.getId())
+                        .setName(product.get().getName())
+                        .setSlug(product.get().getSlug())
+                        .setCover(product.get().getCover())
+                        .setPrice(variant.getPrice())
+                        .setOriginalPrice(variant.getOriginalPrice())
+                        .setSize(variant.getSize())
+                        .setColorName(variant.getColorName())
+                        .setColorHex(variant.getColorHex())
                         .build())
                 .build();
       }
+
       return FindProductVariantByIdResponse.newBuilder()
-              .setStatus(HttpStatus.OK.value())
+              .setStatus(HttpStatus.NOT_FOUND.value())
               .setMessage("Product variant not found")
               .build();
     } catch (Exception e) {
-      log.error("Error occurred while finding product variant by ID: {}", e.getMessage());
+      log.error("Error occurred while finding product variant by ID: {}", e.getMessage(), e);
       return FindProductVariantByIdResponse.newBuilder()
               .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
               .setMessage("Error occurred while finding product variant by ID: " + e.getMessage())
@@ -337,6 +350,14 @@ public class ProductService {
         dto.setProductVariantId(item.getProductVariantId());
         return dto;
       }).toList();
+
+      if (dtos.isEmpty()) {
+        return FindProductVariantsByIdsResponse.newBuilder()
+                .setStatus(HttpStatus.OK.value())
+                .setMessage("No product variants found for the provided IDs")
+                .build();
+      }
+
       return FindProductVariantsByIdsResponse.newBuilder()
               .setStatus(HttpStatus.OK.value())
               .setMessage("Success")
@@ -384,6 +405,10 @@ public class ProductService {
     }
 
     Page<Product> products = productRepository.findAll(spec, pageable);
+    if (products.isEmpty()) {
+      return new ResponseData(HttpStatus.OK.value(), "No products found", Collections.emptyMap());
+    }
+
     List<ProductDTO> productDTOs = products.stream()
             .map(product -> {
               ProductDTO productDTO = new ProductDTO();

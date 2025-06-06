@@ -3,7 +3,7 @@ syntax = "proto3";
 package net.devh.boot.grpc.example;
 option java_multiple_files = true;
 option java_outer_classname = "ProductProto";
-option java_package = "com.minh.product_service_grpc";
+option java_package = "com.minh.grpc_service.product";
 
 service ProductService {
   rpc FindProductVariantById(FindProductVariantByIdRequest) returns (FindProductVariantByIdResponse);

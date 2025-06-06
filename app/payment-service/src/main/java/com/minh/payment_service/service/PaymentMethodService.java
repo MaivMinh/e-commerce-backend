@@ -9,6 +9,7 @@ import com.minh.payment_service.entity.PaymentMethod;
 import com.minh.payment_service.entity.PaymentMethodType;
 import com.minh.payment_service.mapper.PaymentMethodMapper;
 import com.minh.payment_service.query.queries.FindAllPaymentMethodsQuery;
+import com.minh.payment_service.query.queries.FindAllPaymentMethodsWithoutParamsQuery;
 import com.minh.payment_service.query.queries.FindPaymentMethodsByTypeQuery;
 import com.minh.payment_service.repository.PaymentMethodRepository;
 import com.minh.payment_service.response.ResponseData;
@@ -120,6 +121,23 @@ public class PaymentMethodService {
     PaymentMethodType type = PaymentMethodType.valueOf(query.getType());
     /// Retrieve payment methods by type from the repository.
     List<PaymentMethod> methods = paymentMethodRepository.findAllByType(type);
+
+    List<PaymentMethodDTO> methodDTOs = methods.stream().map(method -> {
+      PaymentMethodDTO dto = new PaymentMethodDTO();
+      PaymentMethodMapper.mapToPaymentMethodDTO(method, dto);
+      return dto;
+    }).collect(Collectors.toList());
+
+    return ResponseData.builder()
+            .status(HttpStatus.OK.value())
+            .message("Retrieved all payment methods successfully")
+            .data(methodDTOs)
+            .build();
+  }
+
+  public ResponseData findAllPaymentMethodsWithoutParams(FindAllPaymentMethodsWithoutParamsQuery query) {
+    /// Retrieve all payment methods from the repository without any parameters.
+    List<PaymentMethod> methods = paymentMethodRepository.findAll();
 
     List<PaymentMethodDTO> methodDTOs = methods.stream().map(method -> {
       PaymentMethodDTO dto = new PaymentMethodDTO();

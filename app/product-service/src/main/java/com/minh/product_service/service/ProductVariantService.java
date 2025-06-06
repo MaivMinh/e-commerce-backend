@@ -147,14 +147,6 @@ public class ProductVariantService {
     try {
       /// Find all product variants by product id.
       List<ProductVariant> productVariants = productVariantRepository.findByProductId(query.getProductId());
-      if (productVariants.isEmpty()) {
-        return ResponseData.builder()
-                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
-                .message("No product variants found for product id: " + query.getProductId())
-                .data(null)
-                .build();
-      }
-
       List<ProductVariantDTO> productVariantDTOs = productVariants.stream().map(productVariant -> ProductVariantDTO.builder()
               .id(productVariant.getId())
               .productId(productVariant.getProductId())

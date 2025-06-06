@@ -1,6 +1,7 @@
 package com.minh.payment_service.query.handler;
 
 import com.minh.payment_service.query.queries.FindAllPaymentMethodsQuery;
+import com.minh.payment_service.query.queries.FindAllPaymentMethodsWithoutParamsQuery;
 import com.minh.payment_service.query.queries.FindPaymentMethodsByTypeQuery;
 import com.minh.payment_service.response.ResponseData;
 import com.minh.payment_service.service.PaymentMethodService;
@@ -15,6 +16,11 @@ public class PaymentMethodQueryHandler {
   @QueryHandler
   public ResponseData handle(FindAllPaymentMethodsQuery query) {
     return paymentMethodService.findAllPaymentMethods(query);
+  }
+
+  @QueryHandler
+  public ResponseData handle(FindAllPaymentMethodsWithoutParamsQuery query) {
+    return paymentMethodService.findAllPaymentMethodsWithoutParams(query);
   }
 
   @QueryHandler
