@@ -11,7 +11,7 @@
 	<groupId>com.minh</groupId>
 	<artifactId>user-service</artifactId>
 	<version>1.0.0</version>
-	<name>cart-service</name>
+	<name>user-service</name>
 	<description>Internal service of e-commerce</description>
 	<url/>
 	<licenses>

@@ -16,7 +16,7 @@ spring:
     username: ${SPRING_RABBITMQ_USERNAME:guest}
     password: ${SPRING_RABBITMQ_PASSWORD:guest}
 
-  # /// MYSQL DATABASE CONFIGURATION ///
+    # /// MYSQL DATABASE CONFIGURATION ///
   sql:
     init:
       schema-locations: classpath:schema.sql

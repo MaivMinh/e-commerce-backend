@@ -551,11 +551,9 @@ services:
       - SPRING_RABBITMQ_PORT=5672
       - SPRING_RABBITMQ_USERNAME=guest
       - SPRING_RABBITMQ_PASSWORD=guest
-      - SPRING_DATASOURCE_URL=jdbc:mysql://promotion-db-service:3306/ecommerce_promotion
+      - SPRING_DATASOURCE_URL=jdbc:mysql://user-db-service:3306/ecommerce_user
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - AXON_AXONSERVER_SERVERS=localhost:8124
-
 
 
   # =======================
