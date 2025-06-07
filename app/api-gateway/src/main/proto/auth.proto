@@ -20,5 +20,6 @@ message AuthInfo {
 message AuthResponse {
   bool isValid = 1; // Indicates if the authentication was successful
   string message = 2; // A message providing additional information about the authentication result
-  AuthInfo authInfo = 3; // Additional information about the authenticated user
+  int32 status = 3;
+  AuthInfo authInfo = 4; // Additional information about the authenticated user
 }

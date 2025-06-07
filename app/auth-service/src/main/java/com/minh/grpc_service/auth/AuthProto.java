@@ -40,14 +40,15 @@ public final class AuthProto {
     java.lang.String[] descriptorData = {
       "\n\nauth.proto\022\032net.devh.boot.grpc.example" +
       "\"\034\n\013AuthRequest\022\r\n\005token\030\001 \001(\t\",\n\010AuthIn" +
-      "fo\022\022\n\naccount_id\030\001 \001(\t\022\014\n\004role\030\002 \001(\t\"h\n\014" +
+      "fo\022\022\n\naccount_id\030\001 \001(\t\022\014\n\004role\030\002 \001(\t\"x\n\014" +
       "AuthResponse\022\017\n\007isValid\030\001 \001(\010\022\017\n\007message" +
-      "\030\002 \001(\t\0226\n\010authInfo\030\003 \001(\0132$.net.devh.boot" +
-      ".grpc.example.AuthInfo2p\n\013AuthService\022a\n" +
-      "\014Authenticate\022\'.net.devh.boot.grpc.examp" +
-      "le.AuthRequest\032(.net.devh.boot.grpc.exam" +
-      "ple.AuthResponseB)\n\032com.minh.grpc_servic" +
-      "e.authB\tAuthProtoP\001b\006proto3"
+      "\030\002 \001(\t\022\016\n\006status\030\003 \001(\005\0226\n\010authInfo\030\004 \001(\013" +
+      "2$.net.devh.boot.grpc.example.AuthInfo2p" +
+      "\n\013AuthService\022a\n\014Authenticate\022\'.net.devh" +
+      ".boot.grpc.example.AuthRequest\032(.net.dev" +
+      "h.boot.grpc.example.AuthResponseB)\n\032com." +
+      "minh.grpc_service.authB\tAuthProtoP\001b\006pro" +
+      "to3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -70,7 +71,7 @@ public final class AuthProto {
     internal_static_net_devh_boot_grpc_example_AuthResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_net_devh_boot_grpc_example_AuthResponse_descriptor,
-        new java.lang.String[] { "IsValid", "Message", "AuthInfo", });
+        new java.lang.String[] { "IsValid", "Message", "Status", "AuthInfo", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

@@ -38,11 +38,17 @@ public interface AuthResponseOrBuilder extends
       getMessageBytes();
 
   /**
+   * <code>int32 status = 3;</code>
+   * @return The status.
+   */
+  int getStatus();
+
+  /**
    * <pre>
    * Additional information about the authenticated user
    * </pre>
    *
-   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
    * @return Whether the authInfo field is set.
    */
   boolean hasAuthInfo();
@@ -51,7 +57,7 @@ public interface AuthResponseOrBuilder extends
    * Additional information about the authenticated user
    * </pre>
    *
-   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
    * @return The authInfo.
    */
   com.minh.grpc_service.auth.AuthInfo getAuthInfo();
@@ -60,7 +66,7 @@ public interface AuthResponseOrBuilder extends
    * Additional information about the authenticated user
    * </pre>
    *
-   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
    */
   com.minh.grpc_service.auth.AuthInfoOrBuilder getAuthInfoOrBuilder();
 }

@@ -34,7 +34,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
       AuthResponse response = authService.authenticate(token);
       if (!response.getIsValid()) {
         log.warn("Invalid token: {}", token);
-        exchange.getResponse().setStatusCode(org.springframework.http.HttpStatus.UNAUTHORIZED);
+        exchange.getResponse().setRawStatusCode(response.getStatus());
         return exchange.getResponse().setComplete();
       } else {
         log.info("Token is valid: {}", token);

@@ -30,14 +30,6 @@ public class AuthController {
     return ResponseEntity.status(response.getStatus()).body(response);
   }
 
-  /// Hàm thực hiện xác thực tài khoản.
-  /// DONE.
-  @GetMapping("/verify-email")
-  public ResponseEntity<ResponseData> verifyEmail(@RequestParam(required = true) String token) {
-    ResponseData response = authService.verifyEmail(token);
-    return ResponseEntity.status(response.getStatus()).body(response);
-  }
-
   /// Hàm thực hiện đăng nhập tài khoản.
   /// DONE.
   @PostMapping("/login")
@@ -45,23 +37,6 @@ public class AuthController {
     ResponseData response = authService.login(loginDTO);
     return ResponseEntity.status(response.getStatus()).body(response);
   }
-
-  /// Hàm thực hiện lấy lại mật khẩu.
-  /// DONE
-  @GetMapping(value = "/forgot-password")
-  public ResponseEntity<ResponseData> forgotPassword(@RequestParam String email, @RequestParam String host) {
-    ResponseData response = authService.forgotPassword(email, host);
-    return ResponseEntity.status(response.getStatus()).body(response);
-  }
-
-  /// Hàm thực hiện reset password.
-  /// DONE
-  @PostMapping(value = "/reset-password")
-  public ResponseEntity<ResponseData> resetPassword(@RequestParam String token, @RequestBody @Valid RequestPasswordDTO requestPasswordDTO) {
-    ResponseData response = authService.resetPassword(token, requestPasswordDTO);
-    return ResponseEntity.status(response.getStatus()).body(response);
-  }
-
 
   /// Hàm thực hiện refresh token.
   @GetMapping(value = "/refresh-token")

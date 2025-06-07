@@ -105,14 +105,25 @@ private static final long serialVersionUID = 0L;
     }
   }
 
-  public static final int AUTHINFO_FIELD_NUMBER = 3;
+  public static final int STATUS_FIELD_NUMBER = 3;
+  private int status_;
+  /**
+   * <code>int32 status = 3;</code>
+   * @return The status.
+   */
+  @java.lang.Override
+  public int getStatus() {
+    return status_;
+  }
+
+  public static final int AUTHINFO_FIELD_NUMBER = 4;
   private com.minh.grpc_service.auth.AuthInfo authInfo_;
   /**
    * <pre>
    * Additional information about the authenticated user
    * </pre>
    *
-   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
    * @return Whether the authInfo field is set.
    */
   @java.lang.Override
@@ -124,7 +135,7 @@ private static final long serialVersionUID = 0L;
    * Additional information about the authenticated user
    * </pre>
    *
-   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
    * @return The authInfo.
    */
   @java.lang.Override
@@ -136,7 +147,7 @@ private static final long serialVersionUID = 0L;
    * Additional information about the authenticated user
    * </pre>
    *
-   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+   * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
    */
   @java.lang.Override
   public com.minh.grpc_service.auth.AuthInfoOrBuilder getAuthInfoOrBuilder() {
@@ -163,8 +174,11 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
       com.google.protobuf.GeneratedMessageV3.writeString(output, 2, message_);
     }
+    if (status_ != 0) {
+      output.writeInt32(3, status_);
+    }
     if (authInfo_ != null) {
-      output.writeMessage(3, getAuthInfo());
+      output.writeMessage(4, getAuthInfo());
     }
     getUnknownFields().writeTo(output);
   }
@@ -182,9 +196,13 @@ private static final long serialVersionUID = 0L;
     if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(message_)) {
       size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, message_);
     }
+    if (status_ != 0) {
+      size += com.google.protobuf.CodedOutputStream
+        .computeInt32Size(3, status_);
+    }
     if (authInfo_ != null) {
       size += com.google.protobuf.CodedOutputStream
-        .computeMessageSize(3, getAuthInfo());
+        .computeMessageSize(4, getAuthInfo());
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -205,6 +223,8 @@ private static final long serialVersionUID = 0L;
         != other.getIsValid()) return false;
     if (!getMessage()
         .equals(other.getMessage())) return false;
+    if (getStatus()
+        != other.getStatus()) return false;
     if (hasAuthInfo() != other.hasAuthInfo()) return false;
     if (hasAuthInfo()) {
       if (!getAuthInfo()
@@ -226,6 +246,8 @@ private static final long serialVersionUID = 0L;
         getIsValid());
     hash = (37 * hash) + MESSAGE_FIELD_NUMBER;
     hash = (53 * hash) + getMessage().hashCode();
+    hash = (37 * hash) + STATUS_FIELD_NUMBER;
+    hash = (53 * hash) + getStatus();
     if (hasAuthInfo()) {
       hash = (37 * hash) + AUTHINFO_FIELD_NUMBER;
       hash = (53 * hash) + getAuthInfo().hashCode();
@@ -362,6 +384,8 @@ private static final long serialVersionUID = 0L;
 
       message_ = "";
 
+      status_ = 0;
+
       if (authInfoBuilder_ == null) {
         authInfo_ = null;
       } else {
@@ -396,6 +420,7 @@ private static final long serialVersionUID = 0L;
       com.minh.grpc_service.auth.AuthResponse result = new com.minh.grpc_service.auth.AuthResponse(this);
       result.isValid_ = isValid_;
       result.message_ = message_;
+      result.status_ = status_;
       if (authInfoBuilder_ == null) {
         result.authInfo_ = authInfo_;
       } else {
@@ -456,6 +481,9 @@ private static final long serialVersionUID = 0L;
         message_ = other.message_;
         onChanged();
       }
+      if (other.getStatus() != 0) {
+        setStatus(other.getStatus());
+      }
       if (other.hasAuthInfo()) {
         mergeAuthInfo(other.getAuthInfo());
       }
@@ -495,13 +523,18 @@ private static final long serialVersionUID = 0L;
 
               break;
             } // case 18
-            case 26: {
+            case 24: {
+              status_ = input.readInt32();
+
+              break;
+            } // case 24
+            case 34: {
               input.readMessage(
                   getAuthInfoFieldBuilder().getBuilder(),
                   extensionRegistry);
 
               break;
-            } // case 26
+            } // case 34
             default: {
               if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                 done = true; // was an endgroup tag
@@ -657,6 +690,37 @@ private static final long serialVersionUID = 0L;
       return this;
     }
 
+    private int status_ ;
+    /**
+     * <code>int32 status = 3;</code>
+     * @return The status.
+     */
+    @java.lang.Override
+    public int getStatus() {
+      return status_;
+    }
+    /**
+     * <code>int32 status = 3;</code>
+     * @param value The status to set.
+     * @return This builder for chaining.
+     */
+    public Builder setStatus(int value) {
+      
+      status_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>int32 status = 3;</code>
+     * @return This builder for chaining.
+     */
+    public Builder clearStatus() {
+      
+      status_ = 0;
+      onChanged();
+      return this;
+    }
+
     private com.minh.grpc_service.auth.AuthInfo authInfo_;
     private com.google.protobuf.SingleFieldBuilderV3<
         com.minh.grpc_service.auth.AuthInfo, com.minh.grpc_service.auth.AuthInfo.Builder, com.minh.grpc_service.auth.AuthInfoOrBuilder> authInfoBuilder_;
@@ -665,7 +729,7 @@ private static final long serialVersionUID = 0L;
      * Additional information about the authenticated user
      * </pre>
      *
-     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
      * @return Whether the authInfo field is set.
      */
     public boolean hasAuthInfo() {
@@ -676,7 +740,7 @@ private static final long serialVersionUID = 0L;
      * Additional information about the authenticated user
      * </pre>
      *
-     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
      * @return The authInfo.
      */
     public com.minh.grpc_service.auth.AuthInfo getAuthInfo() {
@@ -691,7 +755,7 @@ private static final long serialVersionUID = 0L;
      * Additional information about the authenticated user
      * </pre>
      *
-     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
      */
     public Builder setAuthInfo(com.minh.grpc_service.auth.AuthInfo value) {
       if (authInfoBuilder_ == null) {
@@ -711,7 +775,7 @@ private static final long serialVersionUID = 0L;
      * Additional information about the authenticated user
      * </pre>
      *
-     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
      */
     public Builder setAuthInfo(
         com.minh.grpc_service.auth.AuthInfo.Builder builderForValue) {
@@ -729,7 +793,7 @@ private static final long serialVersionUID = 0L;
      * Additional information about the authenticated user
      * </pre>
      *
-     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
      */
     public Builder mergeAuthInfo(com.minh.grpc_service.auth.AuthInfo value) {
       if (authInfoBuilder_ == null) {
@@ -751,7 +815,7 @@ private static final long serialVersionUID = 0L;
      * Additional information about the authenticated user
      * </pre>
      *
-     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
      */
     public Builder clearAuthInfo() {
       if (authInfoBuilder_ == null) {
@@ -769,7 +833,7 @@ private static final long serialVersionUID = 0L;
      * Additional information about the authenticated user
      * </pre>
      *
-     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
      */
     public com.minh.grpc_service.auth.AuthInfo.Builder getAuthInfoBuilder() {
       
@@ -781,7 +845,7 @@ private static final long serialVersionUID = 0L;
      * Additional information about the authenticated user
      * </pre>
      *
-     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
      */
     public com.minh.grpc_service.auth.AuthInfoOrBuilder getAuthInfoOrBuilder() {
       if (authInfoBuilder_ != null) {
@@ -796,7 +860,7 @@ private static final long serialVersionUID = 0L;
      * Additional information about the authenticated user
      * </pre>
      *
-     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 3;</code>
+     * <code>.net.devh.boot.grpc.example.AuthInfo authInfo = 4;</code>
      */
     private com.google.protobuf.SingleFieldBuilderV3<
         com.minh.grpc_service.auth.AuthInfo, com.minh.grpc_service.auth.AuthInfo.Builder, com.minh.grpc_service.auth.AuthInfoOrBuilder> 
