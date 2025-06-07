@@ -1,6 +1,8 @@
 package com.minh.order_service.query.handler;
 
 import com.minh.order_service.query.queries.FindAllOrdersQuery;
+import com.minh.order_service.query.queries.FindOrdersOfAccountQuery;
+import com.minh.order_service.query.queries.FindOverallStatusOfCreatingOrderQuery;
 import com.minh.order_service.response.ResponseData;
 import com.minh.order_service.service.OrderService;
 import lombok.RequiredArgsConstructor;
@@ -16,5 +18,15 @@ public class OrderQueryHandler {
   @QueryHandler
   public ResponseData on(FindAllOrdersQuery query) throws Exception {
     return orderService.findAllOrders(query);
+  }
+
+  @QueryHandler
+  public ResponseData on(FindOverallStatusOfCreatingOrderQuery query) {
+    return orderService.findOverallStatusOfCreatingOrder(query);
+  }
+
+  @QueryHandler
+  public ResponseData on(FindOrdersOfAccountQuery query) throws Exception {
+    return orderService.findOrdersOfAccount(query);
   }
 }

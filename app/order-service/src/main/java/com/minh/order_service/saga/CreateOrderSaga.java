@@ -3,6 +3,8 @@ package com.minh.order_service.saga;
 import com.minh.common.commands.*;
 import com.minh.common.dto.ReserveProductItem;
 import com.minh.common.events.*;
+import com.minh.order_service.query.queries.FindOverallStatusOfCreatingOrderQuery;
+import com.minh.order_service.response.ResponseData;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.CommandCallback;
 import org.axonframework.commandhandling.CommandMessage;
@@ -14,11 +16,10 @@ import org.axonframework.modelling.saga.StartSaga;
 import org.axonframework.queryhandling.QueryUpdateEmitter;
 import org.axonframework.spring.stereotype.Saga;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Saga
 @Slf4j
@@ -196,6 +197,19 @@ public class CreateOrderSaga {
     log.info("Saga Event 6 [End] : Create order confirmed for order id: {}", event.getOrderId());
     /// Cập nhật trạng thái đơn hàng thành công trong order-service.
     /// Emit an update to notify the query side about the order creation.
+
+    Map<String, String> data = new HashMap<>();
+    data.put("orderId", event.getOrderId());
+    data.put("paymentId", event.getPaymentId());
+    queryUpdateEmitter.emit(
+            FindOverallStatusOfCreatingOrderQuery.class,
+            query -> true,  /// predicate function to filter updates.
+            ResponseData.builder()
+                    .status(HttpStatus.CREATED.value())
+                    .message("Order created successfully")
+                    .data(data)
+                    .build()
+    );
   }
 
   /// ====================================== ROLLBACK SAGA HANDLERS ====================================== ///
@@ -244,5 +258,19 @@ public class CreateOrderSaga {
   @SagaEventHandler(associationProperty = "orderId")
   public void on(OrderCreateRollbackedEvent event) {
     log.info("Saga Event Rollback [END]: Received OrderCreateRollbackedEvent for order id: {}", event.getOrderId());
+
+    Map<String, String> data = new HashMap<>();
+    data.put("orderId", event.getOrderId());
+    data.put("errorMsg", event.getErrorMsg());
+
+    queryUpdateEmitter.emit(
+            FindOverallStatusOfCreatingOrderQuery.class,
+            query -> true,  /// predicate function to filter updates.
+            ResponseData.builder()
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .message("Order creation failed and rolled back")
+                    .data(data)
+                    .build()
+    );
   }
 }

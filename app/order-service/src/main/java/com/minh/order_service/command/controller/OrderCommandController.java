@@ -3,10 +3,16 @@ package com.minh.order_service.command.controller;
 import com.minh.common.commands.CreateOrderCommand;
 import com.minh.common.dto.OrderCreateDTO;
 import com.minh.common.dto.OrderItemCreateDTO;
+import com.minh.order_service.query.queries.FindOverallStatusOfCreatingOrderQuery;
 import com.minh.order_service.response.ResponseData;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.axonframework.commandhandling.CommandCallback;
+import org.axonframework.commandhandling.CommandMessage;
+import org.axonframework.commandhandling.CommandResultMessage;
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.queryhandling.QueryGateway;
+import org.axonframework.queryhandling.SubscriptionQueryResult;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Nonnull;
+import java.time.Duration;
+import java.util.Objects;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -25,6 +34,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OrderCommandController {
   private final CommandGateway commandGateway;
+  private final QueryGateway queryGateway;
 
   /// Hàm thực hiện tạo đơn hàng.
   @PostMapping(value = "")
@@ -51,8 +61,23 @@ public class OrderCommandController {
                     .build()).collect(Collectors.toList()))
             .build();
 
-    commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);
-
-    return ResponseEntity.status(HttpStatus.CREATED.value()).body(new ResponseData(HttpStatus.CREATED.value(), "Success", null));
+    try (SubscriptionQueryResult<ResponseData, ResponseData> queryResult = queryGateway.subscriptionQuery(new FindOverallStatusOfCreatingOrderQuery(), ResponseData.class, ResponseData.class);) {
+      commandGateway.send(command, new CommandCallback<>() {
+        @Override
+        public void onResult(@Nonnull CommandMessage<? extends CreateOrderCommand> commandMessage, @Nonnull CommandResultMessage<?> commandResultMessage) {
+          if (commandResultMessage.isExceptional()) {
+            ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                    .body(new ResponseData(500, "Failed to create order: " + commandResultMessage.exceptionResult().getMessage()));
+          }
+        }
+      });
+      // Store the first update to avoid multiple blocking calls
+      ResponseData responseData = queryResult.updates().blockFirst(Duration.ofSeconds(15));
+      if (responseData == null) {
+        return ResponseEntity.status(HttpStatus.REQUEST_TIMEOUT)
+                .body(new ResponseData(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Timeout waiting for order creation"));
+      }
+      return ResponseEntity.status(responseData.getStatus()).body(responseData);
+    }
   }
 }
