@@ -1,5 +1,6 @@
 package com.minh.order_service.service;
 
+import ch.qos.logback.core.util.StringUtil;
 import com.minh.common.dto.OrderItemCreateDTO;
 import com.minh.common.events.CreateOrderConfirmedEvent;
 import com.minh.common.events.OrderCreateRollbackedEvent;
@@ -17,6 +18,8 @@ import com.minh.order_service.grpc.UserServiceGrpcClient;
 import com.minh.order_service.mapper.OrderItemMapper;
 import com.minh.order_service.mapper.OrderMapper;
 import com.minh.order_service.query.queries.FindAllOrdersQuery;
+import com.minh.order_service.query.queries.FindOrdersOfAccountQuery;
+import com.minh.order_service.query.queries.FindOverallStatusOfCreatingOrderQuery;
 import com.minh.order_service.repository.OrderItemRepository;
 import com.minh.order_service.repository.OrderRepository;
 import com.minh.order_service.response.ResponseData;
@@ -28,11 +31,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -101,64 +102,52 @@ public class OrderService {
     orderRepository.save(order);
   }
 
+
+
+  /// ========================== APPLY TEMPLATE METHOD DESIGN PATTERN HERE  ==========================  ///
+
   public ResponseData findAllOrders(FindAllOrdersQuery query) throws Exception {
     int page = query.getPage();
     int size = query.getSize();
+    return processOrderQuery(page, size, null, "Orders retrieved successfully", "No orders found");
+  }
+
+  public ResponseData findOverallStatusOfCreatingOrder(FindOverallStatusOfCreatingOrderQuery query) {
+    Order order = orderRepository.findById(query.getOrderId())
+            .orElseThrow(() -> new RuntimeException("Order not found for id: " + query.getOrderId()));
+    return ResponseData.builder()
+            .status(200)
+            .message("Order status retrieved successfully")
+            .data(Collections.singletonMap("orderStatus", order.getOrderStatus()))
+            .build();
+  }
+
+  public ResponseData findOrdersOfAccount(FindOrdersOfAccountQuery query) throws Exception {
+    int page = query.getPage();
+    int size = query.getSize();
+    String accountId = query.getAccountId();
+    return processOrderQuery(page, size, accountId, "Orders for account retrieved successfully",
+            "No orders found for this account");
+  }
+
+  /**
+   * Template method to process order queries with or without account filtering
+   */
+  private ResponseData processOrderQuery(int page, int size, String accountId, String successMessage,
+                                         String emptyMessage) throws Exception {
     Pageable pageable = PageRequest.of(page, size);
-    Page<Order> pageOrder = orderRepository.findAll(pageable);
+    Page<Order> pageOrder = fetchOrders(pageable, accountId);
 
     if (pageOrder.isEmpty()) {
       return ResponseData.builder()
               .status(200)
-              .message("No orders found")
+              .message(emptyMessage)
               .data(null)
               .build();
     }
+
     List<Order> orders = pageOrder.getContent();
-    List<OrderDTO> orderDTOs = new ArrayList<>();
-
-    for (Order order : orders) {
-      ///  Gọi tới user-service để lấy thông tin người dùng.
-      OrderDTO orderDTO = new OrderDTO();
-      OrderMapper.mapToOrderDTO(order, orderDTO);
-      GetUserInfoRequest request = GetUserInfoRequest.newBuilder().setAccountId(order.getAccountId()).build();
-      GetUserInfoResponse userInfoResponse = userServiceGrpcClient.getUserInfo(request);
-
-      orderDTO.setCreatedAt(order.getCreatedAt());
-      orderDTO.setUsername(userInfoResponse.getUsername());
-      orderDTO.setFullName(userInfoResponse.getFullName());
-      orderDTO.setShippingAddress(userInfoResponse.getShippingAddress());
-
-      List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(order.getId());
-      List<OrderItemDTO> orderItemDTOs = orderItems.stream().map(item -> {
-        OrderItemDTO orderItemDTO = new OrderItemDTO();
-        OrderItemMapper.mapToOrderItemDTO(item, orderItemDTO);
-
-        /// Gọi tới product-service để lấy thông tin của variant.
-        try {
-          FindProductVariantByIdResponse response = productServiceGrpcClient.findProductVariantById(FindProductVariantByIdRequest.newBuilder()
-                  .setProductVariantId(item.getProductVariantId())
-                  .build());
-          if (response.hasProductVariant()) {
-            ProductVariant productVariant = response.getProductVariant();
-            ProductVariantDTO productVariantDTO = new ProductVariantDTO();
-            productVariantDTO.setId(productVariant.getId());
-            productVariantDTO.setName(productVariant.getName());
-            productVariantDTO.setPrice(productVariant.getPrice());
-            productVariantDTO.setColorName(productVariant.getColorName());
-            productVariantDTO.setSize(productVariant.getSize());
-            productVariantDTO.setQuantity(item.getQuantity());
-            productVariantDTO.setCover(productVariant.getCover());
-            orderItemDTO.setProductVariantDTO(productVariantDTO);
-          }
-        } catch (Exception e) {
-          throw new RuntimeException(e);
-        }
-        return orderItemDTO;
-      }).collect(Collectors.toList());
-      orderDTO.setOrderItemDTOs(orderItemDTOs);
-      orderDTOs.add(orderDTO);
-    }
+    List<OrderDTO> orderDTOs = convertOrdersToDto(orders);
 
     Map<String, Object> data = new HashMap<>();
     data.put("orders", orderDTOs);
@@ -169,8 +158,82 @@ public class OrderService {
 
     return ResponseData.builder()
             .status(200)
-            .message("Orders retrieved successfully")
+            .message(successMessage)
             .data(data)
             .build();
+  }
+
+  /**
+   * Fetch orders based on whether an accountId is provided
+   */
+  private Page<Order> fetchOrders(Pageable pageable, String accountId) {
+    if (accountId != null && !accountId.isEmpty()) {
+      return orderRepository.findAllByAccountId(accountId, pageable);
+    } else {
+      return orderRepository.findAll(pageable);
+    }
+  }
+
+  /**
+   * Convert order entities to DTOs with related data
+   */
+  private List<OrderDTO> convertOrdersToDto(List<Order> orders) throws Exception {
+    List<OrderDTO> orderDTOs = new ArrayList<>();
+
+    for (Order order : orders) {
+      OrderDTO orderDTO = new OrderDTO();
+      OrderMapper.mapToOrderDTO(order, orderDTO);
+
+      // Get user information
+      GetUserInfoRequest request = GetUserInfoRequest.newBuilder().setAccountId(order.getAccountId()).build();
+      GetUserInfoResponse userInfoResponse = userServiceGrpcClient.getUserInfo(request);
+
+      orderDTO.setCreatedAt(order.getCreatedAt());
+      orderDTO.setUsername(userInfoResponse.getUsername());
+      orderDTO.setFullName(userInfoResponse.getFullName());
+      orderDTO.setShippingAddress(userInfoResponse.getShippingAddress());
+
+      // Get order items
+      List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(order.getId());
+      List<OrderItemDTO> orderItemDTOs = orderItems.stream().map(this::convertOrderItemToDto)
+              .collect(Collectors.toList());
+
+      orderDTO.setOrderItemDTOs(orderItemDTOs);
+      orderDTOs.add(orderDTO);
+    }
+
+    return orderDTOs;
+  }
+
+  /**
+   * Convert order item entity to DTO with product variant information
+   */
+  private OrderItemDTO convertOrderItemToDto(OrderItem item) {
+    OrderItemDTO orderItemDTO = new OrderItemDTO();
+    OrderItemMapper.mapToOrderItemDTO(item, orderItemDTO);
+
+    try {
+      FindProductVariantByIdResponse response = productServiceGrpcClient.findProductVariantById(
+              FindProductVariantByIdRequest.newBuilder()
+                      .setProductVariantId(item.getProductVariantId())
+                      .build());
+
+      if (response.hasProductVariant()) {
+        ProductVariant productVariant = response.getProductVariant();
+        ProductVariantDTO productVariantDTO = new ProductVariantDTO();
+        productVariantDTO.setId(productVariant.getId());
+        productVariantDTO.setName(productVariant.getName());
+        productVariantDTO.setPrice(productVariant.getPrice());
+        productVariantDTO.setColorName(productVariant.getColorName());
+        productVariantDTO.setSize(productVariant.getSize());
+        productVariantDTO.setQuantity(item.getQuantity());
+        productVariantDTO.setCover(productVariant.getCover());
+        orderItemDTO.setProductVariantDTO(productVariantDTO);
+      }
+    } catch (Exception e) {
+      throw new RuntimeException("Error fetching product variant: " + e.getMessage(), e);
+    }
+
+    return orderItemDTO;
   }
 }

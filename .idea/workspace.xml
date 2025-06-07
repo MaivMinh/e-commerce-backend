@@ -4,49 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/DTOs/ProductVariantDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/config/GrpcClientConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/grpc/ProductServiceGrpcClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/grpc/UserServiceGrpcClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/mapper/OrderItemMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/mapper/OrderMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/controller/OrderQueryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/handler/OrderQueryHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/queries/FindAllOrdersQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/proto/product.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/proto/user.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/query/queries/FindAllPaymentMethodsWithoutParamsQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/grpc/UserServiceGrpcServer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/proto/user.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+    <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
+      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/queries/FindOrdersOfAccountQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/queries/FindOverallStatusOfCreatingOrderQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/grpc_service/auth/AuthInfo.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/grpc_service/auth/AuthInfoOrBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/grpc_service/auth/AuthProto.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/grpc_service/auth/AuthRequest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/grpc_service/auth/AuthRequestOrBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/grpc_service/auth/AuthResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/grpc_service/auth/AuthResponseOrBuilder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/grpc_service/auth/AuthServiceGrpc.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/common/commands/RollbackConfirmReserveProductCommand.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/DTOs/OrderDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/DTOs/OrderDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/entity/OrderItemDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/entity/OrderItemDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/projection/OrderProjection.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/projection/OrderProjection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/query/controller/PaymentMethodQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/query/controller/PaymentMethodQueryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/query/handler/PaymentMethodQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/query/handler/PaymentMethodQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/service/PaymentMethodService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/service/PaymentMethodService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductVariantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductVariantService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/proto/product.proto" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/proto/product.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/promotion-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/repository/AddressRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/repository/AddressRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/command/controller/OrderCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/command/controller/OrderCommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/controller/OrderQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/controller/OrderQueryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/handler/OrderQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/query/handler/OrderQueryHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/repository/OrderRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/repository/OrderRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/saga/CreateOrderSaga.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/saga/CreateOrderSaga.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/service/OrderService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +73,7 @@
     &quot;Spring Boot.PromotionServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.ServiceDiscoveryApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;subcription-query&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/user-service/src/main/java/com/minh/user_service&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
@@ -128,11 +96,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.minh.order_service.query.queries" />
       <recent name="com.minh.promotion_service.query.queries" />
       <recent name="com.minh.promotion_service.command.events" />
       <recent name="com.minh.product_service.query.queries" />
       <recent name="com.minh.product_service.dto" />
-      <recent name="com.minh.product_service.command.events" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service" />
@@ -294,7 +262,6 @@
     </configuration>
     <list>
       <item itemvalue="Makefile Target.proto" />
-      <item itemvalue="Spring Boot.UserServiceApplication" />
       <item itemvalue="Spring Boot.ApiGatewayApplication" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.BomServiceApplication" />
@@ -308,6 +275,7 @@
       <item itemvalue="Spring Boot.PromotionServiceApplication" />
       <item itemvalue="Spring Boot.ReviewServiceApplication" />
       <item itemvalue="Spring Boot.ServiceDiscoveryApplication" />
+      <item itemvalue="Spring Boot.UserServiceApplication" />
     </list>
     <recent_temporary>
       <list>
@@ -415,9 +383,36 @@
       <workItem from="1749185777797" duration="4674000" />
       <workItem from="1749190537733" duration="1767000" />
       <workItem from="1749193288933" duration="16809000" />
-      <workItem from="1749232320567" duration="1583000" />
+      <workItem from="1749232320567" duration="2301000" />
+      <workItem from="1749234653105" duration="277000" />
+      <workItem from="1749269034706" duration="1646000" />
+      <workItem from="1749271018787" duration="38000" />
+      <workItem from="1749271083191" duration="4377000" />
+      <workItem from="1749276196054" duration="1031000" />
+      <workItem from="1749278750748" duration="804000" />
     </task>
+    <task id="LOCAL-00001" summary="Complete orders screen temporarily">
+      <option name="closed" value="true" />
+      <created>1749234549662</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1749234549662</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Complete orders screen temporarily">
+      <option name="closed" value="true" />
+      <created>1749234588330</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1749234588330</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Complete orders screen temporarily" />
+    <option name="LAST_COMMIT_MESSAGE" value="Complete orders screen temporarily" />
   </component>
   <component name="XDebuggerManager">
     <pin-to-top-manager>
