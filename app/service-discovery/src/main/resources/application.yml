@@ -35,9 +35,12 @@ server:
 
 
 eureka:
+  instance:
+    hostname: localhost
   client:
-    fetch-registry: false
-    service-url:
+    fetchRegistry: false
+    registerWithEureka: false
+    serviceUrl:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
   server:
     peer-node-connect-timeout-ms: 2000
@@ -46,7 +49,3 @@ eureka:
     renewal-percent-threshold: 0.85
     renewal-threshold-update-interval-ms: 900000
     enable-self-preservation: true
-  instance:
-    hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
-    lease-renewal-interval-in-seconds: 30
-    lease-expiration-duration-in-seconds: 90

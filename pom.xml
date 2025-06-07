@@ -39,7 +39,9 @@
         <module>app/payment-service</module>
         <module>app/product-service</module>
         <module>app/promotion-service</module>
+        <module>app/user-service</module>
         <module>app/review-service</module>
+        <module>app/bom-service</module>
         <module>app/file-service</module>
     </modules>
     <properties>

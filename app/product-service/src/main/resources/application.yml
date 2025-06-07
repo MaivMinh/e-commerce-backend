@@ -21,6 +21,10 @@ spring:
     password: ${SPRING_RABBITMQ_PASSWORD:guest}
 
   # /// MYSQL DATABASE CONFIGURATION ///
+  sql:
+    init:
+      schema-locations: classpath:schema.sql
+      mode: ${SPRING_SQL_INIT_MODE:never}
   jpa:
     hibernate:
       ddl-auto: update
@@ -82,7 +86,7 @@ axon:
       product-group:
         mode: subscribing
   axonserver:
-    servers: localhost:8124
+    servers: ${AXON_AXONSERVER_SERVERS:localhost:8124}
     enabled: true
 
 logging:

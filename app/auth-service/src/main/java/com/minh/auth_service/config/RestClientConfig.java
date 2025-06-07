@@ -7,7 +7,7 @@ import org.springframework.web.client.RestClient;
 
 @Configuration
 public class RestClientConfig {
-  @Value("${BRAVO_API_KEY}")
+  @Value("${bravo.api.key}")
   private String apiKey;
 
   @Bean

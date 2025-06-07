@@ -9,7 +9,7 @@
     </parent>
     <artifactId>common</artifactId>
     <version>${common-lib.version}</version>
-    <name>bom-service</name>
+    <name>common-service</name>
     <description>Common Project for microservices</description>
     <url/>
     <licenses>
