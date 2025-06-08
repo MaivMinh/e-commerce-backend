@@ -6,6 +6,7 @@ CREATE TABLE users
     full_name  VARCHAR(100),
     avatar     VARCHAR(255),
     gender     ENUM ('male', 'female', 'other') DEFAULT 'other',
+    status     ENUM ('active', 'inactive')      DEFAULT 'active',
     birthdate  DATE,
     created_at TIMESTAMP   NOT NULL             DEFAULT CURRENT_TIMESTAMP,
     created_by VARCHAR(255),

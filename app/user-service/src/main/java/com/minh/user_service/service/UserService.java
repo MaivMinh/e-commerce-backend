@@ -7,6 +7,7 @@ import com.minh.user_service.DTOs.UserCreateDTO;
 import com.minh.user_service.DTOs.UserDTO;
 import com.minh.user_service.entity.Address;
 import com.minh.user_service.entity.Gender;
+import com.minh.user_service.entity.Status;
 import com.minh.user_service.entity.User;
 import com.minh.user_service.mapper.AddressMapper;
 import com.minh.user_service.mapper.UserMapper;
@@ -63,8 +64,11 @@ public class UserService {
     user.setAccountId(userCreateDTO.getAccountId());
     user.setFullName(userCreateDTO.getFullName());
     user.setUsername(userCreateDTO.getUsername());
+    user.setEmail(userCreateDTO.getEmail());
     user.setAvatar(userCreateDTO.getAvatar());
-    user.setGender(Gender.valueOf(userCreateDTO.getGender()));
+    /// status default is active
+    Gender gender = StringUtils.hasText(userCreateDTO.getGender()) ? Gender.valueOf(userCreateDTO.getGender()) : Gender.other;
+    user.setGender(gender);
     user.setBirthDate(userCreateDTO.getBirthDate());
     userRepository.save(user);
     return ResponseData.builder()
@@ -189,5 +193,18 @@ public class UserService {
             .setFullName(user.getFullName())
             .setShippingAddress(shippingAddress)
             .build();
+  }
+
+  public User findUserByAccountId(String accountId) {
+    return userRepository.findUserByAccountId(accountId).orElseThrow(() -> new RuntimeException("User not found"));
+  }
+
+  public void inactiveUser(User user) {
+    user.setStatus(Status.inactive);
+    userRepository.save(user);
+  }
+  public void activeUser(User user) {
+    user.setStatus(Status.active);
+    userRepository.save(user);
   }
 }

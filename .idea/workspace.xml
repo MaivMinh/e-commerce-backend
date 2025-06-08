@@ -5,9 +5,42 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
+      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/ActiveUserMessageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/CreatedAccountMessageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/InactiveUserMessageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/UserCreatedMessageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/functions/AccountFunctions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/AccountCreatedMessageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/ActiveUserMessageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/InactiveUserMessageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/adapter/CreateUserAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/Status.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/functions/UserFunctions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/IAccountFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/CreateAccountDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/model/Account.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AccountService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service-discovery/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/service-discovery/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/UserCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/UserCreateDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/UserDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/Address.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/UserService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose/default/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose/default/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/resources/schema.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,10 +50,11 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
-        <option value="Enum" />
-        <option value="Class" />
         <option value="Dockerfile" />
+        <option value="Interface" />
+        <option value="Class" />
+        <option value="Record" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -28,7 +62,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
@@ -41,86 +75,90 @@
     <option name="showLibraryContents" value="true" />
     <option name="sortKey" value="BY_TIME_ASCENDING" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Docker.default.api-gateway: Compose Deployment.executor": "Run",
-    "Docker.default.auth-db-service: Compose Deployment.executor": "Run",
-    "Docker.default.auth-service: Compose Deployment.executor": "Run",
-    "Docker.default.cart-db-service: Compose Deployment.executor": "Run",
-    "Docker.default.cart-service: Compose Deployment.executor": "Run",
-    "Docker.default.config-server: Compose Deployment.executor": "Run",
-    "Docker.default.product-db-service: Compose Deployment.executor": "Run",
-    "Docker.default.product-service: Compose Deployment.executor": "Run",
-    "Docker.default.rabbitmq-service: Compose Deployment.executor": "Run",
-    "Docker.default.redis-service: Compose Deployment.executor": "Run",
-    "Docker.default.service-discovery: Compose Deployment.executor": "Run",
-    "Docker.default.user-db-service: Compose Deployment.executor": "Run",
-    "Docker.default.user-service: Compose Deployment.executor": "Run",
-    "Makefile Target.proto.executor": "Run",
-    "Maven.auth-service [clean].executor": "Run",
-    "Maven.auth-service [compile].executor": "Run",
-    "Maven.auth-service [package].executor": "Run",
-    "Maven.bom-service [clean].executor": "Run",
-    "Maven.bom-service [compile].executor": "Run",
-    "Maven.bom-service [package].executor": "Run",
-    "Maven.cart-service [clean].executor": "Run",
-    "Maven.cart-service [compile].executor": "Run",
-    "Maven.common [clean].executor": "Run",
-    "Maven.common [compile].executor": "Run",
-    "Maven.common [package].executor": "Run",
-    "Maven.e-commerce [clean].executor": "Run",
-    "Maven.e-commerce [compile].executor": "Run",
-    "Maven.e-commerce [package].executor": "Run",
-    "Maven.service-discovery [clean].executor": "Run",
-    "Maven.service-discovery [compile].executor": "Run",
-    "Maven.service-discovery [package].executor": "Run",
-    "Notification.DisplayName-DoNotAsk-Database detector": "Database detector",
-    "Notification.DoNotAsk-Database detector": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.ApiGatewayApplication.executor": "Run",
-    "Spring Boot.AuthServiceApplication.executor": "Run",
-    "Spring Boot.CartServiceApplication.executor": "Run",
-    "Spring Boot.ConfigServerApplication.executor": "Run",
-    "Spring Boot.FileServiceApplication.executor": "Run",
-    "Spring Boot.OrderServiceApplication.executor": "Run",
-    "Spring Boot.PaymentServiceApplication.executor": "Run",
-    "Spring Boot.ProductServiceApplication.executor": "Run",
-    "Spring Boot.PromotionServiceApplication.executor": "Run",
-    "Spring Boot.ServiceDiscoveryApplication.executor": "Run",
-    "Spring Boot.UserServiceApplication.executor": "Run",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/user-service/src/main/java/com/minh/user_service",
-    "project.structure.last.edited": "Project",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.0",
-    "run.configurations.included.in.services": "true",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Docker.default.api-gateway: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.auth-db-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.auth-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.cart-db-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.cart-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.config-server: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.product-db-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.product-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.rabbitmq-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.redis-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.service-discovery: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.user-db-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.user-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Makefile Target.proto.executor&quot;: &quot;Run&quot;,
+    &quot;Maven.auth-service [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.auth-service [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.auth-service [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.bom-service [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.bom-service [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.bom-service [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.cart-service [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.cart-service [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.common [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.common [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.common [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.e-commerce [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.e-commerce [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.e-commerce [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.service-discovery [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.service-discovery [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.service-discovery [package].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.user-service [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.user-service [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.user-service [package].executor&quot;: &quot;Run&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Database detector&quot;: &quot;Database detector&quot;,
+    &quot;Notification.DoNotAsk-Database detector&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.ApiGatewayApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.AuthServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.CartServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ConfigServerApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.FileServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.OrderServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PaymentServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ProductServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.PromotionServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ReviewServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.ServiceDiscoveryApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;kafka&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/user-service/src/main/java/com/minh/user_service&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ],
-    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
-      "MySQL"
+    &quot;com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect&quot;: [
+      &quot;MySQL&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.minh.user_service.DTOs" />
+      <recent name="com.minh.auth_service.DTOs" />
+      <recent name="com.minh.user_service.entity" />
+      <recent name="com.minh.user_service.service" />
       <recent name="com.minh.order_service.query.queries" />
-      <recent name="com.minh.promotion_service.query.queries" />
-      <recent name="com.minh.promotion_service.command.events" />
-      <recent name="com.minh.product_service.query.queries" />
-      <recent name="com.minh.product_service.dto" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service" />
@@ -147,7 +185,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.default.user-service: Compose Deployment">
+  <component name="RunManager" selected="Spring Boot.ConfigServerApplication">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="file-service" />
       <method v="2">
@@ -370,9 +408,9 @@
       <list>
         <item itemvalue="Docker.default.user-service: Compose Deployment" />
         <item itemvalue="Docker.default.user-db-service: Compose Deployment" />
+        <item itemvalue="Docker.default.product-service: Compose Deployment" />
         <item itemvalue="Docker.default.auth-service: Compose Deployment" />
         <item itemvalue="Docker.default.auth-db-service: Compose Deployment" />
-        <item itemvalue="Docker.default.product-service: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -482,7 +520,13 @@
       <workItem from="1749278750748" duration="804000" />
       <workItem from="1749283063845" duration="3937000" />
       <workItem from="1749292812764" duration="10571000" />
-      <workItem from="1749303446604" duration="3335000" />
+      <workItem from="1749303446604" duration="4848000" />
+      <workItem from="1749311544784" duration="1080000" />
+      <workItem from="1749316499984" duration="2939000" />
+      <workItem from="1749353722375" duration="2308000" />
+      <workItem from="1749356151311" duration="7693000" />
+      <workItem from="1749363989422" duration="740000" />
+      <workItem from="1749364741238" duration="5990000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />

@@ -15,7 +15,6 @@ public class Account extends BaseEntity {
   private String password;
   private String email;
   private String name;
-  @Enumerated(EnumType.STRING)
   private Role role;
   private Status status;
   private String avatar;

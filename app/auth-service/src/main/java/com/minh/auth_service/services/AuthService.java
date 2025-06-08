@@ -2,7 +2,6 @@ package com.minh.auth_service.services;
 
 import com.minh.auth_service.DTOs.*;
 import com.minh.auth_service.model.Account;
-import com.minh.auth_service.model.AccountAddress;
 import com.minh.auth_service.model.Role;
 import com.minh.auth_service.model.Status;
 import com.minh.auth_service.repository.AccountAddressRepository;
@@ -20,15 +19,14 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.springframework.web.client.RestClient;
 
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
@@ -58,11 +56,61 @@ public class AuthService {
   private final PasswordEncoder passwordEncoder;
   private final AuthenticationManager authenticationManager;
   private final RedisService redisService;
+  private final StreamBridge streamBridge;
 
-  public ResponseData register(@Valid AccountDTO accountDTO) {
+  private void createUserFunction(Account account) {
+    /// Trigger event to create a new user in user-service using Spring cloud stream Kafka.
+    CreatedAccountMessageDTO createdAccountMessageDTO = CreatedAccountMessageDTO.builder()
+            .accountId(account.getId())
+            .username(account.getUsername())
+            .email(account.getEmail())
+            .fullName(account.getName())
+            .build();
+
+    /// Sử dụng StreamBridge để gửi message đến user-service.
+    var result = streamBridge.send("createUserFunction-out-0", createdAccountMessageDTO);
+    if (result) {
+      log.info("Message sent to create user in user-service successfully");
+    } else {
+      log.error("Failed to create user in user-service");
+    }
+  }
+
+  private boolean inactiveUserFunction(String accountId) {
+    /// Trigger event to inactive a user in user-service using Spring cloud stream Kafka.
+    InactiveUserMessageDTO inactiveUserMessageDTO = InactiveUserMessageDTO.builder()
+            .accountId(accountId)
+            .build();
+
+    /// Sử dụng StreamBridge để gửi message đến user-service.
+    var result = streamBridge.send("inactiveUserFunction-out-0", inactiveUserMessageDTO);
+    if (result) {
+      log.info("Message sent to inactive user in user-service successfully");
+    } else {
+      log.error("Failed to inactive user in user-service");
+    }
+    return result;
+  }
+
+
+  private boolean activeUserFunction(String accountId) {
+    ActiveUserMessageDTO activeUserMessageDTO = ActiveUserMessageDTO.builder()
+            .accountId(accountId)
+            .build();
+    /// Trigger event to active a user in user-service using Spring cloud stream Kafka.
+    var result = streamBridge.send("activeUserFunction-out-0", activeUserMessageDTO);
+    if (result) {
+      log.info("Message sent to active user in user-service successfully");
+    } else {
+      log.error("Failed to active user in user-service");
+    }
+    return result;
+  }
+
+  public ResponseData register(CreateAccountDTO createAccountDTO) {
     try {
       /// Hàm tạo một Account mới bên trong hệ thống.
-      Optional<Account> saved = accountRepository.checkWhetherAccountIsAlreadyExistsOrNot(accountDTO.getUsername(), accountDTO.getEmail());
+      Optional<Account> saved = accountRepository.checkWhetherAccountIsAlreadyExistsOrNot(createAccountDTO.getUsername(), createAccountDTO.getEmail());
       if (saved.isPresent()) {
         return ResponseData.builder()
                 .status(HttpStatus.BAD_REQUEST.value())
@@ -71,15 +119,19 @@ public class AuthService {
       }
       Account account = Account.builder()
               .id(UUID.randomUUID().toString())
-              .username(accountDTO.getUsername())
-              .email(accountDTO.getEmail())
+              .username(createAccountDTO.getUsername())
+              .password(passwordEncoder.encode(createAccountDTO.getPassword()))
+              .email(createAccountDTO.getEmail())
+              .name(createAccountDTO.getName())
               .role(Role.valueOf("customer")) // Mặc định là customer
-              .password(passwordEncoder.encode(accountDTO.getPassword()))
               .status(Status.active)
-              .avatar(accountDTO.getAvatar())
+              .avatar(createAccountDTO.getAvatar())
               .build();
 
       accountRepository.save(account);
+
+      this.createUserFunction(account);
+
       return ResponseData.builder()
               .status(HttpStatus.OK.value())
               .message("Account registered successfully.")
@@ -331,5 +383,50 @@ public class AuthService {
               .message("Failed to refresh token: " + e.getMessage())
               .build();
     }
+  }
+
+  public ResponseData inactiveAccount(String accountId) {
+    /// Xử lý inactive tài khoản.
+    Account account = accountRepository.findAccountById(accountId).orElseThrow(
+            () -> new RuntimeException("Account not found")
+    );
+    account.setStatus(Status.inactive);
+    accountRepository.save(account);
+
+    /// Gọi hàm để inactive user trong user-service.
+    boolean result = this.inactiveUserFunction(accountId);
+    if (!result) {
+      return ResponseData.builder()
+              .status(HttpStatus.OK.value())
+              .message("Inactive account successfully, but failed to inactive user in user-service")
+              .build();
+    }
+    return ResponseData.builder()
+            .status(HttpStatus.OK.value())
+            .message("Inactive account and user successfully")
+            .build();
+  }
+
+  public ResponseData activeAccount(String accountId) {
+    /// Xử lý active tài khoản.
+    Account account = accountRepository.findAccountById(accountId).orElseThrow(
+            () -> new RuntimeException("Account not found")
+    );
+    account.setStatus(Status.active);
+    accountRepository.save(account);
+
+    /// Gọi hàm để inactive user trong user-service.
+    boolean result = this.activeUserFunction(accountId);
+    if (!result) {
+      return ResponseData.builder()
+              .status(HttpStatus.OK.value())
+              .message("Inactive account successfully, but failed to inactive user in user-service")
+              .build();
+    }
+    return ResponseData.builder()
+            .status(HttpStatus.OK.value())
+            .message("Inactive account and user successfully")
+            .build();
+
   }
 }

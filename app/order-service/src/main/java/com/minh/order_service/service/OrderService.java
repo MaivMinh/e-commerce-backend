@@ -105,13 +105,6 @@ public class OrderService {
 
 
   /// ========================== APPLY TEMPLATE METHOD DESIGN PATTERN HERE  ==========================  ///
-
-  public ResponseData findAllOrders(FindAllOrdersQuery query) throws Exception {
-    int page = query.getPage();
-    int size = query.getSize();
-    return processOrderQuery(page, size, null, "Orders retrieved successfully", "No orders found");
-  }
-
   public ResponseData findOverallStatusOfCreatingOrder(FindOverallStatusOfCreatingOrderQuery query) {
     Order order = orderRepository.findById(query.getOrderId())
             .orElseThrow(() -> new RuntimeException("Order not found for id: " + query.getOrderId()));
@@ -121,6 +114,13 @@ public class OrderService {
             .data(Collections.singletonMap("orderStatus", order.getOrderStatus()))
             .build();
   }
+
+  public ResponseData findAllOrders(FindAllOrdersQuery query) throws Exception {
+    int page = query.getPage();
+    int size = query.getSize();
+    return processOrderQuery(page, size, null, "Orders retrieved successfully", "No orders found");
+  }
+
 
   public ResponseData findOrdersOfAccount(FindOrdersOfAccountQuery query) throws Exception {
     int page = query.getPage();

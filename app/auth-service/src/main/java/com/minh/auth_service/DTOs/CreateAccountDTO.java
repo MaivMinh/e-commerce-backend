@@ -8,10 +8,11 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AccountDTO {
+public class CreateAccountDTO {
   private String id;
   @NotEmpty(message = "Username cannot be empty")
   private String username;
+  @NotEmpty(message = "Password cannot be empty")
   private String password;
   @NotEmpty(message = "Email cannot be empty")
   private String email;

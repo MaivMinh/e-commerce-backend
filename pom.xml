@@ -100,8 +100,8 @@
         <!-- https://github.com/spring-cloud/spring-cloud-release/wiki/Spring-Cloud-2024.0-Release-Notes        -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-bus-amqp</artifactId>
-            <version>4.2.1</version>
+            <artifactId>spring-cloud-starter-bus-kafka</artifactId>
+            <version>4.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
