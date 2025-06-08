@@ -3,12 +3,21 @@ spring:
     name: config-server
   profiles:
     active: git
-  rabbitmq:
-    host: ${SPRING_RABBITMQ_HOST:localhost}
-    port: ${SPRING_RABBITMQ_PORT:5672}
-    username: ${SPRING_RABBITMQ_USERNAME:guest}
-    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+  #  rabbitmq:
+  #    host: ${SPRING_RABBITMQ_HOST:localhost}
+  #    port: ${SPRING_RABBITMQ_PORT:5672}
+  #    username: ${SPRING_RABBITMQ_USERNAME:guest}
+  #    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+
   cloud:
+    stream:
+      binders:
+        kafka:
+          default-candidate: true
+      kafka:
+        binder:
+          brokers:
+            - ${SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS:localhost:9092}
     config:
       server:
         git:

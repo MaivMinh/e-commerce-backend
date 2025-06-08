@@ -1,17 +1,12 @@
 package com.minh.auth_service.controller;
 
-import ch.qos.logback.core.util.StringUtil;
-import com.minh.auth_service.DTOs.AccountDTO;
+import com.minh.auth_service.DTOs.CreateAccountDTO;
 import com.minh.auth_service.DTOs.LoginDTO;
-import com.minh.auth_service.DTOs.RequestPasswordDTO;
 import com.minh.auth_service.response.ResponseData;
 import com.minh.auth_service.services.AuthService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,8 +20,8 @@ public class AuthController {
   /// Hàm thực hiện đăng ký tài khoản mới.
   /// DONE.
   @PostMapping("/register")
-  public ResponseEntity<ResponseData> register(@RequestBody @Valid AccountDTO accountDTO) {
-    ResponseData response = authService.register(accountDTO);
+  public ResponseEntity<ResponseData> register(@RequestBody @Valid CreateAccountDTO createAccountDTO) {
+    ResponseData response = authService.register(createAccountDTO);
     return ResponseEntity.status(response.getStatus()).body(response);
   }
 
@@ -50,6 +45,20 @@ public class AuthController {
   @PostMapping(value = "/logout")
   public ResponseEntity<ResponseData> logout(@RequestParam String token ) {
     ResponseData response = authService.logout(token);
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
+
+  /// Hàm thực hiện inactive tài khoản.
+  @PostMapping(value = "/{accountId}/inactive")
+  public ResponseEntity<ResponseData> inactiveAccount(@PathVariable String accountId) {
+    ResponseData response = authService.inactiveAccount(accountId);
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
+
+  /// Hàm thưc hiện active tài khoản.
+  @PostMapping(value = "/{accountId}/active")
+  public ResponseEntity<ResponseData> activeAccount(@PathVariable String accountId) {
+    ResponseData response = authService.activeAccount(accountId);
     return ResponseEntity.status(response.getStatus()).body(response);
   }
 }

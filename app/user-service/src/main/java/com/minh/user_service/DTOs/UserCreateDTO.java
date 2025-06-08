@@ -17,6 +17,7 @@ public class UserCreateDTO {
   private String username;
   @NotEmpty(message = "Full name cannot be empty")
   private String fullName;
+  private String email;
   private String avatar;
   private String gender;
   private Date birthDate;
