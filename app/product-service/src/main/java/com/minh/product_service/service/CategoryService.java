@@ -3,10 +3,15 @@ package com.minh.product_service.service;
 import com.minh.product_service.command.events.CategoryDeletedEvent;
 import com.minh.product_service.command.events.CategoryUpdatedEvent;
 import com.minh.product_service.dto.CategoryDTO;
+import com.minh.product_service.dto.ProductDTO;
 import com.minh.product_service.entity.Category;
+import com.minh.product_service.entity.Product;
 import com.minh.product_service.mapper.CategoryMapper;
+import com.minh.product_service.mapper.ProductMapper;
 import com.minh.product_service.query.queries.FindAllCategoriesQuery;
+import com.minh.product_service.query.queries.SearchProductsByCategoryQuery;
 import com.minh.product_service.repository.CategoryRepository;
+import com.minh.product_service.repository.ProductRepository;
 import com.minh.product_service.response.ResponseData;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,6 +29,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CategoryService {
   private final CategoryRepository categoryRepository;
+  private final ProductRepository productRepository;
 
   private String generateSlug(String name) {
     if (name == null || name.isEmpty()) {
@@ -164,5 +170,49 @@ public class CategoryService {
     } catch (Exception e) {
       throw new RuntimeException("Failed to fetch all categories");
     }
+  }
+
+  public ResponseData searchProductsByCategory(SearchProductsByCategoryQuery query) {
+    Pageable pageable = null;
+    if (StringUtils.hasText(query.getSort())) {
+      /// sort = id:desc,name:asc
+      List<Sort.Order> orders = new ArrayList<>();
+      String[] sortFields = query.getSort().split(",");
+      for (String field : sortFields) {
+        orders.add(new Sort.Order(Sort.Direction.fromString(field.split(":")[1].toUpperCase()), field.split(":")[0]));
+      }
+      pageable = PageRequest.of(query.getPage(), query.getSize(), Sort.by(orders));
+    } else {
+      pageable = PageRequest.of(query.getPage(), query.getSize());
+    }
+
+    Page<Product> productPage = productRepository.findProductByCategoryId(query.getCategoryId(), pageable);
+    if (productPage.isEmpty()) {
+      return ResponseData.builder()
+              .message("No products found for this category")
+              .status(HttpStatus.OK.value())
+              .data(Collections.emptyList())
+              .build();
+    }
+
+    List<Product> products = productPage.getContent();
+    List<ProductDTO> productDTOs = products.stream()
+            .map(product -> {
+              ProductDTO productDTO = new ProductDTO();
+              ProductMapper.mapToProductDTO(product, productDTO);
+              return productDTO;
+            }).collect(Collectors.toList());
+
+    Map<String, Object> data = new HashMap<>();
+    data.put("totalElements", productPage.getTotalElements());
+    data.put("totalPages", productPage.getTotalPages());
+    data.put("size", productPage.getSize());
+    data.put("page", productPage.getNumber() + 1);
+    data.put("products", productDTOs);
+    return ResponseData.builder()
+            .message("Fetched products by category successfully")
+            .status(HttpStatus.OK.value())
+            .data(data)
+            .build();
   }
 }

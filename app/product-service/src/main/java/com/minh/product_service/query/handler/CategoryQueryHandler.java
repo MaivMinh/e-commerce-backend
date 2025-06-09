@@ -3,7 +3,7 @@ package com.minh.product_service.query.handler;
 import com.minh.product_service.query.queries.FetchCategoriesQuery;
 import com.minh.product_service.query.queries.FetchCategoryQuery;
 import com.minh.product_service.query.queries.FindAllCategoriesQuery;
-import com.minh.product_service.query.queries.SearchCategoriesQuery;
+import com.minh.product_service.query.queries.SearchProductsByCategoryQuery;
 import com.minh.product_service.response.ResponseData;
 import com.minh.product_service.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +28,10 @@ public class CategoryQueryHandler {
   @QueryHandler
   public ResponseData handle(FetchCategoryQuery query) {
     return categoryService.fetchCategory(query.getId());
+  }
+
+  @QueryHandler
+  public ResponseData handle(SearchProductsByCategoryQuery query) {
+    return categoryService.searchProductsByCategory(query);
   }
 }

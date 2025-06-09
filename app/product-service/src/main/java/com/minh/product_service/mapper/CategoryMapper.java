@@ -10,6 +10,7 @@ public class CategoryMapper {
     categoryDTO.setName(category.getName());
     categoryDTO.setDescription(category.getDescription());
     categoryDTO.setSlug(category.getSlug());
+    categoryDTO.setImage(category.getImage());
   }
 
   public static void mapToCategory(CategoryDTO categoryDTO, Category category) {
