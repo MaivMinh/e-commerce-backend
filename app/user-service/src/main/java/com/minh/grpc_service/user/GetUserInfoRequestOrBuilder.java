@@ -18,4 +18,16 @@ public interface GetUserInfoRequestOrBuilder extends
    */
   com.google.protobuf.ByteString
       getAccountIdBytes();
+
+  /**
+   * <code>string shippingAddressId = 2;</code>
+   * @return The shippingAddressId.
+   */
+  java.lang.String getShippingAddressId();
+  /**
+   * <code>string shippingAddressId = 2;</code>
+   * @return The bytes for shippingAddressId.
+   */
+  com.google.protobuf.ByteString
+      getShippingAddressIdBytes();
 }

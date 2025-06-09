@@ -9,9 +9,7 @@ import com.minh.product_service.entity.Product;
 import com.minh.product_service.entity.ProductImage;
 import com.minh.product_service.entity.ProductStatus;
 import com.minh.product_service.mapper.ProductMapper;
-import com.minh.product_service.query.queries.FindProductBySlugQuery;
-import com.minh.product_service.query.queries.FindProductsByFilterQuery;
-import com.minh.product_service.query.queries.FindProductsQuery;
+import com.minh.product_service.query.queries.*;
 import com.minh.product_service.repository.ProductImageRepository;
 import com.minh.product_service.repository.ProductRepository;
 import com.minh.product_service.repository.ProductVariantRepository;
@@ -33,8 +31,7 @@ import org.springframework.util.StringUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.minh.product_service.specifications.ProductSpecification.hasCategoryIds;
-import static com.minh.product_service.specifications.ProductSpecification.hasPriceBetween;
+import static com.minh.product_service.specifications.ProductSpecification.*;
 
 @Slf4j
 @Service
@@ -183,11 +180,14 @@ public class ProductService {
   }
 
   /// Done.
-  public ProductDTO fetchProduct(String id) {
+  public ResponseData fetchProduct(String id) {
     /// Validate again.
     Optional<Product> saved = productRepository.findById(id);
     if (saved.isEmpty()) {
-      throw new RuntimeException("Product not found");
+      return ResponseData.builder()
+              .status(404)
+              .message("Product not found")
+              .build();
     }
     ProductDTO productDTO = new ProductDTO();
     ProductMapper.mapToProductDTO(saved.get(), productDTO);
@@ -210,7 +210,11 @@ public class ProductService {
     }).collect(Collectors.toList());
     productDTO.setProductVariants(productVariants);
 
-    return productDTO;
+    return ResponseData.builder()
+            .status(200)
+            .message("Success")
+            .data(productDTO)
+            .build();
   }
 
   public ResponseData findProducts(FindProductsQuery query) {
@@ -263,11 +267,14 @@ public class ProductService {
   }
 
   @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
-  public ProductDTO findProductBySlug(FindProductBySlugQuery query) {
+  public ResponseData findProductBySlug(FindProductBySlugQuery query) {
     /// Validate again.
     Optional<Product> saved = productRepository.findProductBySlug((query.getSlug()));
     if (saved.isEmpty()) {
-      throw new RuntimeException("Product not found");
+      return ResponseData.builder()
+              .status(404)
+              .message("Product not found")
+              .build();
     }
     ProductDTO productDTO = new ProductDTO();
     ProductMapper.mapToProductDTO(saved.get(), productDTO);
@@ -290,7 +297,11 @@ public class ProductService {
     }).collect(Collectors.toList());
     productDTO.setProductVariants(productVariants);
 
-    return productDTO;
+    return ResponseData.builder()
+            .status(200)
+            .message("Success")
+            .data(productDTO)
+            .build();
   }
 
   /// Hàm thực hiện tìm kiếm biến thể sản phẩm theo ID.
@@ -346,9 +357,12 @@ public class ProductService {
     try {
       List<ProductVariantMessageDTO> dtos = request.getCartItemsList().stream().map(item -> {
         ProductVariantMessageDTO dto = productVariantRepository.findProductVariantById(item.getProductVariantId());
-        dto.setCartItemId(item.getCartItemId());
-        dto.setProductVariantId(item.getProductVariantId());
-        return dto;
+        if (dto != null) {
+          dto.setCartItemId(item.getCartItemId());
+          dto.setProductVariantId(item.getProductVariantId());
+          return dto;
+        }
+        return null;
       }).toList();
 
       if (dtos.isEmpty()) {
@@ -358,21 +372,24 @@ public class ProductService {
                 .build();
       }
 
+
       return FindProductVariantsByIdsResponse.newBuilder()
               .setStatus(HttpStatus.OK.value())
               .setMessage("Success")
-              .addAllProductVariants(dtos.stream().map(dto -> ProductVariantMessage.newBuilder()
-                      .setCartItemId(dto.getCartItemId())
-                      .setProductVariantId(dto.getProductVariantId())
-                      .setProductName(dto.getProductName())
-                      .setProductSlug(dto.getProductSlug())
-                      .setProductCover(dto.getProductCover())
-                      .setProductVariantSize(dto.getProductVariantSize())
-                      .setProductVariantColorName(dto.getProductVariantColorName())
-                      .setProductVariantColorHex(dto.getProductVariantColorHex())
-                      .setProductVariantPrice(dto.getProductVariantPrice())
-                      .setProductVariantOriginalPrice(dto.getProductVariantOriginalPrice())
-                      .build()).collect(Collectors.toList()))
+              .addAllProductVariants(dtos.stream()
+                      .filter(Objects::nonNull)  // Filter out null DTOs
+                      .map(dto -> ProductVariantMessage.newBuilder()
+                              .setCartItemId(dto.getCartItemId())
+                              .setProductVariantId(dto.getProductVariantId())
+                              .setProductName(dto.getProductName())
+                              .setProductSlug(dto.getProductSlug())
+                              .setProductCover(dto.getProductCover())
+                              .setProductVariantSize(dto.getProductVariantSize())
+                              .setProductVariantColorName(dto.getProductVariantColorName())
+                              .setProductVariantColorHex(dto.getProductVariantColorHex())
+                              .setProductVariantPrice(dto.getProductVariantPrice())
+                              .setProductVariantOriginalPrice(dto.getProductVariantOriginalPrice())
+                              .build()).collect(Collectors.toList()))
               .build();
     } catch (Exception e) {
       log.error("Error occurred while finding product variants by IDs: {}", e.getMessage());
@@ -390,10 +407,14 @@ public class ProductService {
       spec = spec.and(hasCategoryIds(filter.getCategoryIds()));
     }
     spec = spec.and(hasPriceBetween(filter.getMinPrice(), filter.getMaxPrice()));
+    spec = spec.and(hasRatingFrom(filter.getRating()));
+    spec = spec.and(isBestseller(filter.getIsBestseller()));
+    spec = spec.and(isFeatured(filter.getIsFeatured()));
+    spec = spec.and(isNew(filter.getIsNew()));
 
     Pageable pageable = null;
     if (StringUtils.hasText(query.getSort())) {
-      /// sort = soldItems:desc,price:asc,price:desc,newest:desc
+      /// sort = soldItems:desc,price:asc,createdAt:desc,rating:desc
       List<Sort.Order> orders = new ArrayList<>();
       String[] sortFields = query.getSort().split(",");
       for (String field : sortFields) {
@@ -443,5 +464,119 @@ public class ProductService {
     // Remove leading and trailing hyphens
     slug = slug.replaceAll("^-|-$", "");
     return slug;
+  }
+
+  public ResponseData findNewestProducts(FindNewestProductsQuery query) {
+    int page = query.getPage();
+    int size = query.getSize();
+    Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+
+    Page<Product> productPage = productRepository.findAll(pageable);
+    if (productPage.isEmpty()) {
+      return ResponseData.builder()
+              .status(200)
+              .message("No products found")
+              .build();
+    }
+
+    List<ProductDTO> productDTOs = productPage.stream()
+            .map(product -> {
+              ProductDTO productDTO = new ProductDTO();
+              ProductMapper.mapToProductDTO(product, productDTO);
+              List<String> images = new ArrayList<>(productImageRepository.findImagesByProductId(product.getId()));
+              productDTO.setImages(images);
+              List<com.minh.product_service.entity.ProductVariant> variants = productVariantRepository.findAllByProductId(product.getId());
+
+              List<ProductVariantDTO> productVariants = variants.stream().map(variant -> {
+                ProductVariantDTO variantDTO = new ProductVariantDTO();
+                variantDTO.setId(variant.getId());
+                variantDTO.setSize(variant.getSize());
+                variantDTO.setColorName(variant.getColorName());
+                variantDTO.setColorHex(variant.getColorHex());
+                variantDTO.setPrice(variant.getPrice());
+                variantDTO.setOriginalPrice(variant.getOriginalPrice());
+                variantDTO.setQuantity(variant.getQuantity());
+                return variantDTO;
+              }).collect(Collectors.toList());
+              productDTO.setProductVariants(productVariants);
+              return productDTO;
+            }).collect(Collectors.toList());
+
+    Map<String, Object> data = new HashMap<>();
+    data.put("products", productDTOs);
+    data.put("size", productPage.getSize());
+    data.put("page", productPage.getNumber() + 1);
+    data.put("totalElements", productPage.getTotalElements());
+    data.put("totalPages", productPage.getTotalPages());
+
+    return ResponseData.builder()
+            .status(200)
+            .message("Success")
+            .data(data)
+            .build();
+  }
+
+  public ResponseData searchProductsByName(SearchProductsQuery query) {
+    String name = query.getName();
+    int page = query.getPage();
+    int size = query.getSize();
+    String sort = query.getSort();
+
+    Pageable pageable;
+    if (StringUtils.hasText(sort)) {
+      List<Sort.Order> orders = new ArrayList<>();
+      String[] sortFields = sort.split(",");
+      for (String field : sortFields) {
+        orders.add(new Sort.Order(Sort.Direction.fromString(field.split(":")[1].toUpperCase()), field.split(":")[0]));
+      }
+      pageable = PageRequest.of(page, size, Sort.by(orders));
+    } else {
+      pageable = PageRequest.of(page, size);
+    }
+
+    Specification<Product> spec = Specification.where(containsName(name));
+    Page<Product> productPage = productRepository.findAll(spec, pageable);
+
+    if (productPage.isEmpty()) {
+      return ResponseData.builder()
+              .status(200)
+              .message("No products found")
+              .build();
+    }
+
+    List<ProductDTO> productDTOs = productPage.stream()
+            .map(product -> {
+              ProductDTO productDTO = new ProductDTO();
+              ProductMapper.mapToProductDTO(product, productDTO);
+              List<String> images = new ArrayList<>(productImageRepository.findImagesByProductId(product.getId()));
+              productDTO.setImages(images);
+              List<com.minh.product_service.entity.ProductVariant> variants = productVariantRepository.findAllByProductId(product.getId());
+
+              List<ProductVariantDTO> productVariants = variants.stream().map(variant -> {
+                ProductVariantDTO variantDTO = new ProductVariantDTO();
+                variantDTO.setId(variant.getId());
+                variantDTO.setSize(variant.getSize());
+                variantDTO.setColorName(variant.getColorName());
+                variantDTO.setColorHex(variant.getColorHex());
+                variantDTO.setPrice(variant.getPrice());
+                variantDTO.setOriginalPrice(variant.getOriginalPrice());
+                variantDTO.setQuantity(variant.getQuantity());
+                return variantDTO;
+              }).collect(Collectors.toList());
+              productDTO.setProductVariants(productVariants);
+              return productDTO;
+            }).collect(Collectors.toList());
+
+    Map<String, Object> data = new HashMap<>();
+    data.put("products", productDTOs);
+    data.put("size", productPage.getSize());
+    data.put("page", productPage.getNumber() + 1);
+    data.put("totalElements", productPage.getTotalElements());
+    data.put("totalPages", productPage.getTotalPages());
+    return ResponseData.builder()
+            .status(200)
+            .message("Success")
+            .data(data)
+            .build();
   }
 }

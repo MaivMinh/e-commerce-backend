@@ -37,4 +37,28 @@ public class ProductSpecification {
       return cb.conjunction();
     };
   }
+
+  public static Specification<Product> hasRatingFrom(Double rating) {
+    return (root, query, cb) -> rating == null
+            ? cb.conjunction()
+            : cb.greaterThanOrEqualTo(root.get("rating"), rating);
+  }
+
+  public static Specification<Product> isFeatured(Boolean isFeatured) {
+    return (root, query, cb) -> isFeatured == null
+            ? cb.conjunction()
+            : cb.equal(root.get("isFeatured"), isFeatured);
+  }
+
+  public static Specification<Product> isNew(Boolean isNew) {
+    return (root, query, cb) -> isNew == null
+            ? cb.conjunction()
+            : cb.equal(root.get("isNew"), isNew);
+  }
+
+  public static Specification<Product> isBestseller(Boolean isBestseller) {
+    return (root, query, cb) -> isBestseller == null
+            ? cb.conjunction()
+            : cb.equal(root.get("isBestseller"), isBestseller);
+  }
 }

@@ -142,7 +142,7 @@ public class AuthService {
     }
   }
 
-  public ResponseData login(@Valid LoginDTO accountDTO) {
+  public ResponseData login(LoginDTO accountDTO) {
     Optional<Account> account = accountRepository.findAccountByUsername(accountDTO.getUsername());
     if (account.isEmpty()) {
       return ResponseData.builder()

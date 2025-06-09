@@ -185,7 +185,10 @@ public class OrderService {
       OrderMapper.mapToOrderDTO(order, orderDTO);
 
       // Get user information
-      GetUserInfoRequest request = GetUserInfoRequest.newBuilder().setAccountId(order.getAccountId()).build();
+      GetUserInfoRequest request = GetUserInfoRequest.newBuilder()
+              .setAccountId(order.getAccountId())
+              .setShippingAddressId(order.getShippingAddressId())
+              .build();
       GetUserInfoResponse userInfoResponse = userServiceGrpcClient.getUserInfo(request);
 
       orderDTO.setCreatedAt(order.getCreatedAt());

@@ -16,6 +16,7 @@ import com.minh.user_service.repository.UserRepository;
 import com.minh.user_service.response.ResponseData;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -30,6 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -57,6 +59,7 @@ public class UserService {
             .data(userDTO)
             .build();
   }
+
 
   public ResponseData createUser(UserCreateDTO userCreateDTO) {
     User user = new User();
@@ -143,6 +146,7 @@ public class UserService {
   }
 
   public ResponseData updateUser(UserDTO userDTO) {
+    log.info("Updating user with ID: {}", userDTO);
     User user = userRepository.findById(userDTO.getId()).orElseThrow(() -> new RuntimeException("User not found"));
     user.setFullName(userDTO.getFullName());
     user.setAvatar(userDTO.getAvatar());
@@ -181,10 +185,9 @@ public class UserService {
               .setMessage("User not found")
               .build();
     }
-    String shippingAddress = addressRepository.findShippingAddressByUserId(user.getId());
-    if (shippingAddress == null) {
-      shippingAddress = "";
-    }
+
+    Address address = addressRepository.findAddressById(request.getShippingAddressId()).orElse(null);
+    String shippingAddress = address == null ? "" : address.getAddress();
     return GetUserInfoResponse.newBuilder()
             .setStatus(200)
             .setMessage("Success")
@@ -203,6 +206,7 @@ public class UserService {
     user.setStatus(Status.inactive);
     userRepository.save(user);
   }
+
   public void activeUser(User user) {
     user.setStatus(Status.active);
     userRepository.save(user);
