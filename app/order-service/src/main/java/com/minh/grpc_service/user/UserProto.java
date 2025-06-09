@@ -34,15 +34,16 @@ public final class UserProto {
   static {
     java.lang.String[] descriptorData = {
       "\n\nuser.proto\022\032net.devh.boot.grpc.example" +
-      "\"\'\n\022GetUserInfoRequest\022\021\n\taccountId\030\001 \001(" +
-      "\t\"\206\001\n\023GetUserInfoResponse\022\016\n\006status\030\001 \001(" +
-      "\005\022\017\n\007message\030\002 \001(\t\022\021\n\taccountId\030\003 \001(\t\022\020\n" +
-      "\010username\030\004 \001(\t\022\020\n\010fullName\030\005 \001(\t\022\027\n\017shi" +
-      "ppingAddress\030\006 \001(\t2}\n\013UserService\022n\n\013Get" +
-      "UserInfo\022..net.devh.boot.grpc.example.Ge" +
-      "tUserInfoRequest\032/.net.devh.boot.grpc.ex" +
-      "ample.GetUserInfoResponseB)\n\032com.minh.gr" +
-      "pc_service.userB\tUserProtoP\001b\006proto3"
+      "\"B\n\022GetUserInfoRequest\022\021\n\taccountId\030\001 \001(" +
+      "\t\022\031\n\021shippingAddressId\030\002 \001(\t\"\206\001\n\023GetUser" +
+      "InfoResponse\022\016\n\006status\030\001 \001(\005\022\017\n\007message\030" +
+      "\002 \001(\t\022\021\n\taccountId\030\003 \001(\t\022\020\n\010username\030\004 \001" +
+      "(\t\022\020\n\010fullName\030\005 \001(\t\022\027\n\017shippingAddress\030" +
+      "\006 \001(\t2}\n\013UserService\022n\n\013GetUserInfo\022..ne" +
+      "t.devh.boot.grpc.example.GetUserInfoRequ" +
+      "est\032/.net.devh.boot.grpc.example.GetUser" +
+      "InfoResponseB)\n\032com.minh.grpc_service.us" +
+      "erB\tUserProtoP\001b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -53,7 +54,7 @@ public final class UserProto {
     internal_static_net_devh_boot_grpc_example_GetUserInfoRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_net_devh_boot_grpc_example_GetUserInfoRequest_descriptor,
-        new java.lang.String[] { "AccountId", });
+        new java.lang.String[] { "AccountId", "ShippingAddressId", });
     internal_static_net_devh_boot_grpc_example_GetUserInfoResponse_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_net_devh_boot_grpc_example_GetUserInfoResponse_fieldAccessorTable = new

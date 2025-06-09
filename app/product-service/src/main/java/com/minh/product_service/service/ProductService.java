@@ -357,9 +357,12 @@ public class ProductService {
     try {
       List<ProductVariantMessageDTO> dtos = request.getCartItemsList().stream().map(item -> {
         ProductVariantMessageDTO dto = productVariantRepository.findProductVariantById(item.getProductVariantId());
-        dto.setCartItemId(item.getCartItemId());
-        dto.setProductVariantId(item.getProductVariantId());
-        return dto;
+        if (dto != null) {
+          dto.setCartItemId(item.getCartItemId());
+          dto.setProductVariantId(item.getProductVariantId());
+          return dto;
+        }
+        return null;
       }).toList();
 
       if (dtos.isEmpty()) {
@@ -369,21 +372,24 @@ public class ProductService {
                 .build();
       }
 
+
       return FindProductVariantsByIdsResponse.newBuilder()
               .setStatus(HttpStatus.OK.value())
               .setMessage("Success")
-              .addAllProductVariants(dtos.stream().map(dto -> ProductVariantMessage.newBuilder()
-                      .setCartItemId(dto.getCartItemId())
-                      .setProductVariantId(dto.getProductVariantId())
-                      .setProductName(dto.getProductName())
-                      .setProductSlug(dto.getProductSlug())
-                      .setProductCover(dto.getProductCover())
-                      .setProductVariantSize(dto.getProductVariantSize())
-                      .setProductVariantColorName(dto.getProductVariantColorName())
-                      .setProductVariantColorHex(dto.getProductVariantColorHex())
-                      .setProductVariantPrice(dto.getProductVariantPrice())
-                      .setProductVariantOriginalPrice(dto.getProductVariantOriginalPrice())
-                      .build()).collect(Collectors.toList()))
+              .addAllProductVariants(dtos.stream()
+                      .filter(Objects::nonNull)  // Filter out null DTOs
+                      .map(dto -> ProductVariantMessage.newBuilder()
+                              .setCartItemId(dto.getCartItemId())
+                              .setProductVariantId(dto.getProductVariantId())
+                              .setProductName(dto.getProductName())
+                              .setProductSlug(dto.getProductSlug())
+                              .setProductCover(dto.getProductCover())
+                              .setProductVariantSize(dto.getProductVariantSize())
+                              .setProductVariantColorName(dto.getProductVariantColorName())
+                              .setProductVariantColorHex(dto.getProductVariantColorHex())
+                              .setProductVariantPrice(dto.getProductVariantPrice())
+                              .setProductVariantOriginalPrice(dto.getProductVariantOriginalPrice())
+                              .build()).collect(Collectors.toList()))
               .build();
     } catch (Exception e) {
       log.error("Error occurred while finding product variants by IDs: {}", e.getMessage());
