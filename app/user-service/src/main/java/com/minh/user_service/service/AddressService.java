@@ -36,10 +36,21 @@ public class AddressService {
     }
     address.setIsDefault(addressCreateDTO.getIsDefault());
     addressRepository.save(address);
+
+    AddressDTO addressDTO = new AddressDTO();
+    addressDTO.setId(address.getId());
+    addressDTO.setAddress(address.getAddress());
+    addressDTO.setFullName(address.getFullName());
+    addressDTO.setPhone(address.getPhone());
+    addressDTO.setWard(address.getWard());
+    addressDTO.setDistrict(address.getDistrict());
+    addressDTO.setCity(address.getCity());
+    addressDTO.setIsDefault(address.getIsDefault());
+
     return ResponseData.builder()
             .status(201)
             .message("Address created successfully")
-            .data(null)
+            .data(addressDTO)
             .build();
   }
 

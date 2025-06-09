@@ -5,42 +5,49 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/ActiveUserMessageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/CreatedAccountMessageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/InactiveUserMessageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/UserCreatedMessageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/functions/AccountFunctions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/AccountCreatedMessageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/ActiveUserMessageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/InactiveUserMessageDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/adapter/CreateUserAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/Status.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/functions/UserFunctions.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/IAccountFunctions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/entity/OrderCreatedDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/queries/FindNewestProductsQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/DTOs/OrderCreatedDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/aspect/LoggerAspect.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/audit/AuditAwareImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/config/ProjectSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/entity/BaseEntity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/entity/Review.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/entity/ReviewImage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/exception/GlobalExceptionHandler.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/functions/ReviewFunctions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/repository/ReviewImageRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/repository/ReviewRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/response/ResponseData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/response/ResponseError.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/resources/schema.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/AccountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/DTOs/CreateAccountDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/model/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/model/Account.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AccountService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AccountService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/config-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config-server/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/service/OrderService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/service-discovery/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/service-discovery/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/user-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/UserCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/UserCreateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/DTOs/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/Address.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/Address.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/file-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/file-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductFilterDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/ProductFilterDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/mapper/ProductMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/mapper/ProductMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/ProductQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/ProductQueryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/handler/ProductQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/handler/ProductQueryHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/queries/SearchProductsQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/queries/SearchProductsQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/specifications/ProductSpecification.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/specifications/ProductSpecification.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/service/PromotionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service/service/PromotionService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/ReviewServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/ReviewServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/adapter/CreateUserAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/adapter/CreateUserAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/functions/UserFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/functions/UserFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/AddressService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/AddressService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/IAccountFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/IUserFunctions.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/resources/application.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/resources/schema.sql" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/resources/schema.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,10 +58,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Dockerfile" />
-        <option value="Interface" />
-        <option value="Class" />
         <option value="Record" />
         <option value="Enum" />
+        <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -131,12 +138,12 @@
     &quot;Spring Boot.ReviewServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.ServiceDiscoveryApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;kafka&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;review-service&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/user-service/src/main/java/com/minh/user_service&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/review-service/src/main/java/com/minh/review_service&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.23908046&quot;,
     &quot;run.configurations.included.in.services&quot;: &quot;true&quot;,
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   },
@@ -154,28 +161,28 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.minh.user_service.DTOs" />
-      <recent name="com.minh.auth_service.DTOs" />
-      <recent name="com.minh.user_service.entity" />
-      <recent name="com.minh.user_service.service" />
-      <recent name="com.minh.order_service.query.queries" />
+      <recent name="com.minh.product_service.query.queries" />
+      <recent name="com.minh.review_service.DTOs" />
+      <recent name="com.minh.order_service.entity" />
+      <recent name="com.minh.review_service.entity" />
+      <recent name="com.minh.review_service.repository" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service" />
       <recent name="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service" />
       <recent name="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service" />
       <recent name="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service" />
       <recent name="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service" />
-      <recent name="$PROJECT_DIR$/app" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.minh.review_service.exception" />
+      <recent name="com.minh.review_service.audit" />
       <recent name="com.minh.user_service.entity" />
       <recent name="com.minh.user_service.exception" />
       <recent name="com.minh.user_service.config" />
-      <recent name="com.minh.user_service.audit" />
-      <recent name="com.minh.user_service.aspect" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -384,11 +391,11 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Docker.default.auth-db-service: Compose Deployment" />
+      <item itemvalue="Docker.default.auth-service: Compose Deployment" />
       <item itemvalue="Docker.default.product-service: Compose Deployment" />
       <item itemvalue="Docker.default.user-db-service: Compose Deployment" />
       <item itemvalue="Docker.default.user-service: Compose Deployment" />
-      <item itemvalue="Docker.default.auth-db-service: Compose Deployment" />
-      <item itemvalue="Docker.default.auth-service: Compose Deployment" />
       <item itemvalue="Spring Boot.ApiGatewayApplication" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.BomServiceApplication" />
@@ -527,6 +534,12 @@
       <workItem from="1749356151311" duration="7693000" />
       <workItem from="1749363989422" duration="740000" />
       <workItem from="1749364741238" duration="5990000" />
+      <workItem from="1749380821590" duration="3368000" />
+      <workItem from="1749384244615" duration="9092000" />
+      <workItem from="1749409050627" duration="6764000" />
+      <workItem from="1749416300305" duration="14000" />
+      <workItem from="1749446397895" duration="3661000" />
+      <workItem from="1749450094955" duration="7481000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />

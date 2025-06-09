@@ -4,9 +4,8 @@ import com.minh.user_service.DTOs.AccountCreatedMessageDTO;
 import com.minh.user_service.DTOs.ActiveUserMessageDTO;
 import com.minh.user_service.DTOs.InactiveUserMessageDTO;
 import com.minh.user_service.DTOs.UserCreateDTO;
-import com.minh.user_service.entity.Status;
 import com.minh.user_service.entity.User;
-import com.minh.user_service.service.IAccountFunctions;
+import com.minh.user_service.service.IUserFunctions;
 import com.minh.user_service.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CreateUserAdapter implements IAccountFunctions {
+public class CreateUserAdapter implements IUserFunctions {
   private final UserService userService;
 
   @Override

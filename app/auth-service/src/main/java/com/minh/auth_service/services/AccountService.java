@@ -13,5 +13,4 @@ public class AccountService {
   public Account findAccountByUsername(String username) {
     return accountRepository.findAccountByUsername(username).orElse(null);
   }
-
 }

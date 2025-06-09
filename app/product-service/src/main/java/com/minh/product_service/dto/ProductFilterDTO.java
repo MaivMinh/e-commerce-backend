@@ -13,4 +13,8 @@ public class ProductFilterDTO {
   private List<String> categoryIds;
   private Double minPrice;
   private Double maxPrice;
+  private Double rating;
+  private Boolean isFeatured;
+  private Boolean isNew;
+  private Boolean isBestseller;
 }

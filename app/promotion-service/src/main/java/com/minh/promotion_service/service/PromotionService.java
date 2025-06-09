@@ -93,7 +93,6 @@ public class PromotionService {
 
   public ResponseData findPromotionsWithParams(FindPromotionsWithParamsQuery query) {
     String status = query.getStatus();
-    System.out.println(status);
     String search = query.getSearch();
     int page = query.getPage();
     int size = query.getSize();

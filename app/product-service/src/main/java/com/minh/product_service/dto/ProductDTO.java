@@ -33,6 +33,7 @@ public class ProductDTO {
   @NotNull(message = "Original price is required")
   private Double originalPrice;
   private Long soldItems;
+  private Double rating;
   private String status;
   private Boolean isFeatured;
   private Boolean isNew;

@@ -10,11 +10,18 @@ spring:
     active: ${SPRING_PROFILES_ACTIVE:default}
   config:
     import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071/}
-  rabbitmq:
-    host: ${SPRING_RABBITMQ_HOST:localhost}
-    port: ${SPRING_RABBITMQ_PORT:5672}
-    username: ${SPRING_RABBITMQ_USERNAME:guest}
-    password: ${SPRING_RABBITMQ_PASSWORD:guest}
+
+  cloud:
+    function:
+      definition:
+    stream:
+      bindings: #  Destination bindings component là cầu nối và định nghĩa các kênh (channels) mà ứng dụng sẽ sử dụng để gửi hoặc nhận dữ liệu.
+        orderCreatedEvent-out-0:
+          destination: order-created
+      kafka:
+        binder:
+          brokers:
+            - ${SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS:localhost:9092}
 
   # /// MYSQL DATABASE CONFIGURATION ///
   sql:

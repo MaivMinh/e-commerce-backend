@@ -2,10 +2,7 @@ package com.minh.product_service.query.controller;
 
 import com.minh.product_service.dto.ProductDTO;
 import com.minh.product_service.dto.ProductFilterDTO;
-import com.minh.product_service.query.queries.FetchProductQuery;
-import com.minh.product_service.query.queries.FindProductBySlugQuery;
-import com.minh.product_service.query.queries.FindProductsByFilterQuery;
-import com.minh.product_service.query.queries.FindProductsQuery;
+import com.minh.product_service.query.queries.*;
 import com.minh.product_service.response.ResponseData;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -32,8 +29,8 @@ public class ProductQueryController {
             .id(productId)
             .build();
     /// Send query to Query Bus and wait for result.
-    ProductDTO result = queryGateway.query(query, ResponseTypes.instanceOf(ProductDTO.class)).join();
-    return ResponseEntity.ok(new ResponseData(200, "Success", result));
+    ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
+    return ResponseEntity.status(response.getStatus()).body(response);
   }
 
   /// Phương thức lấy thông tin sản phẩm theo slug.
@@ -44,8 +41,8 @@ public class ProductQueryController {
             .build();
 
     /// Send query to Query Bus and wait for result.
-    ProductDTO result = queryGateway.query(query, ResponseTypes.instanceOf(ProductDTO.class)).join();
-    return ResponseEntity.status(HttpStatus.OK.value()).body(new ResponseData(200, "Success", result));
+    ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
+    return ResponseEntity.status(response.getStatus()).body(response);
   }
 
   /// Phương thức lấy danh sách sản phẩm.
@@ -68,7 +65,7 @@ public class ProductQueryController {
   }
 
   /// Phương thức thực hiện filter.
-  @PostMapping(value = "/filter")
+  @PostMapping(value = "/filtered-products")
   public ResponseEntity<ResponseData> filterProducts(@RequestBody ProductFilterDTO productFilterDTO,
                                                      @RequestParam(value = "sort", defaultValue = "", required = false) String sort,
                                                      @RequestParam(value = "page", defaultValue = "1", required = false) Integer page,
@@ -89,4 +86,41 @@ public class ProductQueryController {
     return ResponseEntity.status(response.getStatus()).body(response);
   }
 
+  /// Phương thức lấy ra danh sách sản phẩm mới nhất.
+  @GetMapping(value = "/newest-products")
+  public ResponseEntity<ResponseData> findNewestProducts(@RequestParam(value = "size", defaultValue = "10", required = false) Integer size,
+                                                         @RequestParam(value = "page", defaultValue = "1", required = false) Integer page) {
+    size = (size > 0) ? size : 10;
+    page = (page > 0) ? (page - 1) : 0;
+
+    FindNewestProductsQuery query = FindNewestProductsQuery.builder()
+            .size(size)
+            .page(page)
+            .build();
+
+    /// Send query to Query Bus and wait for result.
+    ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
+
+  /// Phương thức tìm kiếm sản phẩm theo tên.
+  @PostMapping("/search")
+  public ResponseEntity<ResponseData> searchProducts(@RequestParam(value = "name", required = true) String name,
+                                                     @RequestParam(value = "sort", defaultValue = "", required = false) String sort,
+                                                     @RequestParam(value = "page", defaultValue = "1", required = false) Integer page,
+                                                     @RequestParam(value = "size", defaultValue = "10", required = false) Integer size) {
+    page = (page > 0) ? (page - 1) : 0;
+    size = (size > 0) ? size : 10;
+
+    SearchProductsQuery query = SearchProductsQuery.builder()
+            .name(name)
+            .sort(sort)
+            .page(page)
+            .size(size)
+            .build();
+
+    /// Send query to Query Bus and wait for result.
+    ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
 }
