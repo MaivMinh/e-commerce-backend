@@ -38,10 +38,24 @@ public class CartItemService {
         return cartRepository.save(newCart);
       });
 
+      CartItem existingItem = cartItemRepository.checkHasTheSameProductVariantInCartId(saved.getId(), cartItemDTO.getProductVariantDTO().getId()).orElse(null);
+
+      if (existingItem != null) {
+        existingItem.setQuantity(existingItem.getQuantity() + cartItemDTO.getQuantity());
+        cartItemRepository.save(existingItem);
+        return ResponseData.builder()
+                .status(HttpStatus.OK.value())
+                .message("Cart item updated successfully")
+                .data(null)
+                .build();
+      }
+
+      // If no existing item, create a new cart item
       CartItem cartItem = new CartItem();
       cartItem.setId(UUID.randomUUID().toString());
       cartItem.setCartId(saved.getId());
-      CartItemMapper.mapCartItemDTOToCartItem(cartItemDTO, cartItem);
+      cartItem.setQuantity(cartItemDTO.getQuantity());
+      cartItem.setProductVariantId(cartItemDTO.getProductVariantDTO().getId());
       cartItemRepository.save(cartItem);
       return ResponseData.builder()
               .status(HttpStatus.CREATED.value())
@@ -91,8 +105,14 @@ public class CartItemService {
 
   public ResponseData findCartByAccountId(String accountId) {
     try {
-      Cart cart = cartRepository.findByAccountId(accountId)
-              .orElseThrow(() -> new RuntimeException("Cart not found for account ID: " + accountId));
+      Cart cart = cartRepository.findByAccountId(accountId).orElse(null);
+      if (cart == null) {
+        return ResponseData.builder()
+                .status(HttpStatus.NOT_FOUND.value())
+                .message("Cart not found for account ID: " + accountId)
+                .data(null)
+                .build();
+      }
 
       List<CartItemMessage> messages = cartItemRepository.findAllCartItemIdsByCartId(cart.getId());
 

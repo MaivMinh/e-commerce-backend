@@ -81,6 +81,7 @@ public class CategoryService {
       saved.setParentId(event.getParentId());
       saved.setDescription(event.getDescription());
       saved.setSlug(event.getSlug());
+      saved.setImage(event.getImage());
       categoryRepository.save(saved);
     } catch (Exception e) {
       throw new RuntimeException("Failed to update category");

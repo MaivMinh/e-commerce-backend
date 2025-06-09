@@ -37,6 +37,7 @@ public class CategoryCommandController {
             .name(categoryCreateDTO.getName())
             .description(categoryCreateDTO.getDescription())
             .slug(categoryCreateDTO.getSlug())
+            .image(categoryCreateDTO.getImage())
             .build();
 
     commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);
@@ -53,6 +54,7 @@ public class CategoryCommandController {
             .name(categoryDTO.getName())
             .description(categoryDTO.getDescription())
             .slug(categoryDTO.getSlug())
+            .image(categoryDTO.getImage())
             .build();
 
     commandGateway.sendAndWait(command, 15000, TimeUnit.MILLISECONDS);

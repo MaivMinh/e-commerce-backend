@@ -6,14 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/CategoryDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/CategoryDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/entity/Category.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/mapper/CategoryMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/mapper/CategoryMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/CategoryQueryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/controller/CategoryQueryController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/handler/CategoryQueryHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/handler/CategoryQueryHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/queries/SearchCategoriesQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/query/queries/SearchProductsByCategoryQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/repository/ProductRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/repository/ProductRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/grpc/ProductServiceGrpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/grpc/ProductServiceGrpcClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/repository/CartItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/repository/CartItemRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/service/CartItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/service/CartItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/CategoryAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/CategoryAggregate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateCategoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateCategoryCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/UpdateCategoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/UpdateCategoryCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/CategoryCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/CategoryCommandController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryCreatedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryUpdatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryUpdatedEvent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/CategoryCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/CategoryCreateDTO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/CategoryService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -104,7 +108,7 @@
     &quot;Spring Boot.ReviewServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.ServiceDiscoveryApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;review-service&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/review-service/src/main/java/com/minh/review_service&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
@@ -501,6 +505,7 @@
       <workItem from="1749450094955" duration="12170000" />
       <workItem from="1749464095526" duration="493000" />
       <workItem from="1749473964476" duration="916000" />
+      <workItem from="1749480538281" duration="2319000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />

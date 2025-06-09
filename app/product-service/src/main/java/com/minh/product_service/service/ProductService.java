@@ -62,6 +62,7 @@ public class ProductService {
       product.setIsBestseller(event.getIsBestseller());
       product.setIsNew(event.getIsNew());
       product.setCategoryId(event.getCategoryId());
+      product.setRating(5.0); // Default rating is 5.0
       ProductStatus status = ProductStatus.valueOf(event.getStatus().toLowerCase());
       product.setStatus(status);
       productRepository.save(product);  /// Ensure that product is saved before saving images.

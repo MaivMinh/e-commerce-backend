@@ -27,6 +27,7 @@ public class CategoryAggregate {
   private String name;
   private String description;
   private String slug;
+  private String image;
   private String errorMsg;
 
   public CategoryAggregate() {
@@ -48,6 +49,7 @@ public class CategoryAggregate {
     this.name = event.getName();
     this.description = event.getDescription();
     this.slug = event.getSlug();
+    this.image = event.getImage();
   }
 
   @CommandHandler
@@ -64,6 +66,7 @@ public class CategoryAggregate {
     this.parentId = event.getParentId();
     this.description = event.getDescription();
     this.slug = event.getSlug();
+    this.image = event.getImage();
   }
 
 

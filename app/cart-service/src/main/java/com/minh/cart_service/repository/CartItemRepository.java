@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem, String> {
@@ -20,4 +21,7 @@ public interface CartItemRepository extends JpaRepository<CartItem, String> {
 
   @Query(value = "select quantity from cart_items where id = :id", nativeQuery = true)
   @NotNull(message = "Product ID cannot be empty") Integer findQuantityById(String id);
+
+  @Query(value = "select * from cart_items where cart_id = :cartId and product_variant_id = :productVariantId", nativeQuery = true)
+  Optional<CartItem> checkHasTheSameProductVariantInCartId(String cartId, String productVariantId);
 }

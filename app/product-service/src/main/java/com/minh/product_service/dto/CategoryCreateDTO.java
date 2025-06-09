@@ -16,4 +16,5 @@ public class CategoryCreateDTO {
   private String name;
   private String description;
   private String slug;
+  private String image;
 }

@@ -21,23 +21,11 @@ public class ProductServiceGrpcClient {
   private ProductServiceGrpc.ProductServiceBlockingStub productServiceBlockingStub;
   private final TimeLimiterRegistry timeLimiterRegistry;
 
-  private FindProductVariantByIdResponse fallbackFindProductVariantById(
-          FindProductVariantByIdRequest request,
-          Throwable throwable) {
-    String message = throwable instanceof CallNotPermittedException
-            ? "Circuit breaker in open state: Too many failures in movie service"
-            : "Error occurred while calling product service: " + throwable.getMessage();
-    return FindProductVariantByIdResponse.newBuilder()
-            .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
-            .setMessage(message)
-            .build();
-  }
-
-  private FindProductVariantsByIdsResponse fallbackFindProductVariantsByIds(
+  private FindProductVariantsByIdsResponse fallbackFindProductVariantById(
           FindProductVariantsByIdsRequest request,
           Throwable throwable) {
     String message = throwable instanceof CallNotPermittedException
-            ? "Circuit breaker in open state: Too many failures in movie service"
+            ? "Circuit breaker in open state: Too many failures in product service"
             : "Error occurred while calling product service: " + throwable.getMessage();
     return FindProductVariantsByIdsResponse.newBuilder()
             .setStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
@@ -45,8 +33,9 @@ public class ProductServiceGrpcClient {
             .build();
   }
 
+
   @CircuitBreaker(name = "productService", fallbackMethod = "fallbackFindProductVariantById")
-  public FindProductVariantByIdResponse findProductVariantById(FindProductVariantByIdRequest request) throws Exception {
+  public FindProductVariantsByIdsResponse findProductVariantsByIds(FindProductVariantsByIdsRequest request) throws Exception {
     /**
      Retry ( CircuitBreaker ( RateLimiter ( TimeLimiter ( Bulkhead ( Function ) ) ) ) )
      - Phía trên là thứ tự thực hiện (mặc định) của các decorator.
@@ -59,14 +48,6 @@ public class ProductServiceGrpcClient {
      - Trong trường hợp cả 2 không ném ra exception thì hàm getMovies() sẽ được thực hiện và trả về kết quả.
      */
 
-    TimeLimiter timeLimiter = timeLimiterRegistry.timeLimiter("productService");
-    return timeLimiter.executeFutureSupplier(
-            () -> CompletableFuture.supplyAsync(() -> productServiceBlockingStub.findProductVariantById(request)));
-  }
-
-
-  @CircuitBreaker(name = "productService", fallbackMethod = "fallbackFindProductVariantById")
-  public FindProductVariantsByIdsResponse findProductVariantsByIds(FindProductVariantsByIdsRequest request) throws Exception {
     TimeLimiter timeLimiter = timeLimiterRegistry.timeLimiter("productService");
     return timeLimiter.executeFutureSupplier(
             () -> CompletableFuture.supplyAsync(() -> productServiceBlockingStub.findProductVariantsByIds(request)));
