@@ -7,8 +7,9 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @ToString
-public class SearchCategoriesQuery {
-  private String name;
+public class SearchProductsByCategoryQuery {
+  private String sort;
   private int page;
   private int size;
+  private String categoryId;
 }

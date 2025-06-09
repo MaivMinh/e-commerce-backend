@@ -17,4 +17,5 @@ public class CategoryDTO {
   private String description;
   @NotEmpty(message = "Category slug must not be empty")
   private String slug;
+  private String image;
 }

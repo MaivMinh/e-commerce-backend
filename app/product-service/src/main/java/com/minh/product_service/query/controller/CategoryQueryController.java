@@ -3,7 +3,7 @@ package com.minh.product_service.query.controller;
 import com.minh.product_service.query.queries.FetchCategoriesQuery;
 import com.minh.product_service.query.queries.FetchCategoryQuery;
 import com.minh.product_service.query.queries.FindAllCategoriesQuery;
-import com.minh.product_service.query.queries.SearchCategoriesQuery;
+import com.minh.product_service.query.queries.SearchProductsByCategoryQuery;
 import com.minh.product_service.response.ResponseData;
 import lombok.RequiredArgsConstructor;
 import org.axonframework.messaging.responsetypes.ResponseTypes;
@@ -11,9 +11,6 @@ import org.axonframework.queryhandling.QueryGateway;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @Validated
@@ -59,6 +56,29 @@ public class CategoryQueryController {
   public ResponseEntity<ResponseData> fetchCategory(@PathVariable(value = "id") String id) {
     FetchCategoryQuery query = FetchCategoryQuery.builder()
             .id(id)
+            .build();
+
+    /// dispatch query
+    ResponseData response = queryGateway.query(query, ResponseTypes.instanceOf(ResponseData.class)).join();
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
+
+  /// Phương thức lấy danh sách sản phẩm dựa vào tên danh mục.
+  @GetMapping(value = "/{categoryId}/products")
+  public ResponseEntity<ResponseData> searchProductsByCategory(
+          @PathVariable(value = "categoryId") String categoryId,
+          @RequestParam(value = "page", defaultValue = "1", required = false) int page,
+          @RequestParam(value = "size", defaultValue = "10", required = false) int size,
+          @RequestParam(value = "sort", defaultValue = "", required = false) String sort) {
+
+    page = (page > 0) ? (page - 1) : 0;
+    size = (size > 0) ? size : 10;
+
+    SearchProductsByCategoryQuery query = SearchProductsByCategoryQuery.builder()
+            .categoryId(categoryId)
+            .page(page)
+            .size(size)
+            .sort(sort)
             .build();
 
     /// dispatch query
