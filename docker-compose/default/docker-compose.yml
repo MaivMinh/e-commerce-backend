@@ -50,9 +50,6 @@ services:
       - "8071:8071"
     env_file:
       - .env
-    depends_on:
-      kafka:
-        condition: service_started
     deploy:
       resources:
         limits:
@@ -81,9 +78,6 @@ services:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
     ports:
       - "8761:8761"
-    depends_on:
-      config-server:
-        condition: service_healthy
     deploy:
       resources:
         limits:
@@ -117,11 +111,6 @@ services:
           memory: 400M
     ports:
       - "8080:8080"
-    depends_on:
-      service-discovery:
-        condition: service_healthy
-      config-server:
-        condition: service_healthy
     env_file:
       - .env
     environment:
@@ -172,13 +161,6 @@ services:
     ports:
       - "9093:9093"
       - "8083:8083"
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     environment:
       - SPRING_APPLICATION_NAME=auth-service
       - SPRING_PROFILES_ACTIVE=default
@@ -211,13 +193,6 @@ services:
       - "8082:8082"
     env_file:
       - .env
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_APPLICATION_NAME=cart-service
@@ -252,13 +227,6 @@ services:
       - "8084:8084"
     env_file:
       - .env
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_APPLICATION_NAME=booking-service
@@ -285,13 +253,6 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     env_file:
       - .env
     ports:
@@ -322,13 +283,6 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     env_file:
       - .env
     ports:
@@ -362,13 +316,6 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     env_file:
       - .env
     ports:
@@ -397,13 +344,6 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     env_file:
       - .env
     ports:
@@ -432,11 +372,6 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
     env_file:
       - .env
     ports:

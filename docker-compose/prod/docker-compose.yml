@@ -40,19 +40,10 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    healthcheck:
-      test: "curl --fail --silent http://localhost:8071/actuator/health/readiness | grep UP || exit 1"  # Kiểm tra xem config-server có sẵn sàng không. Khi response của curl là UP thì coi như config-server đã sẵn sàng.
-      interval: 10s # Khoảng thời gian giữa các lần thử lại.
-      retries: 10 # Nếu không có response hoặc response không phải là UP thì sẽ thử lại 10 lần.
-      timeout: 5s # Với mỗi lần thử, nếu sau 5s mà không có response thì sẽ coi là không thành công.
-      start_period: 30s # Sau 15s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
     ports:
       - "8071:8071"
     env_file:
       - .env
-    depends_on:
-      kafka:
-        condition: service_started
     deploy:
       resources:
         limits:
@@ -64,12 +55,6 @@ services:
   service-discovery:
     image: service-discovery:1.0
     restart: on-failure
-    healthcheck:
-      test: "curl --fail --silent http://localhost:8761/actuator/health/readiness | grep UP || exit 1"  # Kiểm tra xem config-server có sẵn sàng không. Khi response của curl là UP thì coi như config-server đã sẵn sàng.
-      interval: 10s # Khoảng thời gian giữa các lần thử lại.
-      retries: 10 # Nếu không có response hoặc response không phải là UP thì sẽ thử lại 10 lần.
-      timeout: 5s # Với mỗi lần thử, nếu sau 5s mà không có response thì sẽ coi là không thành công.
-      start_period: 30s # Sau 30s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
     networks:
       - e-commerce
     env_file:
@@ -81,9 +66,6 @@ services:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
     ports:
       - "8761:8761"
-    depends_on:
-      config-server:
-        condition: service_healthy
     deploy:
       resources:
         limits:
@@ -105,23 +87,12 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    healthcheck:
-      test: "curl --fail --silent http://localhost:8080/actuator/health/readiness | grep UP || exit 1"
-      interval: 10s
-      retries: 10
-      timeout: 5s
-      start_period: 30s
     deploy:
       resources:
         limits:
           memory: 400M
     ports:
       - "8080:8080"
-    depends_on:
-      service-discovery:
-        condition: service_healthy
-      config-server:
-        condition: service_healthy
     env_file:
       - .env
     environment:
@@ -139,12 +110,6 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 10s
-      retries: 5
-      interval: 10s
-      start_period: 15s
     env_file:
       - .env
     environment:
@@ -172,13 +137,6 @@ services:
     ports:
       - "9093:9093"
       - "8083:8083"
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     environment:
       - SPRING_APPLICATION_NAME=auth-service
       - SPRING_PROFILES_ACTIVE=default
@@ -211,13 +169,6 @@ services:
       - "8082:8082"
     env_file:
       - .env
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_APPLICATION_NAME=cart-service
@@ -252,13 +203,6 @@ services:
       - "8084:8084"
     env_file:
       - .env
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_APPLICATION_NAME=booking-service
@@ -285,13 +229,6 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     env_file:
       - .env
     ports:
@@ -322,13 +259,6 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     env_file:
       - .env
     ports:
@@ -362,13 +292,6 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     env_file:
       - .env
     ports:
@@ -397,13 +320,6 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
-      db-service:
-        condition: service_healthy
     env_file:
       - .env
     ports:
@@ -432,11 +348,6 @@ services:
     restart: on-failure
     networks:
       - e-commerce
-    depends_on:
-      config-server:
-        condition: service_healthy
-      service-discovery:
-        condition: service_healthy
     env_file:
       - .env
     ports:
