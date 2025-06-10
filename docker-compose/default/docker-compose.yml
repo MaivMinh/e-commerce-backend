@@ -20,6 +20,8 @@ services:
       - "9092:9092"
     volumes:
       - "kafka_data:/bitnami"
+    networks:
+      - e-commerce
     environment:
       # KRaft settings
       - KAFKA_CFG_NODE_ID=0
