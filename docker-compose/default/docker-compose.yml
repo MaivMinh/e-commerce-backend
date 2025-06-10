@@ -1,30 +1,44 @@
 services:
-  rabbitmq-service:
-    image: rabbitmq:3.11-management
-    healthcheck:
-      test: rabbitmq-diagnostics check_port_connectivity
-      interval: 10s # Khoảng thời gian giữa các lần thử lại.
-      retries: 5 # Nếu không có response hoặc response không phải là UP thì sẽ thử lại 10 lần.
-      timeout: 5s # Với mỗi lần thử, nếu sau 5s mà không có response thì sẽ coi là không thành công.
-      start_period: 10s # Sau 10s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
-    deploy:
-      resources:
-        limits:
-          memory: 256M
-    restart: on-failure
+
+  axon-server:
+    image: axoniq/axonserver
+    ports:
+      - "8024:8024"
+      - "8124:8124"
     networks:
       - e-commerce
+    volumes:
+      - "/Users/mainga/data/axonserver/data:/axonserver/data"
+      - "/Users/mainga/data/axonserver/events:/axonserver/events"
+      - "/Users/mainga/data/axonserver/config:/axonserver/config"
+    restart: unless-stopped
+
+
+  kafka:
+    image: docker.io/bitnami/kafka:3.9
     ports:
-      - "15672:15672"
-      - "5672:5672"
-      - "61613:61613"
+      - "9092:9092"
+    networks:
+      - e-commerce
+    healthcheck:
+      test: [ "CMD-SHELL", "kafka-topics.sh --bootstrap-server localhost:9092 --list" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    volumes:
+      - "/Users/mainga/data/kafka:/bitnami"
     environment:
-      - RABBITMQ_PLUGINS=rabbitmq_stomp
-      - RABBITMQ_PLUGINS=rabbitmq_web_stomp
-    command: >
-      bash -c "rabbitmq-plugins enable rabbitmq_management && 
-               rabbitmq-plugins enable rabbitmq_stomp && 
-               rabbitmq-server"
+      # KRaft settings
+      - KAFKA_CFG_NODE_ID=0
+      - KAFKA_CFG_PROCESS_ROLES=controller,broker
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+      # Listeners
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://:9092
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
   
 
   config-server:
@@ -37,22 +51,21 @@ services:
       interval: 10s # Khoảng thời gian giữa các lần thử lại.
       retries: 10 # Nếu không có response hoặc response không phải là UP thì sẽ thử lại 10 lần.
       timeout: 5s # Với mỗi lần thử, nếu sau 5s mà không có response thì sẽ coi là không thành công.
-      start_period: 15s # Sau 15s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
+      start_period: 30s # Sau 15s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
     ports:
       - "8071:8071"
+    env_file:
+      - .env
     depends_on:
-      rabbitmq-service:
-        condition: service_healthy
+      kafka:
+        condition: service_started
     deploy:
       resources:
         limits:
           memory: 400M
     environment:
-      - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
       - SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD=${SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD}
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
   service-discovery:
     image: service-discovery:1.0
@@ -62,17 +75,16 @@ services:
       interval: 10s # Khoảng thời gian giữa các lần thử lại.
       retries: 10 # Nếu không có response hoặc response không phải là UP thì sẽ thử lại 10 lần.
       timeout: 5s # Với mỗi lần thử, nếu sau 5s mà không có response thì sẽ coi là không thành công.
-      start_period: 15s # Sau 15s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
+      start_period: 30s # Sau 30s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
     networks:
       - e-commerce
+    env_file:
+      - .env
     environment:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_APPLICATION_NAME=service-discovery
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
-      - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
     ports:
       - "8761:8761"
     depends_on:
@@ -104,7 +116,7 @@ services:
       interval: 10s
       retries: 10
       timeout: 5s
-      start_period: 15s
+      start_period: 30s
     deploy:
       resources:
         limits:
@@ -113,6 +125,8 @@ services:
       - "8080:8080"
     depends_on:
       service-discovery:
+        condition: service_healthy
+      config-server:
         condition: service_healthy
     env_file:
       - .env
@@ -123,11 +137,8 @@ services:
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
       - SPRING_DATA_REDIS_HOST=redis-service
       - SPRING_DATA_REDIS_PORT=6379
-      - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
       - GRPC_SERVER_AUTH_SERVICE_ADDRESS=static://auth-service:9093
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
   auth-db-service:
     image: mysql:8.0
@@ -148,7 +159,7 @@ services:
     ports:
       - "3305:3306"
     volumes:
-      - auth-db-data:/var/lib/mysql
+      - /Users/mainga/data/auth-db:/var/lib/mysql
 
   # =======================
   # Authentication Service
@@ -172,8 +183,6 @@ services:
         condition: service_healthy
       service-discovery:
         condition: service_healthy
-      api-gateway:
-        condition: service_started
       auth-db-service:
         condition: service_healthy
     environment:
@@ -183,19 +192,14 @@ services:
       - SPRING_APPLICATION_SECURITY_JWT_ACCESS_TOKEN_KEY=${SPRING_APPLICATION_SECURITY_JWT_ACCESS_TOKEN_KEY}
       - SPRING_APPLICATION_SECURITY_JWT_REFRESH_TOKEN_KEY=${SPRING_APPLICATION_SECURITY_JWT_REFRESH_TOKEN_KEY}
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
-      - BRAVO_API_KEY=${BRAVO_API_KEY}
       - SPRING_DATA_REDIS_HOST=redis-service
       - SPRING_DATA_REDIS_PORT=6379
       - SPRING_CACHE_TYPE=redis
-      - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
       - SPRING_SQL_INIT_MODE=never
       - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db-service:3306/ecommerce_auth
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      # APPLICATION_SERVER_PORT được dùng để gửi email tới cho người dùng mới tạo tài khoản. Xem trong chức năng register.
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
 
   cart-db-service:
@@ -217,7 +221,7 @@ services:
     ports:
       - "3307:3306"
     volumes:
-      - cart-db-data:/var/lib/mysql
+      - /Users/mainga/data/cart-db:/var/lib/mysql
 
   # =======================
   # Cart Service
@@ -253,14 +257,11 @@ services:
       - AWS_REGION=${AWS_REGION}
       - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
       - AWS_CLOUDFRONT_DOMAIN=${AWS_CLOUDFRONT_DOMAIN}
-      - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
       - SPRING_DATASOURCE_URL=jdbc:mysql://cart-db-service:3306/ecommerce_cart
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - GRPC_SERVER_PRODUCT_SERVICE_ADDRESS=static://product-service:9091
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
 
 
@@ -283,7 +284,7 @@ services:
     ports:
       - "3308:3306"
     volumes:
-      - order-db-data:/var/lib/mysql
+      - /Users/mainga/data/order-db:/var/lib/mysql
   # =======================
   # Order Service
   # =======================
@@ -314,15 +315,13 @@ services:
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
       - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
       - SPRING_DATASOURCE_URL=jdbc:mysql://order-db-service:3306/ecommerce_order
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - GRPC_SERVER_USER_SERVICE_ADDRESS=static://user-service:9098
       - GRPC_SERVER_PRODUCT_SERVICE_ADDRESS=static://product-service:9091
-      - AXON_AXONSERVER_SERVERS=localhost:8124
+      - AXON_AXONSERVER_SERVERS=axon-server:8124
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
   payment-db-service:
     image: mysql:8.0
@@ -341,7 +340,7 @@ services:
     ports:
       - "3309:3306"
     volumes:
-      - payment-db-data:/var/lib/mysql
+      - /Users/mainga/data/payment-db:/var/lib/mysql
   # =======================
   # Payment Service
   # =======================
@@ -370,13 +369,11 @@ services:
       - SPRING_APPLICATION_NAME=payment-service
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
-      - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
       - SPRING_DATASOURCE_URL=jdbc:mysql://payment-db-service:3306/ecommerce_payment
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - AXON_AXONSERVER_SERVERS=axon-server:8124
 
 
 
@@ -400,7 +397,7 @@ services:
     ports:
       - "3310:3306"
     volumes:
-      - product-db-data:/var/lib/mysql
+      - /Users/mainga/data/product-db:/var/lib/mysql
 
   product-service:
     deploy:
@@ -428,17 +425,14 @@ services:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
-      - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
       - SPRING_DATASOURCE_URL=jdbc:mysql://product-db-service:3306/ecommerce_product
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - AXON_AXONSERVER_SERVERS=localhost:8124
+      - AXON_AXONSERVER_SERVERS=axon-server:8124
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
 
 
@@ -462,7 +456,7 @@ services:
     ports:
       - "3311:3306"
     volumes:
-      - promotion-db-data:/var/lib/mysql
+      - /Users/mainga/data/promotion-db:/var/lib/mysql
 
   promotion-service:
     deploy:
@@ -489,14 +483,11 @@ services:
       - SPRING_APPLICATION_NAME=promotion-service
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
-      - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
       - SPRING_DATASOURCE_URL=jdbc:mysql://promotion-db-service:3306/ecommerce_promotion
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - AXON_AXONSERVER_SERVERS=localhost:8124
+      - AXON_AXONSERVER_SERVERS=axon-server:8124
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
 
   # =======================
@@ -519,7 +510,7 @@ services:
     ports:
       - "3312:3306"
     volumes:
-      - user-db-data:/var/lib/mysql
+      - /Users/mainga/data/user-db:/var/lib/mysql
 
   user-service:
     deploy:
@@ -547,13 +538,10 @@ services:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
-      - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
       - SPRING_DATASOURCE_URL=jdbc:mysql://user-db-service:3306/ecommerce_user
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
 
   # =======================
@@ -582,36 +570,11 @@ services:
       - SPRING_APPLICATION_NAME=file-service
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
-      - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_RABBITMQ_PORT=5672
-      - SPRING_RABBITMQ_USERNAME=guest
-      - SPRING_RABBITMQ_PASSWORD=guest
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-#
-#
-#  # =======================
-#  # AXON SERVER
-#  # =======================
-#  axon-server:
-#    image: axoniq/axonserver:4.7.0
-#    restart: on-failure
-#    networks:
-#      - e-commerce
-#    healthcheck:
-#      test: "curl --fail --silent http://localhost:8024/actuator/health/readiness | grep UP || exit 1"  # Kiểm tra xem axon-server có sẵn sàng không. Khi response của curl là UP thì coi như axon-server đã sẵn sàng.
-#      interval: 10s # Khoảng thời gian giữa các lần thử lại.
-#      retries: 10 # Nếu không có response hoặc response không phải là UP thì sẽ thử lại 10 lần.
-#      timeout: 5s # Với mỗi lần thử, nếu sau 5s mà không có response thì sẽ coi là không thành công.
-#      start_period: 10s # Sau 10s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
-#    ports:
-#      - "8124:8124"
-#      - "8024:8024"
-#    environment:
-#      - 'AXONIQ_AXONSERVER_STANDALONE=TRUE'
-#    volumes:
-#      - axon-server-data:/data
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+
 
 networks:
   e-commerce:
@@ -632,8 +595,6 @@ volumes:
   product-db-data:
     driver: local
   cart-db-data:
-    driver: local
-  axon-server-data:
     driver: local
   promotion-db-data:
     driver: local

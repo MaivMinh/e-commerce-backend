@@ -4,7 +4,6 @@ import com.minh.auth_service.DTOs.*;
 import com.minh.auth_service.model.Account;
 import com.minh.auth_service.model.Role;
 import com.minh.auth_service.model.Status;
-import com.minh.auth_service.repository.AccountAddressRepository;
 import com.minh.auth_service.repository.AccountRepository;
 import com.minh.auth_service.response.ResponseData;
 import com.minh.grpc_service.auth.AuthInfo;
@@ -15,7 +14,6 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -40,7 +38,6 @@ import java.util.*;
 public class AuthService {
   private final JwtUtilsService jwtUtilsService;
   private final HttpServletResponse httpServletResponse;
-  private final AccountAddressRepository accountAddressRepository;
   @Value("${spring.application.security.jwt.access-token-key}")
   private String accessToken;
   @Value("${spring.application.security.jwt.refresh-token-key}")

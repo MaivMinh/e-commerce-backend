@@ -5,19 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/entity/AccountPurchase.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/grpc/ProductServiceGrpcClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/grpc/ProductServiceGrpcClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/repository/CartItemRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/repository/CartItemRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/service/CartItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/service/CartItemService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/CategoryAggregate.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/aggregate/CategoryAggregate.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateCategoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/CreateCategoryCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/UpdateCategoryCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/commands/UpdateCategoryCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/CategoryCommandController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/controller/CategoryCommandController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryCreatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryCreatedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryUpdatedEvent.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/command/events/CategoryUpdatedEvent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/CategoryCreateDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/CategoryCreateDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/CategoryService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/CategoryService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/model/AccountAddress.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/repository/AccountAddressRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/config-server/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/config-server/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service-discovery/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/service-discovery/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose/default/.env" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose/default/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose/default/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose/default/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose/prod/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose/prod/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,9 +55,12 @@
     &quot;Docker.default.api-gateway: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.default.auth-db-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.default.auth-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.axon-server: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.default.cart-db-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.default.cart-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.default.config-server: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.kafka-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.kafka: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.default.product-db-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.default.product-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.default.rabbitmq-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
@@ -67,6 +68,7 @@
     &quot;Docker.default.service-discovery: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.default.user-db-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Docker.default.user-service: Compose Deployment.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.default.zookeeper: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;Makefile Target.proto.executor&quot;: &quot;Run&quot;,
     &quot;Maven.auth-service [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.auth-service [compile].executor&quot;: &quot;Run&quot;,
@@ -108,6 +110,8 @@
     &quot;Spring Boot.ReviewServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.ServiceDiscoveryApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
+    &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/review-service/src/main/java/com/minh/review_service&quot;,
@@ -162,7 +166,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Makefile Target.proto">
+  <component name="RunManager" selected="Docker.default.config-server: Compose Deployment">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="file-service" />
       <method v="2">
@@ -172,12 +176,6 @@
     <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
       <module name="file-service" />
       <option name="filePath" />
-      <method v="2" />
-    </configuration>
-    <configuration name="proto" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" temporary="true">
-      <makefile filename="$PROJECT_DIR$/Makefile" target="proto" workingDirectory="" arguments="">
-        <envs />
-      </makefile>
       <method v="2" />
     </configuration>
     <configuration name="ApiGatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
@@ -301,6 +299,19 @@
       </deployment>
       <method v="2" />
     </configuration>
+    <configuration name="default.auth-db-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="docker-default">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="auth-db-service" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose/default/docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <configuration name="default.auth-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="docker-default">
       <deployment type="docker-compose.yml">
         <settings>
@@ -314,12 +325,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="default.product-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="docker-default">
+    <configuration name="default.axon-server: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="docker-default">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="product-service" />
+              <option value="axon-server" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose/default/docker-compose.yml" />
@@ -327,12 +338,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="default.user-db-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="docker-default">
+    <configuration name="default.config-server: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="docker-default">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="user-db-service" />
+              <option value="config-server" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose/default/docker-compose.yml" />
@@ -340,12 +351,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="default.user-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="docker-default">
+    <configuration name="default.kafka: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="docker-default">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="user-service" />
+              <option value="kafka" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose/default/docker-compose.yml" />
@@ -354,11 +365,11 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Docker.default.axon-server: Compose Deployment" />
+      <item itemvalue="Docker.default.config-server: Compose Deployment" />
+      <item itemvalue="Docker.default.kafka: Compose Deployment" />
+      <item itemvalue="Docker.default.auth-db-service: Compose Deployment" />
       <item itemvalue="Docker.default.auth-service: Compose Deployment" />
-      <item itemvalue="Docker.default.product-service: Compose Deployment" />
-      <item itemvalue="Docker.default.user-db-service: Compose Deployment" />
-      <item itemvalue="Docker.default.user-service: Compose Deployment" />
-      <item itemvalue="Makefile Target.proto" />
       <item itemvalue="Spring Boot.ApiGatewayApplication" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.BomServiceApplication" />
@@ -376,11 +387,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Makefile Target.proto" />
-        <item itemvalue="Docker.default.user-service: Compose Deployment" />
-        <item itemvalue="Docker.default.user-db-service: Compose Deployment" />
-        <item itemvalue="Docker.default.product-service: Compose Deployment" />
+        <item itemvalue="Docker.default.config-server: Compose Deployment" />
+        <item itemvalue="Docker.default.kafka: Compose Deployment" />
+        <item itemvalue="Docker.default.axon-server: Compose Deployment" />
         <item itemvalue="Docker.default.auth-service: Compose Deployment" />
+        <item itemvalue="Docker.default.auth-db-service: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -505,7 +516,10 @@
       <workItem from="1749450094955" duration="12170000" />
       <workItem from="1749464095526" duration="493000" />
       <workItem from="1749473964476" duration="916000" />
-      <workItem from="1749480538281" duration="2319000" />
+      <workItem from="1749480538281" duration="3335000" />
+      <workItem from="1749487696948" duration="5768000" />
+      <workItem from="1749493875027" duration="2363000" />
+      <workItem from="1749527766692" duration="4156000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />
