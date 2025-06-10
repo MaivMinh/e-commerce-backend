@@ -5,7 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
+      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/entity/OrderItemStatus.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/entity/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/entity/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/service/OrderService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,9 +20,9 @@
       <list>
         <option value="Dockerfile" />
         <option value="Record" />
-        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -116,7 +119,7 @@
     &quot;Spring Boot.UserServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;database.data.extractors.current.export.id&quot;: &quot;SQL Inserts&quot;,
     &quot;database.data.extractors.current.id&quot;: &quot;SQL Inserts&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;review&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/review-service/src/main/java/com/minh/review_service&quot;,
     &quot;project.structure.last.edited&quot;: &quot;Problems&quot;,
@@ -139,9 +142,9 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.minh.order_service.entity" />
       <recent name="com.minh.product_service.query.queries" />
       <recent name="com.minh.review_service.DTOs" />
-      <recent name="com.minh.order_service.entity" />
       <recent name="com.minh.review_service.entity" />
       <recent name="com.minh.review_service.repository" />
     </key>
@@ -534,6 +537,7 @@
       <workItem from="1749553599456" duration="1688000" />
       <workItem from="1749555298634" duration="1347000" />
       <workItem from="1749561883298" duration="908000" />
+      <workItem from="1749569168128" duration="627000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />
