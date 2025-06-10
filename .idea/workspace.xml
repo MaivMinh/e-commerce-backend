@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/docker-compose/default/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose/default/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose/prod/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose/prod/docker-compose.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +59,7 @@
     "Docker.default.payment-service: Compose Deployment.executor": "Run",
     "Docker.default.product-db-service: Compose Deployment.executor": "Run",
     "Docker.default.product-service: Compose Deployment.executor": "Run",
+    "Docker.default.promotion-service: Compose Deployment.executor": "Run",
     "Docker.default.rabbitmq-service: Compose Deployment.executor": "Run",
     "Docker.default.redis-service: Compose Deployment.executor": "Run",
     "Docker.default.service-discovery: Compose Deployment.executor": "Run",
@@ -170,7 +170,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.default.axon-server: Compose Deployment">
+  <component name="RunManager" selected="Docker.default.kafka: Compose Deployment">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="file-service" />
       <method v="2">
@@ -303,12 +303,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="default.api-gateway: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="default.kafka: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="api-gateway" />
+              <option value="kafka" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose/default/docker-compose.yml" />
@@ -316,12 +316,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="default.axon-server: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="default.payment-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="axon-server" />
+              <option value="payment-service" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose/default/docker-compose.yml" />
@@ -329,12 +329,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="default.config-server: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="default.product-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="config-server" />
+              <option value="product-service" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose/default/docker-compose.yml" />
@@ -342,12 +342,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="default.redis-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="default.promotion-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="redis-service" />
+              <option value="promotion-service" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose/default/docker-compose.yml" />
@@ -355,12 +355,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="default.service-discovery: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="default.zookeeper: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="service-discovery" />
+              <option value="zookeeper" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose/default/docker-compose.yml" />
@@ -369,11 +369,11 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Docker.default.api-gateway: Compose Deployment" />
-      <item itemvalue="Docker.default.redis-service: Compose Deployment" />
-      <item itemvalue="Docker.default.axon-server: Compose Deployment" />
-      <item itemvalue="Docker.default.config-server: Compose Deployment" />
-      <item itemvalue="Docker.default.service-discovery: Compose Deployment" />
+      <item itemvalue="Docker.default.kafka: Compose Deployment" />
+      <item itemvalue="Docker.default.payment-service: Compose Deployment" />
+      <item itemvalue="Docker.default.product-service: Compose Deployment" />
+      <item itemvalue="Docker.default.promotion-service: Compose Deployment" />
+      <item itemvalue="Docker.default.zookeeper: Compose Deployment" />
       <item itemvalue="Spring Boot.ApiGatewayApplication" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.BomServiceApplication" />
@@ -391,11 +391,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.default.axon-server: Compose Deployment" />
-        <item itemvalue="Docker.default.api-gateway: Compose Deployment" />
-        <item itemvalue="Docker.default.redis-service: Compose Deployment" />
-        <item itemvalue="Docker.default.service-discovery: Compose Deployment" />
-        <item itemvalue="Docker.default.config-server: Compose Deployment" />
+        <item itemvalue="Docker.default.kafka: Compose Deployment" />
+        <item itemvalue="Docker.default.zookeeper: Compose Deployment" />
+        <item itemvalue="Docker.default.promotion-service: Compose Deployment" />
+        <item itemvalue="Docker.default.product-service: Compose Deployment" />
+        <item itemvalue="Docker.default.payment-service: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -526,6 +526,7 @@
       <workItem from="1749527766692" duration="4156000" />
       <workItem from="1749532834849" duration="3808000" />
       <workItem from="1749536677675" duration="1636000" />
+      <workItem from="1749538387577" duration="2726000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />
