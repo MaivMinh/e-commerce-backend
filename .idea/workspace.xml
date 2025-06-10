@@ -169,7 +169,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Docker.default.user-service: Compose Deployment">
+  <component name="RunManager" selected="Docker.default.kafka: Compose Deployment">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="file-service" />
       <method v="2">
@@ -302,12 +302,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="default.kafka: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="default.axon-server: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="kafka" />
+              <option value="axon-server" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose/default/docker-compose.yml" />
@@ -315,12 +315,12 @@
       </deployment>
       <method v="2" />
     </configuration>
-    <configuration name="default.product-service: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+    <configuration name="default.kafka: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
       <deployment type="docker-compose.yml">
         <settings>
           <option name="services">
             <list>
-              <option value="product-service" />
+              <option value="kafka" />
             </list>
           </option>
           <option name="sourceFilePath" value="docker-compose/default/docker-compose.yml" />
@@ -369,10 +369,10 @@
     </configuration>
     <list>
       <item itemvalue="Docker.default.kafka: Compose Deployment" />
-      <item itemvalue="Docker.default.product-service: Compose Deployment" />
       <item itemvalue="Docker.default.promotion-service: Compose Deployment" />
       <item itemvalue="Docker.default.user-service: Compose Deployment" />
       <item itemvalue="Docker.default.zookeeper: Compose Deployment" />
+      <item itemvalue="Docker.default.axon-server: Compose Deployment" />
       <item itemvalue="Spring Boot.ApiGatewayApplication" />
       <item itemvalue="Spring Boot.AuthServiceApplication" />
       <item itemvalue="Spring Boot.BomServiceApplication" />
@@ -390,11 +390,11 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Docker.default.user-service: Compose Deployment" />
         <item itemvalue="Docker.default.kafka: Compose Deployment" />
+        <item itemvalue="Docker.default.axon-server: Compose Deployment" />
+        <item itemvalue="Docker.default.user-service: Compose Deployment" />
         <item itemvalue="Docker.default.zookeeper: Compose Deployment" />
         <item itemvalue="Docker.default.promotion-service: Compose Deployment" />
-        <item itemvalue="Docker.default.product-service: Compose Deployment" />
       </list>
     </recent_temporary>
   </component>
@@ -525,7 +525,7 @@
       <workItem from="1749527766692" duration="4156000" />
       <workItem from="1749532834849" duration="3808000" />
       <workItem from="1749536677675" duration="1636000" />
-      <workItem from="1749538387577" duration="3069000" />
+      <workItem from="1749538387577" duration="3375000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />

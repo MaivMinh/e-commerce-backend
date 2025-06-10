@@ -57,7 +57,7 @@ services:
           memory: 400M
     environment:
       - SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD=${SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
   service-discovery:
     image: service-discovery:1.0
@@ -76,7 +76,7 @@ services:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_APPLICATION_NAME=service-discovery
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
     ports:
       - "8761:8761"
     depends_on:
@@ -130,7 +130,7 @@ services:
       - SPRING_DATA_REDIS_HOST=redis-service
       - SPRING_DATA_REDIS_PORT=6379
       - GRPC_SERVER_AUTH_SERVICE_ADDRESS=static://auth-service:9093
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
   db-service:
     image: mysql:8.0
@@ -191,7 +191,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_auth
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
   # =======================
   # Cart Service
@@ -231,7 +231,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - GRPC_SERVER_PRODUCT_SERVICE_ADDRESS=static://product-service:9091
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
   # =======================
   # Order Service
@@ -269,7 +269,7 @@ services:
       - GRPC_SERVER_USER_SERVICE_ADDRESS=static://user-service:9098
       - GRPC_SERVER_PRODUCT_SERVICE_ADDRESS=static://product-service:9091
       - AXON_AXONSERVER_SERVERS=axon-server:8124
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
   # =======================
   # Payment Service
@@ -302,7 +302,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_payment
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
       - AXON_AXONSERVER_SERVERS=axon-server:8124
 
 
@@ -344,7 +344,7 @@ services:
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
 
 
@@ -380,7 +380,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - AXON_AXONSERVER_SERVERS=axon-server:8124
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
 
   # =======================
@@ -415,7 +415,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_user
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
 
   # =======================
@@ -447,7 +447,7 @@ services:
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
 
 networks:
