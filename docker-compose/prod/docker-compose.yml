@@ -205,7 +205,7 @@ services:
       - .env
     environment:
       - SPRING_PROFILES_ACTIVE=default
-      - SPRING_APPLICATION_NAME=booking-service
+      - SPRING_APPLICATION_NAME=order-service
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
       - SPRING_RABBITMQ_HOST=rabbitmq-service
