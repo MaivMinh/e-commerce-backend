@@ -106,19 +106,19 @@ resilience4j:
     instances:
       userService:
         register-health-indicator: true
-        sliding-window-size: 10
-        minimum-number-of-calls: 10
+        sliding-window-size: 30
+        minimum-number-of-calls: 30
         failure-rate-threshold: 50
         wait-duration-in-open-state: 20000
-        permitted-number-of-calls-in-half-open-state: 5
+        permitted-number-of-calls-in-half-open-state: 15
         sliding-window-type: COUNT_BASED
       productService:
         register-health-indicator: true
-        sliding-window-size: 20
-        minimum-number-of-calls: 20
+        sliding-window-size: 30
+        minimum-number-of-calls: 30
         failure-rate-threshold: 50
         wait-duration-in-open-state: 20000
-        permitted-number-of-calls-in-half-open-state: 10
+        permitted-number-of-calls-in-half-open-state: 15
         sliding-window-type: COUNT_BASED
 
 
