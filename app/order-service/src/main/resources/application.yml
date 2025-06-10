@@ -13,11 +13,15 @@ spring:
 
   cloud:
     function:
-      definition:
+      definition: handleOrderCreated;
     stream:
       bindings: #  Destination bindings component là cầu nối và định nghĩa các kênh (channels) mà ứng dụng sẽ sử dụng để gửi hoặc nhận dữ liệu.
         orderCreatedEvent-out-0:
           destination: order-created
+        handleOrderCreated-in-0:
+          destination: confirm-order-created
+          group: ${spring.application.name}
+
       kafka:
         binder:
           brokers:

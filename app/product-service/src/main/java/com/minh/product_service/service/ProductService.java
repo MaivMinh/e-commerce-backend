@@ -1,5 +1,6 @@
 package com.minh.product_service.service;
 
+import ch.qos.logback.core.util.StringUtil;
 import com.minh.product_service.command.events.ProductCreatedEvent;
 import com.minh.product_service.command.events.ProductDeletedEvent;
 import com.minh.product_service.command.events.ProductUpdatedEvent;
@@ -579,5 +580,16 @@ public class ProductService {
             .message("Success")
             .data(data)
             .build();
+  }
+
+  public String findProductIdByProductVariantId(String productVariantId) {
+    com.minh.product_service.entity.ProductVariant productVariant = productVariantRepository.findById(productVariantId).orElse(null);
+    if (productVariant == null) {
+      return null;
+    }
+    if (StringUtils.hasText(productVariant.getProductId())) {
+      return productVariant.getProductId();
+    }
+    return null;
   }
 }

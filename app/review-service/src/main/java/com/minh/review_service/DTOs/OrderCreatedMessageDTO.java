@@ -1,15 +1,17 @@
 package com.minh.review_service.DTOs;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
+
 
 @Getter
 @Setter
 @AllArgsConstructor
-public class OrderCreatedDTO {
+@NoArgsConstructor
+@Builder
+public class OrderCreatedMessageDTO {
+  private String orderId;
   private String accountId;
   private List<String> productVariantIds;
 }
