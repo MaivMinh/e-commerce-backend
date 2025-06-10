@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
-      <change beforePath="$PROJECT_DIR$/docker-compose/prod/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose/prod/docker-compose.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/Dockerfile" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -118,7 +118,7 @@
     "database.data.extractors.current.id": "SQL Inserts",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/review-service/src/main/java/com/minh/review_service",
+    "last_opened_file_path": "/Users/mainga/Desktop/VDT Resources/e-commerce/e-commerce-backend/app/review-service",
     "project.structure.last.edited": "Problems",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.23908046",
@@ -537,7 +537,7 @@
       <workItem from="1749569168128" duration="627000" />
       <workItem from="1749577458512" duration="1626000" />
       <workItem from="1749579116378" duration="182000" />
-      <workItem from="1749579325395" duration="3670000" />
+      <workItem from="1749579325395" duration="4058000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />
