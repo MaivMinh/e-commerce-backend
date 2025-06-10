@@ -20,4 +20,5 @@ public class OrderItem extends BaseEntity {
   private Integer quantity;
   private Double price;
   private Double total;
+  private OrderItemStatus orderItemStatus;
 }

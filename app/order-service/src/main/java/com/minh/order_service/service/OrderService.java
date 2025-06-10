@@ -70,6 +70,7 @@ public class OrderService {
       orderItem.setQuantity(orderItemDTO.getQuantity());
       orderItem.setPrice(orderItemDTO.getPrice());
       orderItem.setTotal(orderItemDTO.getTotal());
+      orderItem.setOrderItemStatus(OrderItemStatus.pending);
       log.info("Adding OrderItem with orderItemId: {}", orderItem.getId());
       orderItemRepository.save(orderItem);
     });
@@ -86,10 +87,13 @@ public class OrderService {
     order.setPromotionId(null);
     order = orderRepository.save(order);
 
-    /// Xoá các sản phẩm trong đơn hàng.
+    /// Cập nhật trạng thái các sản phẩm trong đơn hàng.
     List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(order.getId());
     if (orderItems != null && !orderItems.isEmpty()) {
-      orderItemRepository.deleteAll(orderItems);
+      for (OrderItem orderItem : orderItems) {
+        orderItem.setOrderItemStatus(OrderItemStatus.failed);
+        orderItemRepository.save(orderItem);
+      }
     }
   }
 
@@ -100,8 +104,16 @@ public class OrderService {
     order.setOrderStatus(OrderStatus.completed);
     order.setPaymentStatus(PaymentStatus.completed);
     orderRepository.save(order);
-  }
 
+    /// Cập nhật trạng thái các sản phẩm trong đơn hàng.
+    List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(order.getId());
+    if (orderItems != null && !orderItems.isEmpty()) {
+      for (OrderItem orderItem : orderItems) {
+        orderItem.setOrderItemStatus(OrderItemStatus.completed);
+        orderItemRepository.save(orderItem);
+      }
+    }
+  }
 
 
   /// ========================== APPLY TEMPLATE METHOD DESIGN PATTERN HERE  ==========================  ///
