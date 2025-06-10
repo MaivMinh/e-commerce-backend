@@ -1,4 +1,19 @@
 services:
+
+  axon-server:
+    image: axoniq/axonserver
+    ports:
+      - "8024:8024"
+      - "8124:8124"
+    networks:
+      - e-commerce
+    volumes:
+      - "/root/data/axonserver/data:/axonserver/data"
+      - "/root/data/axonserver/events:/axonserver/events"
+      - "/root/data/axonserver/config:/axonserver/config"
+    restart: unless-stopped
+
+
   kafka:
     image: docker.io/bitnami/kafka:3.9
     ports:
@@ -10,7 +25,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 15s
+      start_period: 30s
     volumes:
       - "/root/data/kafka:/bitnami"
     environment:
@@ -36,7 +51,7 @@ services:
       interval: 10s # Khoảng thời gian giữa các lần thử lại.
       retries: 10 # Nếu không có response hoặc response không phải là UP thì sẽ thử lại 10 lần.
       timeout: 5s # Với mỗi lần thử, nếu sau 5s mà không có response thì sẽ coi là không thành công.
-      start_period: 15s # Sau 15s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
+      start_period: 30s # Sau 15s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
     ports:
       - "8071:8071"
     env_file:
@@ -60,7 +75,7 @@ services:
       interval: 10s # Khoảng thời gian giữa các lần thử lại.
       retries: 10 # Nếu không có response hoặc response không phải là UP thì sẽ thử lại 10 lần.
       timeout: 5s # Với mỗi lần thử, nếu sau 5s mà không có response thì sẽ coi là không thành công.
-      start_period: 15s # Sau 15s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
+      start_period: 30s # Sau 30s kể từ khi start thì mới bắt đầu kiểm tra healthcheck
     networks:
       - e-commerce
     env_file:
@@ -101,7 +116,7 @@ services:
       interval: 10s
       retries: 10
       timeout: 5s
-      start_period: 15s
+      start_period: 30s
     deploy:
       resources:
         limits:
@@ -110,6 +125,8 @@ services:
       - "8080:8080"
     depends_on:
       service-discovery:
+        condition: service_healthy
+      config-server:
         condition: service_healthy
     env_file:
       - .env
@@ -166,8 +183,6 @@ services:
         condition: service_healthy
       service-discovery:
         condition: service_healthy
-      api-gateway:
-        condition: service_started
       auth-db-service:
         condition: service_healthy
     environment:
@@ -560,19 +575,6 @@ services:
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
-
-  axon-server:
-    image: axoniq/axonserver
-    ports:
-      - "8024:8024"
-      - "8124:8124"
-    networks:
-      - e-commerce
-    volumes:
-      - /root/axonserver/data:/axonserver/data
-      - /root/axonserver/events:/axonserver/events
-      - /root/axonserver/config:/axonserver/config
-    restart: unless-stopped
 
 networks:
   e-commerce:
