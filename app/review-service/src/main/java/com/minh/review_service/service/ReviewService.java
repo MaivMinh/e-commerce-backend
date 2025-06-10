@@ -34,8 +34,8 @@ public class ReviewService {
   public ResponseData createReview(ReviewCreateDTO reviewCreateDTO) {
     /// Kiểm tra xem người dùng này đã mua sản phẩm này chưa
     log.info("Find account purchase for account ID: {} and product ID: {}", reviewCreateDTO.getAccountId(), reviewCreateDTO.getProductId());
-    AccountPurchase accountPurchase = accountPurchaseRepository.findByAccountIdAndProductId(reviewCreateDTO.getAccountId(), reviewCreateDTO.getProductId());
-    if (accountPurchase == null) {
+    List<AccountPurchase> accountPurchase = accountPurchaseRepository.findByAccountIdAndProductId(reviewCreateDTO.getAccountId(), reviewCreateDTO.getProductId());
+    if (accountPurchase.isEmpty()) {
       log.warn("Account ID: {} has not purchased product ID: {}", reviewCreateDTO.getAccountId(), reviewCreateDTO.getProductId());
       return ResponseData.builder()
               .status(403)

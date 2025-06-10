@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily" />
+    <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/repository/AccountPurchaseRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/repository/AccountPurchaseRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/service/ReviewService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/service/ReviewService.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -535,7 +539,7 @@
       <workItem from="1749569168128" duration="627000" />
       <workItem from="1749577458512" duration="1626000" />
       <workItem from="1749579116378" duration="182000" />
-      <workItem from="1749579325395" duration="4370000" />
+      <workItem from="1749579325395" duration="5171000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />
