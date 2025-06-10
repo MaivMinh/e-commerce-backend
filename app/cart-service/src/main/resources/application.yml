@@ -34,6 +34,17 @@ grpc:
       enable-keep-alive: true
       keep-alive-without-calls: true
 
+#Eureka client config.
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_CLIENT_SERVICEURL_DEFAULTZONE:http://localhost:8761/eureka/}
+      preferIpAddress: true
+    register-with-eureka: true
+    fetch-registry: true
+
+
+
 # resilience4j configuration
 resilience4j:
   timelimiter:

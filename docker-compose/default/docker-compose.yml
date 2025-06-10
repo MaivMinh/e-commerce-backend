@@ -140,7 +140,7 @@ services:
       - GRPC_SERVER_AUTH_SERVICE_ADDRESS=static://auth-service:9093
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
-  auth-db-service:
+  db-service:
     image: mysql:8.0
     restart: on-failure
     networks:
@@ -159,7 +159,7 @@ services:
     ports:
       - "3305:3306"
     volumes:
-      - /Users/mainga/data/auth-db:/var/lib/mysql
+      - /Users/mainga/data/ecommerce-db:/var/lib/mysql
 
   # =======================
   # Authentication Service
@@ -183,7 +183,7 @@ services:
         condition: service_healthy
       service-discovery:
         condition: service_healthy
-      auth-db-service:
+      db-service:
         condition: service_healthy
     environment:
       - SPRING_APPLICATION_NAME=auth-service
@@ -196,32 +196,10 @@ services:
       - SPRING_DATA_REDIS_PORT=6379
       - SPRING_CACHE_TYPE=redis
       - SPRING_SQL_INIT_MODE=never
-      - SPRING_DATASOURCE_URL=jdbc:mysql://auth-db-service:3306/ecommerce_auth
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_auth
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
-
-
-  cart-db-service:
-    image: mysql:8.0
-    restart: on-failure
-    networks:
-      - e-commerce
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 10s
-      retries: 5
-      interval: 10s
-      start_period: 15s
-    env_file:
-      - .env
-    environment:
-      - MYSQL_DATABASE=ecommerce_cart
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    ports:
-      - "3307:3306"
-    volumes:
-      - /Users/mainga/data/cart-db:/var/lib/mysql
 
   # =======================
   # Cart Service
@@ -244,7 +222,7 @@ services:
         condition: service_healthy
       service-discovery:
         condition: service_healthy
-      cart-db-service:
+      db-service:
         condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=default
@@ -257,34 +235,12 @@ services:
       - AWS_REGION=${AWS_REGION}
       - AWS_BUCKET_NAME=${AWS_BUCKET_NAME}
       - AWS_CLOUDFRONT_DOMAIN=${AWS_CLOUDFRONT_DOMAIN}
-      - SPRING_DATASOURCE_URL=jdbc:mysql://cart-db-service:3306/ecommerce_cart
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_cart
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - GRPC_SERVER_PRODUCT_SERVICE_ADDRESS=static://product-service:9091
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
-
-
-  order-db-service:
-    image: mysql:8.0
-    restart: on-failure
-    networks:
-      - e-commerce
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 10s
-      retries: 5
-      interval: 10s
-      start_period: 15s
-    env_file:
-      - .env
-    environment:
-      - MYSQL_DATABASE=ecommerce_order
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    ports:
-      - "3308:3306"
-    volumes:
-      - /Users/mainga/data/order-db:/var/lib/mysql
   # =======================
   # Order Service
   # =======================
@@ -307,7 +263,7 @@ services:
         condition: service_healthy
       service-discovery:
         condition: service_healthy
-      order-db-service:
+      db-service:
         condition: service_healthy
     environment:
       - SPRING_PROFILES_ACTIVE=default
@@ -315,7 +271,7 @@ services:
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
       - SPRING_RABBITMQ_HOST=rabbitmq-service
-      - SPRING_DATASOURCE_URL=jdbc:mysql://order-db-service:3306/ecommerce_order
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_order
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - GRPC_SERVER_USER_SERVICE_ADDRESS=static://user-service:9098
@@ -323,24 +279,6 @@ services:
       - AXON_AXONSERVER_SERVERS=axon-server:8124
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
-  payment-db-service:
-    image: mysql:8.0
-    restart: on-failure
-    networks:
-      - e-commerce
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 10s
-      retries: 5
-      interval: 10s
-      start_period: 15s
-    environment:
-      - MYSQL_DATABASE=ecommerce_payment
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    ports:
-      - "3309:3306"
-    volumes:
-      - /Users/mainga/data/payment-db:/var/lib/mysql
   # =======================
   # Payment Service
   # =======================
@@ -358,7 +296,7 @@ services:
         condition: service_healthy
       service-discovery:
         condition: service_healthy
-      payment-db-service:
+      db-service:
         condition: service_healthy
     env_file:
       - .env
@@ -369,7 +307,7 @@ services:
       - SPRING_APPLICATION_NAME=payment-service
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://payment-db-service:3306/ecommerce_payment
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_payment
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
@@ -380,24 +318,6 @@ services:
   # =======================
   # Product Service
   # =======================
-  product-db-service:
-    image: mysql:8.0
-    restart: on-failure
-    networks:
-      - e-commerce
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 10s
-      retries: 5
-      interval: 10s
-      start_period: 15s
-    environment:
-      - MYSQL_DATABASE=ecommerce_product
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    ports:
-      - "3310:3306"
-    volumes:
-      - /Users/mainga/data/product-db:/var/lib/mysql
 
   product-service:
     deploy:
@@ -413,7 +333,7 @@ services:
         condition: service_healthy
       service-discovery:
         condition: service_healthy
-      product-db-service:
+      db-service:
         condition: service_healthy
     env_file:
       - .env
@@ -425,7 +345,7 @@ services:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://product-db-service:3306/ecommerce_product
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_product
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - AXON_AXONSERVER_SERVERS=axon-server:8124
@@ -439,25 +359,6 @@ services:
   # =======================
   # Promotion Service
   # =======================
-  promotion-db-service:
-    image: mysql:8.0
-    restart: on-failure
-    networks:
-      - e-commerce
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 10s
-      retries: 5
-      interval: 10s
-      start_period: 15s
-    environment:
-      - MYSQL_DATABASE=ecommerce_promotion
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    ports:
-      - "3311:3306"
-    volumes:
-      - /Users/mainga/data/promotion-db:/var/lib/mysql
-
   promotion-service:
     deploy:
       resources:
@@ -472,7 +373,7 @@ services:
         condition: service_healthy
       service-discovery:
         condition: service_healthy
-      promotion-db-service:
+      db-service:
         condition: service_healthy
     env_file:
       - .env
@@ -483,7 +384,7 @@ services:
       - SPRING_APPLICATION_NAME=promotion-service
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://promotion-db-service:3306/ecommerce_promotion
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_promotion
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - AXON_AXONSERVER_SERVERS=axon-server:8124
@@ -493,25 +394,6 @@ services:
   # =======================
   # User Service
   # =======================
-  user-db-service:
-    image: mysql:8.0
-    restart: on-failure
-    networks:
-      - e-commerce
-    healthcheck:
-      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 10s
-      retries: 5
-      interval: 10s
-      start_period: 15s
-    environment:
-      - MYSQL_DATABASE=ecommerce_user
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-    ports:
-      - "3312:3306"
-    volumes:
-      - /Users/mainga/data/user-db:/var/lib/mysql
-
   user-service:
     deploy:
       resources:
@@ -526,7 +408,7 @@ services:
         condition: service_healthy
       service-discovery:
         condition: service_healthy
-      user-db-service:
+      db-service:
         condition: service_healthy
     env_file:
       - .env
@@ -538,7 +420,7 @@ services:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
-      - SPRING_DATASOURCE_URL=jdbc:mysql://user-db-service:3306/ecommerce_user
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_user
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
@@ -584,21 +466,5 @@ networks:
 # Docker Volumes
 # =======================
 volumes:
-  auth-db-data:
-    driver: local
-  order-db-data:
-    driver: local
-  payment-db-data:
-    driver: local
-  user-db-data:
-    driver: local
-  product-db-data:
-    driver: local
-  cart-db-data:
-    driver: local
-  promotion-db-data:
-    driver: local
-  notification-db-data:
-    driver: local
-  review-db-data:
+  db-service:
     driver: local
