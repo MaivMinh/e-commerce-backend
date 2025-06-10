@@ -14,32 +14,26 @@ services:
     restart: unless-stopped
 
 
-  kafka:
-    image: docker.io/bitnami/kafka:3.9
-    ports:
-      - "9092:9092"
-    networks:
-      - e-commerce
-    healthcheck:
-      test: [ "CMD-SHELL", "kafka-topics.sh --bootstrap-server localhost:9092 --list" ]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
-    volumes:
-      - "/Users/mainga/data/kafka:/bitnami"
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.4
     environment:
-      # KRaft settings
-      - KAFKA_CFG_NODE_ID=0
-      - KAFKA_CFG_PROCESS_ROLES=controller,broker
-      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
-      # Listeners
-      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
-      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://:9092
-      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
-      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
-      - KAFKA_CFG_INTER_BROKER_LISTENER_NAME=PLAINTEXT
-  
+      - ZOOKEEPER_CLIENT_PORT=2181
+      - ZOOKEEPER_TICK_TIME=2000
+    ports:
+      - "22181:2181"
+  kafka:
+    image: confluentinc/cp-kafka:7.4.4
+    depends_on:
+      - zookeeper
+    ports:
+      - "29092:29092"
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
 
   config-server:
     image: config-server:1.0
@@ -65,7 +59,7 @@ services:
           memory: 400M
     environment:
       - SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD=${SPRING_CLOUD_CONFIG_SERVER_GIT_PASSWORD}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
 
   service-discovery:
     image: service-discovery:1.0
@@ -84,7 +78,7 @@ services:
       - SPRING_PROFILES_ACTIVE=default
       - SPRING_APPLICATION_NAME=service-discovery
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
     ports:
       - "8761:8761"
     depends_on:
@@ -138,7 +132,7 @@ services:
       - SPRING_DATA_REDIS_HOST=redis-service
       - SPRING_DATA_REDIS_PORT=6379
       - GRPC_SERVER_AUTH_SERVICE_ADDRESS=static://auth-service:9093
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
 
   db-service:
     image: mysql:8.0
@@ -199,7 +193,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_auth
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
 
   # =======================
   # Cart Service
@@ -239,7 +233,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - GRPC_SERVER_PRODUCT_SERVICE_ADDRESS=static://product-service:9091
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
 
   # =======================
   # Order Service
@@ -277,7 +271,7 @@ services:
       - GRPC_SERVER_USER_SERVICE_ADDRESS=static://user-service:9098
       - GRPC_SERVER_PRODUCT_SERVICE_ADDRESS=static://product-service:9091
       - AXON_AXONSERVER_SERVERS=axon-server:8124
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
 
   # =======================
   # Payment Service
@@ -310,7 +304,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_payment
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
       - AXON_AXONSERVER_SERVERS=axon-server:8124
 
 
@@ -352,7 +346,7 @@ services:
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
 
 
 
@@ -388,7 +382,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - AXON_AXONSERVER_SERVERS=axon-server:8124
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
 
 
   # =======================
@@ -423,7 +417,7 @@ services:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_user
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
 
 
   # =======================
@@ -455,7 +449,7 @@ services:
       - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
-      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:29092
 
 
 networks:
