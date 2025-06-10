@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
-      <change afterPath="$PROJECT_DIR$/app/review-service/Dockerfile" afterDir="false" />
-    </list>
+    <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -146,11 +144,11 @@
       <recent name="com.minh.product_service.dto" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/review-service" />
       <recent name="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service" />
       <recent name="$PROJECT_DIR$/app/user-service/src/main/java/com/minh/user_service" />
       <recent name="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service" />
       <recent name="$PROJECT_DIR$/app/promotion-service/src/main/java/com/minh/promotion_service" />
-      <recent name="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app" />
@@ -537,7 +535,7 @@
       <workItem from="1749569168128" duration="627000" />
       <workItem from="1749577458512" duration="1626000" />
       <workItem from="1749579116378" duration="182000" />
-      <workItem from="1749579325395" duration="4058000" />
+      <workItem from="1749579325395" duration="4370000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />
