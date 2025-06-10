@@ -363,6 +363,33 @@ services:
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
 
 
+  # =======================
+  # Review Service
+  # =======================
+  review-service:
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+    image: review-service:1.0
+    restart: on-failure
+    networks:
+      - e-commerce
+    env_file:
+      - .env
+    ports:
+      - "8087:8087"
+    environment:
+      - SPRING_APPLICATION_NAME=review-service
+      - SPRING_PROFILES_ACTIVE=default
+      - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-discovery:8761/eureka/
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db-service:3306/ecommerce_review
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+
+
 networks:
   e-commerce:
     driver: "bridge"
