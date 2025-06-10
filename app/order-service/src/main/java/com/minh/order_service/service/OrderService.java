@@ -195,6 +195,7 @@ public class OrderService {
       orderDTO.setUsername(userInfoResponse.getUsername());
       orderDTO.setFullName(userInfoResponse.getFullName());
       orderDTO.setShippingAddress(userInfoResponse.getShippingAddress());
+      orderDTO.setAccountId(userInfoResponse.getAccountId());
 
       // Get order items
       List<OrderItem> orderItems = orderItemRepository.findAllByOrderId(order.getId());
