@@ -5,10 +5,37 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
-      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/entity/OrderItemStatus.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/DTOs/OrderCreatedMessageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/functions/OrderFunctions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/AccountWithProductInfoRequestDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/dto/AccountWithProductInfoResponseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/functions/ProductFunctions.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/DTOs/AccountWithProductInfoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/DTOs/RetrievedProductInfoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/adapter/AccountPurchaseAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/controller/ReviewController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/dto/ReviewCreateDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/dto/ReviewDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/dto/ReviewImageDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/mapper/ReviewMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/repository/AccountPurchaseRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/service/AccountPurchaseService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/service/ICreateNewAccountPurchase.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/service/ReviewService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/entity/OrderItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/entity/OrderItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/controller/FallbackController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/java/com/minh/api_gateway/controller/FallbackController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/service/OrderService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/java/com/minh/order_service/service/OrderService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/java/com/minh/product_service/service/ProductService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/DTOs/OrderCreatedDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/DTOs/OrderCreatedMessageDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/entity/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/entity/Review.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/functions/ReviewFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/functions/ReviewFunctions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/repository/ReviewImageRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/repository/ReviewImageRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/repository/ReviewRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service/repository/ReviewRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,9 +47,9 @@
       <list>
         <option value="Dockerfile" />
         <option value="Record" />
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
-        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -142,11 +169,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="com.minh.order_service.entity" />
-      <recent name="com.minh.product_service.query.queries" />
+      <recent name="com.minh.review_service.dto" />
+      <recent name="com.minh.review_service.mapper" />
+      <recent name="com.minh.review_service.service" />
       <recent name="com.minh.review_service.DTOs" />
-      <recent name="com.minh.review_service.entity" />
-      <recent name="com.minh.review_service.repository" />
+      <recent name="com.minh.product_service.dto" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/review-service/src/main/java/com/minh/review_service" />
@@ -538,6 +565,9 @@
       <workItem from="1749555298634" duration="1347000" />
       <workItem from="1749561883298" duration="908000" />
       <workItem from="1749569168128" duration="627000" />
+      <workItem from="1749577458512" duration="1626000" />
+      <workItem from="1749579116378" duration="182000" />
+      <workItem from="1749579325395" duration="3060000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />

@@ -112,6 +112,16 @@ spring:
               args:
                 name: authService
                 fallbackUri: "forward:/auth/contact-support"
+        - id: review-service
+          uri: lb://review-service
+          predicates:
+            - Path=/api/reviews/**,/api/reviews
+            - Method=GET,POST,PUT,DELETE,PATCH
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: reviewService
+                fallbackUri: "forward:/reviews/contact-support"
 
       httpclient:
         connect-timeout: 1000
@@ -205,6 +215,8 @@ resilience4j:
         timeoutDuration: 15s
       userService:
         timeoutDuration: 15s
+      review-service:
+        timeoutDuration: 15s
 
   circuitbreaker:
     instances:
@@ -265,6 +277,14 @@ resilience4j:
         waitDurationInOpenState: 20000
         failureRateThreshold: 50
       userService:
+        registerHealthIndicator: true
+        slidingWindowSize: 10
+        minimum-number-of-calls: 10
+        permittedNumberOfCallsInHalfOpenState: 3
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+        waitDurationInOpenState: 20000
+        failureRateThreshold: 50
+      reviewService:
         registerHealthIndicator: true
         slidingWindowSize: 10
         minimum-number-of-calls: 10

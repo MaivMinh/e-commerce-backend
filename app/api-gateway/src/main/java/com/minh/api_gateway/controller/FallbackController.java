@@ -108,4 +108,15 @@ public class FallbackController {
             .status(HttpStatus.SERVICE_UNAVAILABLE)
             .body(response));
   }
+  @RequestMapping(value = "/reviews/contact-support")
+  public Mono<ResponseEntity<Map<String, Object>>> reviewServiceContactSupport() {
+    Map<String, Object> response = new HashMap<>();
+    response.put("status", HttpStatus.SERVICE_UNAVAILABLE.value());
+    response.put("message", "Review Service is currently unavailable. Please contact support team!");
+    response.put("timestamp", new Date());
+
+    return Mono.just(ResponseEntity
+            .status(HttpStatus.SERVICE_UNAVAILABLE)
+            .body(response));
+  }
 }

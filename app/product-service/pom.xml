@@ -74,6 +74,16 @@
             <version>${grpc-server-spring-boot-starter.version}</version>
         </dependency>
         <!--        gRPC dependencies-->
+        <!--        Apache Kafka - Spring cloud stream - Spring cloud function-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-stream-binder-kafka</artifactId>
+        </dependency>
+        <!--        Apache Kafka - Spring cloud stream - Spring cloud function-->
     </dependencies>
 
     <build>

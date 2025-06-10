@@ -10,6 +10,7 @@ import com.minh.grpc_service.product.FindProductVariantByIdResponse;
 import com.minh.grpc_service.product.ProductVariant;
 import com.minh.grpc_service.user.GetUserInfoRequest;
 import com.minh.grpc_service.user.GetUserInfoResponse;
+import com.minh.order_service.DTOs.OrderCreatedMessageDTO;
 import com.minh.order_service.DTOs.OrderDTO;
 import com.minh.order_service.DTOs.ProductVariantDTO;
 import com.minh.order_service.entity.*;
@@ -25,6 +26,7 @@ import com.minh.order_service.repository.OrderRepository;
 import com.minh.order_service.response.ResponseData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.stream.function.StreamBridge;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -44,6 +46,7 @@ public class OrderService {
   private final OrderItemRepository orderItemRepository;
   private final UserServiceGrpcClient userServiceGrpcClient;
   private final ProductServiceGrpcClient productServiceGrpcClient;
+  private final StreamBridge streamBridge;
 
   /// Hàm thực hiện tạo đơn hàng với các sản phẩm trong đơn hàng.
   public void createOrder(OrderCreatedEvent event) {
@@ -113,6 +116,20 @@ public class OrderService {
         orderItemRepository.save(orderItem);
       }
     }
+
+    log.info("Start sending event to message broker with orderId: {}", event.getOrderId());
+
+    /// Gửi 1 event sang cho review service để service này cho phép review đơn hàng này.
+    var result = streamBridge.send("orderCreatedEvent-out-0", OrderCreatedMessageDTO.builder()
+            .orderId(event.getOrderId())
+            .accountId(order.getAccountId())
+            .productVariantIds(orderItems.stream()
+                    .map(OrderItem::getProductVariantId)
+                    .collect(Collectors.toList()))
+            .build());
+    if (result) {
+      log.info("Send event to message broker successfully with orderId: {}", event.getOrderId());
+    } else log.warn("Failed send event to message brocker with orderId: {}", event.getOrderId());
   }
 
 
