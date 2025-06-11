@@ -1,12 +1,15 @@
 package com.minh.auth_service.controller;
 
+import com.minh.auth_service.DTOs.ChangePasswordDTO;
 import com.minh.auth_service.DTOs.CreateAccountDTO;
 import com.minh.auth_service.DTOs.LoginDTO;
 import com.minh.auth_service.response.ResponseData;
 import com.minh.auth_service.services.AuthService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +46,7 @@ public class AuthController {
 
   /// Hàm thực hiện đăng xuất tài khoản.
   @PostMapping(value = "/logout")
-  public ResponseEntity<ResponseData> logout(@RequestParam String token ) {
+  public ResponseEntity<ResponseData> logout(@RequestParam String token) {
     ResponseData response = authService.logout(token);
     return ResponseEntity.status(response.getStatus()).body(response);
   }
@@ -59,6 +62,19 @@ public class AuthController {
   @PostMapping(value = "/{accountId}/active")
   public ResponseEntity<ResponseData> activeAccount(@PathVariable String accountId) {
     ResponseData response = authService.activeAccount(accountId);
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
+
+
+  /// Hàm thực hiện đổi mật khẩu.
+  @PostMapping(value = "/change-password")
+  public ResponseEntity<ResponseData> changePassword(@RequestBody @Valid ChangePasswordDTO changePasswordDTO, HttpServletRequest request) {
+    if (!StringUtils.hasText("ACCOUNT-ID")) {
+      return ResponseEntity.status(403).body(new ResponseData(403, "ACCOUNT-ID is required"));
+    }
+    String accountId = request.getHeader("ACCOUNT-ID");
+
+    ResponseData response = authService.changePassword(accountId, changePasswordDTO);
     return ResponseEntity.status(response.getStatus()).body(response);
   }
 }

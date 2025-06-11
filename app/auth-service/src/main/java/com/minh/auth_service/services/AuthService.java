@@ -14,6 +14,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -425,5 +426,32 @@ public class AuthService {
             .message("Inactive account and user successfully")
             .build();
 
+  }
+
+  public ResponseData changePassword(String accountId, @Valid ChangePasswordDTO changePasswordDTO) {
+    if (!changePasswordDTO.getConfirmNewPassword().equals(changePasswordDTO.getNewPassword())) {
+      return ResponseData.builder()
+              .status(HttpStatus.BAD_REQUEST.value())
+              .message("New password and confirm new password do not match")
+              .build();
+    }
+
+    Account account = accountRepository.findAccountById(accountId).orElseThrow(
+            () -> new RuntimeException("Account not found")
+    );
+
+    if (!passwordEncoder.matches(changePasswordDTO.getOldPassword(), account.getPassword())) {
+      return ResponseData.builder()
+              .status(HttpStatus.UNAUTHORIZED.value())
+              .message("Old password is incorrect")
+              .build();
+    }
+
+    account.setPassword(passwordEncoder.encode(changePasswordDTO.getNewPassword()));
+    accountRepository.save(account);
+    return ResponseData.builder()
+            .status(HttpStatus.OK.value())
+            .message("Password changed successfully")
+            .build();
   }
 }
