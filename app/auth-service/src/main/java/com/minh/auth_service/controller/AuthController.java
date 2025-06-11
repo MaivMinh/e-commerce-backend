@@ -70,14 +70,8 @@ public class AuthController {
 
   /// Hàm thực hiện đổi mật khẩu.
   @PostMapping(value = "/change-password")
-  public ResponseEntity<ResponseData> changePassword(@RequestBody @Valid ChangePasswordDTO changePasswordDTO, HttpServletRequest request) {
-    if (!StringUtils.hasText("ACCOUNT-ID")) {
-      return ResponseEntity.status(403).body(new ResponseData(403, "ACCOUNT-ID is required"));
-    }
-    String accountId = request.getHeader("ACCOUNT-ID");
-    log.info("Received request to change password for accountId: {}", accountId);
-
-    ResponseData response = authService.changePassword(accountId, changePasswordDTO);
+  public ResponseEntity<ResponseData> changePassword(@RequestBody @Valid ChangePasswordDTO changePasswordDTO) {
+    ResponseData response = authService.changePassword(changePasswordDTO);
     return ResponseEntity.status(response.getStatus()).body(response);
   }
 }

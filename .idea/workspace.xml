@@ -5,7 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/controller/AuthController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -539,7 +538,7 @@
       <workItem from="1749577458512" duration="1626000" />
       <workItem from="1749579116378" duration="182000" />
       <workItem from="1749579325395" duration="5171000" />
-      <workItem from="1749669756268" duration="1715000" />
+      <workItem from="1749669756268" duration="2077000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />

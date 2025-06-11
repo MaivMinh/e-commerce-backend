@@ -428,7 +428,8 @@ public class AuthService {
 
   }
 
-  public ResponseData changePassword(String accountId, ChangePasswordDTO changePasswordDTO) {
+  public ResponseData changePassword(ChangePasswordDTO changePasswordDTO) {
+    String accountId = changePasswordDTO.getAccountId();
     if (!changePasswordDTO.getConfirmNewPassword().equals(changePasswordDTO.getNewPassword())) {
       return ResponseData.builder()
               .status(HttpStatus.BAD_REQUEST.value())
