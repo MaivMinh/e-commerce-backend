@@ -436,6 +436,22 @@ public class ProductService {
             .map(product -> {
               ProductDTO productDTO = new ProductDTO();
               ProductMapper.mapToProductDTO(product, productDTO);
+              List<String> images = new ArrayList<>(productImageRepository.findImagesByProductId(product.getId()));
+              productDTO.setImages(images);
+              List<com.minh.product_service.entity.ProductVariant> variants = productVariantRepository.findAllByProductId(product.getId());
+
+              List<ProductVariantDTO> productVariants = variants.stream().map(variant -> {
+                ProductVariantDTO variantDTO = new ProductVariantDTO();
+                variantDTO.setId(variant.getId());
+                variantDTO.setSize(variant.getSize());
+                variantDTO.setColorName(variant.getColorName());
+                variantDTO.setColorHex(variant.getColorHex());
+                variantDTO.setPrice(variant.getPrice());
+                variantDTO.setOriginalPrice(variant.getOriginalPrice());
+                variantDTO.setQuantity(variant.getQuantity());
+                return variantDTO;
+              }).collect(Collectors.toList());
+              productDTO.setProductVariants(productVariants);
               return productDTO;
             }).collect(Collectors.toList());
 
