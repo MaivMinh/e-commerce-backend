@@ -8,11 +8,13 @@ import com.minh.auth_service.services.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Validated
 @RestController
 @RequestMapping("/api/auth")
@@ -73,6 +75,7 @@ public class AuthController {
       return ResponseEntity.status(403).body(new ResponseData(403, "ACCOUNT-ID is required"));
     }
     String accountId = request.getHeader("ACCOUNT-ID");
+    log.info("Received request to change password for accountId: {}", accountId);
 
     ResponseData response = authService.changePassword(accountId, changePasswordDTO);
     return ResponseEntity.status(response.getStatus()).body(response);
