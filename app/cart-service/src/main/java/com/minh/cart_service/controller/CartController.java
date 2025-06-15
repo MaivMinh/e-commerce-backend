@@ -50,10 +50,4 @@ public class CartController {
     ResponseData response = cartService.findCartByAccountId(accountId);
     return ResponseEntity.status(response.getStatus()).body(response);
   }
-
-  @GetMapping(value = "/info")
-  public ResponseEntity<ResponseData> getCartServiceInfo() {
-    ResponseData response = cartService.getCartServiceInfo();
-    return ResponseEntity.status(response.getStatus()).body(response);
-  }
 }
