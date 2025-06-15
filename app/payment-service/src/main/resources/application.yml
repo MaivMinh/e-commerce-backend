@@ -60,6 +60,13 @@ management:
           server:
             requests:
               enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      connect-timeout: 3s
+      endpoint: ${MANAGEMENT_ZIPKIN_TRACING_ENDPOINT:http://localhost:9411/api/v2/spans}
 
 #Eureka client config.
 eureka:

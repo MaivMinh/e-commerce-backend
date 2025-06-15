@@ -21,7 +21,7 @@ spring:
       definition: confirmUserCreatedFunction;confirmUserInactivatedFunction;confirmUserActivatedFunction
     stream:
       bindings:
-        springCloudBusInput:  # Spring Cloud Bus Kafka.
+        springCloudBusInput: # Spring Cloud Bus Kafka.
           destination: springCloudBus
         # INPUT ZONE
         createUserFunction-out-0: # Defines an output channel (producer) configuration:
@@ -106,6 +106,13 @@ management:
           server:
             requests:
               enabled: true
+  tracing:
+    sampling:
+      probability: 1.0
+  zipkin:
+    tracing:
+      connect-timeout: 3s
+      endpoint: ${MANAGEMENT_ZIPKIN_TRACING_ENDPOINT:http://localhost:9411/api/v2/spans}
 
 grpc:
   server:

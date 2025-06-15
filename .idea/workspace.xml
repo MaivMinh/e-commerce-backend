@@ -6,7 +6,19 @@
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/file-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/file-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/order-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/order-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/payment-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/payment-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/product-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/product-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/promotion-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/promotion-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/review-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/review-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/service-discovery/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/service-discovery/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/user-service/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/app/user-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose/prod/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose/prod/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -542,6 +554,8 @@
       <workItem from="1749669756268" duration="2077000" />
       <workItem from="1749992637049" duration="327000" />
       <workItem from="1749993753603" duration="2108000" />
+      <workItem from="1750007545951" duration="717000" />
+      <workItem from="1750009738526" duration="1669000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />

@@ -1,5 +1,17 @@
 services:
 
+  zipkin-server:
+    image: openzipkin/zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - e-commerce
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 400M
+
   axon-server:
     image: axoniq/axonserver
     ports:
@@ -64,6 +76,7 @@ services:
       - SPRING_APPLICATION_NAME=service-discovery
       - SPRING_CONFIG_IMPORT=optional:configserver:http://config-server:8071/
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin-server:9411/api/v2/spans
     ports:
       - "8761:8761"
     deploy:
@@ -104,6 +117,7 @@ services:
       - SPRING_DATA_REDIS_PORT=6379
       - GRPC_SERVER_AUTH_SERVICE_ADDRESS=static://auth-service:9093
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin-server:9411/api/v2/spans
 
   db-service:
     image: mysql:8.0
@@ -152,6 +166,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin-server:9411/api/v2/spans
 
   # =======================
   # Cart Service
@@ -185,6 +200,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - GRPC_SERVER_PRODUCT_SERVICE_ADDRESS=static://product-service:9091
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin-server:9411/api/v2/spans
 
   # =======================
   # Order Service
@@ -216,6 +232,7 @@ services:
       - GRPC_SERVER_PRODUCT_SERVICE_ADDRESS=static://product-service:9091
       - AXON_AXONSERVER_SERVERS=axon-server:8124
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin-server:9411/api/v2/spans
 
   # =======================
   # Payment Service
@@ -243,6 +260,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
       - AXON_AXONSERVER_SERVERS=axon-server:8124
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin-server:9411/api/v2/spans
 
 
 
@@ -277,6 +295,7 @@ services:
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin-server:9411/api/v2/spans
 
 
 
@@ -306,6 +325,7 @@ services:
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - AXON_AXONSERVER_SERVERS=axon-server:8124
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin-server:9411/api/v2/spans
 
 
   # =======================
@@ -334,6 +354,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin-server:9411/api/v2/spans
 
 
   # =======================
@@ -361,6 +382,7 @@ services:
       - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
       - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin-server:9411/api/v2/spans
 
 
   # =======================
@@ -388,6 +410,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS=kafka:9092
+      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin-server:9411/api/v2/spans
 
 
 networks:
