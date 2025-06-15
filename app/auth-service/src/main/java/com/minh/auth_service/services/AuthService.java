@@ -197,6 +197,10 @@ public class AuthService {
             .signWith(refreshKey)
             .compact();
 
+
+    /// Xóa refresh token cũ nếu có, để tránh việc sử dụng lại refresh token cũ.
+    redisService.delete("refresh_token:" + saved.getId()); // Xóa refresh token cũ nếu có
+
     /// Trả dữ liệu về cho client, trả về access token và refresh token. Bên cạnh đó, lưu trữ refresh token vào Redis để có thể sử dụng lại sau này.
     redisService.set("refresh_token:" + saved.getId(), refreshToken, refreshTokenExpiration / 1000); // Lưu trữ refresh token vào Redis với thời gian hết hạn tương ứng
 

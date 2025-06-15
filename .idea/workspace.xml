@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fdb0b923-c872-4f8a-b1af-323e9792fa1a" name="Changes" comment="Complete orders screen temporarily">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/controller/CartController.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/cart-service/src/main/java/com/minh/cart_service/controller/CartController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/service/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/payment-service/src/main/java/com/minh/payment_service/service/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/auth-service/src/main/java/com/minh/auth_service/services/AuthService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -542,7 +541,7 @@
       <workItem from="1749579325395" duration="5171000" />
       <workItem from="1749669756268" duration="2077000" />
       <workItem from="1749992637049" duration="327000" />
-      <workItem from="1749993753603" duration="898000" />
+      <workItem from="1749993753603" duration="2108000" />
     </task>
     <task id="LOCAL-00001" summary="Complete orders screen temporarily">
       <option name="closed" value="true" />
