@@ -16,6 +16,8 @@ spring:
       definition: handleOrderCreated;
     stream:
       bindings: #  Destination bindings component là cầu nối và định nghĩa các kênh (channels) mà ứng dụng sẽ sử dụng để gửi hoặc nhận dữ liệu.
+        springCloudBusInput: # Spring Cloud Bus Kafka.
+          destination: springCloudBus
         orderCreatedEvent-out-0:
           destination: order-created
         handleOrderCreated-in-0:

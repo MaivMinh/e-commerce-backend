@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class CartController {
   private final CartItemService cartService;
 
-  /// Hàm thực hiện tạ một mục trong giỏ hàng của người dùngo
+  /// Hàm thực hiện tạ một mục trong giỏ hàng của người dùng
   /// DONE
   @PostMapping(value = "/{accountId}/items")
   public ResponseEntity<ResponseData> createCartItem(@RequestBody @Valid CartItemDTO cartItemDTO,

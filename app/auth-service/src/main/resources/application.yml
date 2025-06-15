@@ -20,8 +20,9 @@ spring:
     function:
       definition: confirmUserCreatedFunction;confirmUserInactivatedFunction;confirmUserActivatedFunction
     stream:
-      bindings: #  Destination bindings component là cầu nối và định nghĩa các kênh (channels) mà ứng dụng sẽ sử dụng để gửi hoặc nhận dữ liệu.
-
+      bindings:
+        springCloudBusInput:  # Spring Cloud Bus Kafka.
+          destination: springCloudBus
         # INPUT ZONE
         createUserFunction-out-0: # Defines an output channel (producer) configuration:
           destination: create-user  # The Kafka topic name to publish messages to

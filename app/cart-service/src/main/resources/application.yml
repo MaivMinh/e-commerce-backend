@@ -10,6 +10,14 @@ spring:
     active: ${SPRING_PROFILES_ACTIVE:default}
   config:
     import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071/}
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: ${SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS:localhost:9092}
+      bindings:
+        springCloudBusInput:
+          destination: springCloudBus
 
   # /// MYSQL DATABASE CONFIGURATION ///
   sql:

@@ -19,9 +19,12 @@ spring:
       definition: userWithProductInfo;
     stream:
       bindings: #  Destination bindings component là cầu nối và định nghĩa các kênh (channels) mà ứng dụng sẽ sử dụng để gửi hoặc nhận dữ liệu.
+
         orderCreatedEvent-out-0:
           destination: order-created
 
+        springCloudBusInput: # Spring Cloud Bus Kafka.
+          destination: springCloudBus
         userWithProductInfo-in-0:
           destination: user-with-product-info
           group: ${spring.application.name}
