@@ -17,6 +17,9 @@ spring:
         binder:
           brokers:
             - ${SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS:localhost:9092}
+      bindings:
+        springCloudBusInput: # Spring Cloud Bus Kafka.
+          destination: springCloudBus
 
 management:
   endpoint: # Ứng với các endpoint nào thì sẽ có các yêu cầu, thiết lập tương ứng.

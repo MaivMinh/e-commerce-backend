@@ -10,12 +10,15 @@ spring:
     active: ${SPRING_PROFILES_ACTIVE:default}
   config:
     import: ${SPRING_CONFIG_IMPORT:optional:configserver:http://localhost:8071/}
-  rabbitmq:
-    host: ${SPRING_RABBITMQ_HOST:localhost}
-    port: ${SPRING_RABBITMQ_PORT:5672}
-    username: ${SPRING_RABBITMQ_USERNAME:guest}
-    password: ${SPRING_RABBITMQ_PASSWORD:guest}
-
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers:
+            - ${SPRING_CLOUD_STREAM_KAFKA_BINDER_BROKERS:localhost:9092}
+      bindings:
+        springCloudBusInput: # Spring Cloud Bus Kafka.
+          destination: springCloudBus
   # /// MYSQL DATABASE CONFIGURATION ///
   jpa:
     hibernate:

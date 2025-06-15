@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 public class CartController {
   private final CartItemService cartService;
 
-  /// Hàm thực hiện tạ một mục trong giỏ hàng của người dùngo
+  /// Hàm thực hiện tạ một mục trong giỏ hàng của người dùng
   /// DONE
   @PostMapping(value = "/{accountId}/items")
   public ResponseEntity<ResponseData> createCartItem(@RequestBody @Valid CartItemDTO cartItemDTO,
@@ -48,6 +48,12 @@ public class CartController {
   @GetMapping(value = "/{accountId}")
   public ResponseEntity<ResponseData> findCartByAccountId(@PathVariable String accountId) {
     ResponseData response = cartService.findCartByAccountId(accountId);
+    return ResponseEntity.status(response.getStatus()).body(response);
+  }
+
+  @GetMapping(value = "/info")
+  public ResponseEntity<ResponseData> getCartServiceInfo() {
+    ResponseData response = cartService.getCartServiceInfo();
     return ResponseEntity.status(response.getStatus()).body(response);
   }
 }

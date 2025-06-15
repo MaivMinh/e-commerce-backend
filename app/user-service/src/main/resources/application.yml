@@ -16,8 +16,9 @@ spring:
       definition: createUserFunction;inactiveUserFunction;activeUserFunction  # Defines the function to be used in the application, which is a Spring Cloud Function.
     stream:
       bindings: #  Destination bindings component là cầu nối và định nghĩa các kênh (channels) mà ứng dụng sẽ sử dụng để gửi hoặc nhận dữ liệu.
-
         # INPUT ZONE
+        springCloudBusInput: # Spring Cloud Bus Kafka.
+          destination: springCloudBus
         createUserFunction-in-0: # Defines an input channel (consumer) configuration:
           destination: create-user # The Kafka topic name to consume messages from
           group: ${spring.application.name} # The consumer group ID, ensuring messages are load-balanced across service instances

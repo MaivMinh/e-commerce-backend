@@ -17,12 +17,15 @@ spring:
     stream:
       bindings: #  Destination bindings component là cầu nối và định nghĩa các kênh (channels) mà ứng dụng sẽ sử dụng để gửi hoặc nhận dữ liệu.
         # INPUT ZONE
+        springCloudBusInput: # Spring Cloud Bus Kafka.
+          destination: springCloudBus
         handleOrderCreated-in-0: # Defines an input channel (consumer) configuration:
           destination: order-created  # The Kafka topic name to consume messages from
           group: ${spring.application.name}
         handleRetrievedProductInfo-in-0: # Defines another input channel for retrieving product info
           destination: retrieved-product-info  # The Kafka topic name to consume messages from
           group: ${spring.application.name}
+
 
         # OUTPUT ZONE
         handleOrderCreated-out-0: # Defines an output channel (producer) configuration:
